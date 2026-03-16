@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Beej's Guide to Network Programming</title>
+  <title>Beej의 네트워크 프로그래밍 가이드</title>
   <style>
     html {
       color: #1a1a1a;
@@ -1207,8 +1207,8 @@
 <hr />
 <h2 data-number="9.5" id="getaddrinfoman"><span class="header-section-number">9.5</span> <code>getaddrinfo()</code>, <code>freeaddrinfo()</code>, <code>gai_strerror()</code></h2>
 <p> </p>
-<p>Get information about a host name and/or service and load up a <code>struct sockaddr</code> with the result.</p>
-<h3 class="unnumbered unlisted" id="synopsis-4">Synopsis</h3>
+<p>호스트 이름 및/또는 서비스 정보를 가져와 결과로 <code>struct sockaddr</code>를 채운다.</p>
+<h3 class="unnumbered unlisted" id="synopsis-4">형식</h3>
 <div class="sourceCode" id="cb90"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb90-1"><a href="man-pages.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb90-2"><a href="man-pages.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb90-3"><a href="man-pages.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;netdb.h&gt;</span></span>
@@ -1232,24 +1232,24 @@
 <span id="cb90-21"><a href="man-pages.html#cb90-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">struct</span> sockaddr  <span class="op">*</span>ai_addr<span class="op">;</span> <span class="co">// binary address</span></span>
 <span id="cb90-22"><a href="man-pages.html#cb90-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">struct</span> addrinfo  <span class="op">*</span>ai_next<span class="op">;</span> <span class="co">// next structure in linked list</span></span>
 <span id="cb90-23"><a href="man-pages.html#cb90-23" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-4">Description</h3>
-<p><code>getaddrinfo()</code> is an excellent function that will return information on a particular host name (such as its IP address) and load up a <code>struct sockaddr</code> for you, taking care of the gritty details (like if its IPv4 or IPv6). It replaces the old functions <code>gethostbyname()</code> and <code>getservbyname()</code>.The description, below, contains a lot of information that might be a little daunting, but actual usage is pretty simple. It might be worth it to check out the examples first.</p>
-<p>The host name that you’re interested in goes in the <code>nodename</code> parameter. The address can be either a host name, like “www.example.com”, or an IPv4 or IPv6 address (passed as a string). This parameter can also be <code>NULL</code> if you’re using the <code>AI_PASSIVE</code> flag (see below).</p>
-<p>The <code>servname</code> parameter is basically the port number. It can be a port number (passed as a string, like “80”), or it can be a service name, like “http” or “tftp” or “smtp” or “pop”, etc. Well-known service names can be found in the <a href="https://www.iana.org/assignments/port-numbers">IANA Port List</a><a href="more-references.html#fn49" class="footnote-ref" id="fnref49" role="doc-noteref"><sup>49</sup></a> or in your <code>/etc/services</code> file.</p>
-<p>Lastly, for input parameters, we have <code>hints</code>. This is really where you get to define what the <code>getaddrinfo()</code> function is going to do. Zero the whole structure before use with <code>memset()</code>. Let’s take a look at the fields you need to set up before use.</p>
-<p>The <code>ai_flags</code> can be set to a variety of things, but here are a couple important ones. (Multiple flags can be specified by bitwise-ORing them together with the <code>|</code> operator). Check your man page for the complete list of flags.</p>
-<p><code>AI_CANONNAME</code> causes the <code>ai_canonname</code> of the result to the filled out with the host’s canonical (real) name. <code>AI_PASSIVE</code> causes the result’s IP address to be filled out with <code>INADDR_ANY</code> (IPv4) or <code>in6addr_any</code> (IPv6); this causes a subsequent call to <code>bind()</code> to auto-fill the IP address of the <code>struct sockaddr</code> with the address of the current host. That’s excellent for setting up a server when you don’t want to hardcode the address.</p>
-<p>If you do use the <code>AI_PASSIVE</code>, flag, then you can pass <code>NULL</code> in the <code>nodename</code> (since <code>bind()</code> will fill it in for you later).</p>
-<p>Continuing on with the input parameters, you’ll likely want to set <code>ai_family</code> to <code>AF_UNSPEC</code> which tells <code>getaddrinfo()</code> to look for both IPv4 and IPv6 addresses. You can also restrict yourself to one or the other with <code>AF_INET</code> or <code>AF_INET6</code>.</p>
-<p>Next, the <code>socktype</code> field should be set to <code>SOCK_STREAM</code> or <code>SOCK_DGRAM</code>, depending on which type of socket you want.</p>
-<p>Finally, just leave <code>ai_protocol</code> at <code>0</code> to automatically choose your protocol type.</p>
-<p>Now, after you get all that stuff in there, you can <em>finally</em> make the call to <code>getaddrinfo()</code>!</p>
-<p>Of course, this is where the fun begins. The <code>res</code> will now point to a linked list of <code>struct addrinfo</code>s, and you can go through this list to get all the addresses that match what you passed in with the hints.</p>
-<p>Now, it’s possible to get some addresses that don’t work for one reason or another, so what the Linux man page does is loops through the list doing a call to <code>socket()</code> and <code>connect()</code> (or <code>bind()</code> if you’re setting up a server with the <code>AI_PASSIVE</code> flag) until it succeeds.</p>
-<p>Finally, when you’re done with the linked list, you need to call <code>freeaddrinfo()</code> to free up the memory (or it will be leaked, and Some People will get upset).</p>
-<h3 class="unnumbered unlisted" id="return-value-4">Return Value</h3>
-<p>Returns zero on success, or nonzero on error. If it returns nonzero, you can use the function <code>gai_strerror()</code> to get a printable version of the error code in the return value.</p>
-<h3 class="unnumbered unlisted" id="example-4">Example</h3>
+<h3 class="unnumbered unlisted" id="description-4">설명</h3>
+<p><code>getaddrinfo()</code>는 특정 호스트 이름에 대한 정보(예: IP 주소)를 반환하고, IPv4인지 IPv6인지 같은 자잘한 세부사항까지 처리해 주면서 <code>struct sockaddr</code>를 채워 주는 훌륭한 함수입니다. 예전의 <code>gethostbyname()</code>과 <code>getservbyname()</code>를 대체합니다. 아래 설명에는 조금 벅찰 수 있는 정보가 많이 들어 있지만, 실제 사용법은 꽤 단순합니다. 먼저 예제를 보는 것도 좋습니다.</p>
+<p>관심 있는 호스트 이름은 <code>nodename</code> 파라미터에 넣습니다. 주소는 “www.example.com” 같은 호스트 이름일 수도 있고, 문자열로 전달하는 IPv4 또는 IPv6 주소일 수도 있습니다. <code>AI_PASSIVE</code> 플래그를 사용할 경우(아래 참고) 이 파라미터는 <code>NULL</code>이어도 됩니다.</p>
+<p><code>servname</code> 파라미터는 기본적으로 포트 번호입니다. “80”처럼 문자열 형태의 포트 번호일 수도 있고, “http”, “tftp”, “smtp”, “pop” 같은 서비스 이름일 수도 있습니다. 잘 알려진 서비스 이름은 <a href="https://www.iana.org/assignments/port-numbers">IANA Port List</a><a href="more-references.html#fn49" class="footnote-ref" id="fnref49" role="doc-noteref"><sup>49</sup></a>나 <code>/etc/services</code> 파일에서 찾을 수 있습니다.</p>
+<p>마지막 입력 파라미터는 <code>hints</code>입니다. 이 구조체에서 <code>getaddrinfo()</code>가 정확히 무엇을 하게 할지 정의합니다. 사용하기 전에 <code>memset()</code>으로 구조체 전체를 0으로 초기화하세요. 이제 사용 전에 설정해야 하는 필드를 보겠습니다.</p>
+<p><code>ai_flags</code>에는 여러 값을 넣을 수 있는데, 여기서는 중요한 것 몇 가지만 보겠습니다. 플래그가 여러 개라면 <code>|</code> 연산자로 비트 OR 해서 함께 지정할 수 있습니다. 전체 목록은 로컬 man 페이지를 확인하세요.</p>
+<p><code>AI_CANONNAME</code>은 결과의 <code>ai_canonname</code>에 호스트의 canonical(실제) 이름을 채우게 합니다. <code>AI_PASSIVE</code>는 결과의 IP 주소를 <code>INADDR_ANY</code>(IPv4) 또는 <code>in6addr_any</code>(IPv6)로 채우게 합니다. 그러면 뒤이어 호출되는 <code>bind()</code>가 <code>struct sockaddr</code>의 IP 주소를 현재 호스트 주소로 자동 채워 넣게 됩니다. 주소를 하드코딩하고 싶지 않을 때 서버를 준비하기에 아주 좋습니다.</p>
+<p><code>AI_PASSIVE</code> 플래그를 사용하는 경우에는 <code>nodename</code>에 <code>NULL</code>을 넘겨도 됩니다. 나중에 <code>bind()</code>가 대신 채워 넣기 때문입니다.</p>
+<p>입력 파라미터를 계속 보면, 보통 <code>ai_family</code>를 <code>AF_UNSPEC</code>으로 설정하게 됩니다. 그러면 <code>getaddrinfo()</code>가 IPv4와 IPv6 주소를 모두 찾습니다. <code>AF_INET</code>이나 <code>AF_INET6</code>로 설정해 한쪽으로 제한할 수도 있습니다.</p>
+<p>다음으로 <code>socktype</code> 필드는 원하는 소켓 타입에 따라 <code>SOCK_STREAM</code> 또는 <code>SOCK_DGRAM</code>으로 설정해야 합니다.</p>
+<p>마지막으로 <code>ai_protocol</code>은 <code>0</code>으로 두면 프로토콜 종류가 자동으로 선택됩니다.</p>
+<p>이제 필요한 값을 다 채웠다면, <em>드디어</em> <code>getaddrinfo()</code>를 호출할 수 있습니다!</p>
+<p>물론 여기서부터 재미가 시작됩니다. <code>res</code>는 이제 <code>struct addrinfo</code> 연결 리스트를 가리키고, 여러분은 이 리스트를 순회하면서 <code>hints</code>로 전달한 조건에 맞는 주소를 모두 얻을 수 있습니다.</p>
+<p>다만 여러 이유로 동작하지 않는 주소가 섞여 있을 수 있습니다. 그래서 Linux man 페이지의 예제는 리스트를 순회하면서 <code>socket()</code>과 <code>connect()</code>를 차례로 호출하고, <code>AI_PASSIVE</code> 플래그로 서버를 준비하는 경우에는 <code>bind()</code>를 호출해 성공할 때까지 시도합니다.</p>
+<p>마지막으로 연결 리스트를 다 쓰고 나면 <code>freeaddrinfo()</code>를 호출해 메모리를 해제해야 합니다. 안 그러면 메모리 누수가 나고, 어떤 분들은 몹시 속상해할 겁니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-4">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 0이 아닌 값을 반환합니다. 0이 아닌 값이 반환되면 <code>gai_strerror()</code> 함수를 사용해 그 반환값에 들어 있는 에러 코드를 출력 가능한 문자열로 바꿀 수 있습니다.</p>
+<h3 class="unnumbered unlisted" id="example-4">예제</h3>
 <div class="sourceCode" id="cb91"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb91-1"><a href="man-pages.html#cb91-1"></a><span class="co">// code for a client connecting to a server</span></span>
 <span id="cb91-2"><a href="man-pages.html#cb91-2"></a><span class="co">// namely a stream socket to www.example.com on port 80 (http)</span></span>
 <span id="cb91-3"><a href="man-pages.html#cb91-3"></a><span class="co">// either IPv4 or IPv6</span></span>
@@ -1334,47 +1334,47 @@
 <span id="cb92-40"><a href="man-pages.html#cb92-40"></a><span class="op">}</span></span>
 <span id="cb92-41"><a href="man-pages.html#cb92-41"></a></span>
 <span id="cb92-42"><a href="man-pages.html#cb92-42"></a>freeaddrinfo<span class="op">(</span>servinfo<span class="op">);</span> <span class="co">// all done with this structure</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-4">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-4">함께 보기</h3>
 <p><a href="man-pages.html#gethostbynameman"><code>gethostbyname()</code></a>, <a href="man-pages.html#getnameinfoman"><code>getnameinfo()</code></a></p>
 <hr />
 <h2 data-number="9.6" id="gethostnameman"><span class="header-section-number">9.6</span> <code>gethostname()</code></h2>
 <p></p>
-<p>Returns the name of the system</p>
-<h3 class="unnumbered unlisted" id="synopsis-5">Synopsis</h3>
+<p>시스템의 이름을 반환한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-5">형식</h3>
 <div class="sourceCode" id="cb93"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb93-1"><a href="man-pages.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/unistd.h&gt;</span></span>
 <span id="cb93-2"><a href="man-pages.html#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb93-3"><a href="man-pages.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> gethostname<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>name<span class="op">,</span> <span class="dt">size_t</span> len<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-5">Description</h3>
-<p>Your system has a name. They all do. This is a slightly more Unixy thing than the rest of the networky stuff we’ve been talking about, but it still has its uses.</p>
-<p>For instance, you can get your host name, and then call <code>gethostbyname()</code> to find out your IP address.</p>
-<p>The parameter <code>name</code> should point to a buffer that will hold the host name, and <code>len</code> is the size of that buffer in bytes. <code>gethostname()</code> won’t overwrite the end of the buffer (it might return an error, or it might just stop writing), and it will <code>NUL</code>-terminate the string if there’s room for it in the buffer.</p>
-<h3 class="unnumbered unlisted" id="return-value-5">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-5">Example</h3>
+<h3 class="unnumbered unlisted" id="description-5">설명</h3>
+<p>여러분의 시스템에는 이름이 있습니다. 다들 그렇죠. 지금까지 이야기한 네트워크 관련 내용보다는 조금 더 유닉스스러운 주제이지만, 그래도 쓸모는 있습니다.</p>
+<p>예를 들어 호스트 이름을 얻은 뒤, <code>gethostbyname()</code>을 호출해 자신의 IP 주소를 알아낼 수 있습니다.</p>
+<p><code>name</code> 파라미터는 호스트 이름을 담을 버퍼를 가리켜야 하고, <code>len</code>은 그 버퍼 크기를 바이트 단위로 나타냅니다. <code>gethostname()</code>은 버퍼 끝을 넘어 덮어쓰지 않습니다. 오류를 반환할 수도 있고, 그냥 쓰기를 멈출 수도 있습니다. 그리고 버퍼에 공간이 있다면 문자열 끝에 <code>NUL</code>을 붙여 줍니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-5">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-5">예제</h3>
 <div class="sourceCode" id="cb94"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb94-1"><a href="man-pages.html#cb94-1"></a><span class="dt">char</span> hostname<span class="op">[</span><span class="dv">128</span><span class="op">];</span></span>
 <span id="cb94-2"><a href="man-pages.html#cb94-2"></a></span>
 <span id="cb94-3"><a href="man-pages.html#cb94-3"></a>gethostname<span class="op">(</span>hostname<span class="op">,</span> <span class="kw">sizeof</span> hostname<span class="op">);</span></span>
 <span id="cb94-4"><a href="man-pages.html#cb94-4"></a>printf<span class="op">(</span><span class="st">&quot;My hostname: </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> hostname<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-5">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-5">함께 보기</h3>
 <p><a href="man-pages.html#gethostbynameman"><code>gethostbyname()</code></a></p>
 <hr />
 <h2 data-number="9.7" id="gethostbynameman"><span class="header-section-number">9.7</span> <code>gethostbyname()</code>, <code>gethostbyaddr()</code></h2>
 <p> </p>
-<p>Get an IP address for a hostname, or vice-versa</p>
-<h3 class="unnumbered unlisted" id="synopsis-6">Synopsis</h3>
+<p>호스트 이름으로 IP 주소를 얻거나, 그 반대로 얻는다</p>
+<h3 class="unnumbered unlisted" id="synopsis-6">형식</h3>
 <div class="sourceCode" id="cb95"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb95-1"><a href="man-pages.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb95-2"><a href="man-pages.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;netdb.h&gt;</span></span>
 <span id="cb95-3"><a href="man-pages.html#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-4"><a href="man-pages.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> hostent <span class="op">*</span>gethostbyname<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>name<span class="op">);</span> <span class="co">// </span><span class="al">DEPRECATED</span><span class="co">!</span></span>
 <span id="cb95-5"><a href="man-pages.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> hostent <span class="op">*</span>gethostbyaddr<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>addr<span class="op">,</span> <span class="dt">int</span> len<span class="op">,</span> <span class="dt">int</span> type<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-6">Description</h3>
-<p><em>PLEASE NOTE: these two functions are superseded by <code>getaddrinfo()</code> and <code>getnameinfo()</code>!</em> In particular, <code>gethostbyname()</code> doesn’t work well with IPv6.</p>
-<p>These functions map back and forth between host names and IP addresses. For instance, if you have “www.example.com”, you can use <code>gethostbyname()</code> to get its IP address and store it in a <code>struct in_addr</code>.</p>
-<p>Conversely, if you have a <code>struct in_addr</code> or a <code>struct in6_addr</code>, you can use <code>gethostbyaddr()</code> to get the hostname back. <code>gethostbyaddr()</code> <em>is</em> IPv6 compatible, but you should use the newer shinier <code>getnameinfo()</code> instead.</p>
-<p>(If you have a string containing an IP address in dots-and-numbers format that you want to look up the hostname of, you’d be better off using <code>getaddrinfo()</code> with the <code>AI_CANONNAME</code> flag.)</p>
-<p><code>gethostbyname()</code> takes a string like “www.yahoo.com”, and returns a <code>struct hostent</code> which contains tons of information, including the IP address. (Other information is the official host name, a list of aliases, the address type, the length of the addresses, and the list of addresses—it’s a general-purpose structure that’s pretty easy to use for our specific purposes once you see how.)</p>
-<p><code>gethostbyaddr()</code> takes a <code>struct in_addr</code> or <code>struct in6_addr</code> and brings you up a corresponding host name (if there is one), so it’s sort of the reverse of <code>gethostbyname()</code>. As for parameters, even though <code>addr</code> is a <code>char*</code>, you actually want to pass in a pointer to a <code>struct in_addr</code>. <code>len</code> should be <code>sizeof(struct in_addr)</code>, and <code>type</code> should be <code>AF_INET</code>.</p>
-<p>So what is this <code>struct hostent</code> that gets returned? It has a number of fields that contain information about the host in question.</p>
+<h3 class="unnumbered unlisted" id="description-6">설명</h3>
+<p><em>주의: 이 두 함수는 <code>getaddrinfo()</code>와 <code>getnameinfo()</code>로 대체되었습니다!</em> 특히 <code>gethostbyname()</code>은 IPv6와 잘 맞지 않습니다.</p>
+<p>이 함수들은 호스트 이름과 IP 주소를 서로 대응시켜 줍니다. 예를 들어 “www.example.com”이 있다면, <code>gethostbyname()</code>으로 IP 주소를 얻어 <code>struct in_addr</code>에 저장할 수 있습니다.</p>
+<p>반대로 <code>struct in_addr</code>나 <code>struct in6_addr</code>가 있다면 <code>gethostbyaddr()</code>로 다시 호스트 이름을 얻을 수 있습니다. <code>gethostbyaddr()</code>는 <em>실제로</em> IPv6와 호환되지만, 대신 더 새롭고 번듯한 <code>getnameinfo()</code>를 사용하는 편이 좋습니다.</p>
+<p>(점과 숫자로 된 형식의 IP 주소 문자열을 가지고 호스트 이름을 찾고 싶다면, <code>AI_CANONNAME</code> 플래그와 함께 <code>getaddrinfo()</code>를 쓰는 편이 더 낫습니다.)</p>
+<p><code>gethostbyname()</code>은 “www.yahoo.com” 같은 문자열을 받아, IP 주소를 포함한 많은 정보를 담고 있는 <code>struct hostent</code>를 반환합니다. 다른 정보로는 공식 호스트 이름, 별칭 목록, 주소 타입, 주소 길이, 주소 목록 등이 있습니다. 범용 구조체이지만, 어떻게 생겼는지만 보면 우리 용도에는 꽤 쉽게 사용할 수 있습니다.</p>
+<p><code>gethostbyaddr()</code>는 <code>struct in_addr</code> 또는 <code>struct in6_addr</code>를 받아 대응하는 호스트 이름(있다면)을 돌려주므로, 일종의 <code>gethostbyname()</code> 역방향이라 볼 수 있습니다. 파라미터를 보면 <code>addr</code> 타입이 <code>char*</code>로 되어 있어도, 실제로는 <code>struct in_addr</code>에 대한 포인터를 넘기고 싶을 것입니다. <code>len</code>은 <code>sizeof(struct in_addr)</code>이어야 하고, <code>type</code>은 <code>AF_INET</code>이어야 합니다.</p>
+<p>그럼 반환되는 <code>struct hostent</code>는 무엇일까요? 여기에 대상 호스트에 관한 여러 정보가 들어 있습니다.</p>
 <table>
 <colgroup>
 <col style="width: 30%" />
@@ -1382,41 +1382,41 @@
 </colgroup>
 <thead>
 <tr>
-<th>Field</th>
-<th>Description</th>
+<th>필드</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>char *h_name</code></td>
-<td>The real canonical host name.</td>
+<td>실제 canonical 호스트 이름입니다.</td>
 </tr>
 <tr>
 <td><code>char **h_aliases</code></td>
-<td>A list of aliases that can be accessed with arrays—the last element is <code>NULL</code></td>
+<td>배열처럼 접근할 수 있는 별칭 목록입니다. 마지막 원소는 <code>NULL</code>입니다.</td>
 </tr>
 <tr>
 <td><code>int h_addrtype</code></td>
-<td>The result’s address type, which really should be <code>AF_INET</code> for our purposes.</td>
+<td>결과 주소 타입입니다. 우리 용도에서는 사실상 <code>AF_INET</code>이어야 합니다.</td>
 </tr>
 <tr>
 <td><code>int length</code></td>
-<td>The length of the addresses in bytes, which is 4 for IP (version 4) addresses.</td>
+<td>주소 길이를 바이트 단위로 나타냅니다. IPv4 주소라면 4입니다.</td>
 </tr>
 <tr>
 <td><code>char **h_addr_list</code></td>
-<td>A list of IP addresses for this host. Although this is a <code>char**</code>, it’s really an array of <code>struct in_addr*</code>s in disguise. The last array element is <code>NULL</code>.</td>
+<td>이 호스트의 IP 주소 목록입니다. 타입은 <code>char**</code>지만, 실제로는 <code>struct in_addr*</code> 배열이라고 보면 됩니다. 마지막 원소는 <code>NULL</code>입니다.</td>
 </tr>
 <tr>
 <td><code>h_addr</code></td>
-<td>A commonly defined alias for <code>h_addr_list[0]</code>. If you just want any old IP address for this host (yeah, they can have more than one) just use this field.</td>
+<td><code>h_addr_list[0]</code>에 대해 흔히 정의되는 별칭입니다. 이 호스트의 IP 주소 하나만 아무거나 필요하다면(맞습니다, 여러 개일 수도 있습니다) 이 필드를 쓰면 됩니다.</td>
 </tr>
 </tbody>
 </table>
-<h3 class="unnumbered unlisted" id="return-value-6">Return Value</h3>
-<p>Returns a pointer to a resultant <code>struct hostent</code> on success, or <code>NULL</code> on error.</p>
-<p>Instead of the normal <code>perror()</code> and all that stuff you’d normally use for error reporting, these functions have parallel results in the variable <code>h_errno</code>, which can be printed using the functions <code>herror()</code> or <code>hstrerror()</code>. These work just like the classic <code>errno</code>, <code>perror()</code>, and <code>strerror()</code> functions you’re used to.</p>
-<h3 class="unnumbered unlisted" id="example-6">Example</h3>
+<h3 class="unnumbered unlisted" id="return-value-6">반환값</h3>
+<p>성공하면 결과 <code>struct hostent</code>에 대한 포인터를 반환하고, 오류가 발생하면 <code>NULL</code>을 반환합니다.</p>
+<p>이 함수들은 일반적인 <code>perror()</code> 같은 오류 출력 방식 대신, <code>h_errno</code> 변수에 병행되는 결과를 남깁니다. 이 값은 <code>herror()</code> 또는 <code>hstrerror()</code> 함수로 출력할 수 있습니다. 동작 방식은 여러분이 익숙한 고전적인 <code>errno</code>, <code>perror()</code>, <code>strerror()</code>와 거의 같습니다.</p>
+<h3 class="unnumbered unlisted" id="example-6">예제</h3>
 <div class="sourceCode" id="cb96"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb96-1"><a href="man-pages.html#cb96-1"></a><span class="co">// THIS IS A </span><span class="al">DEPRECATED</span><span class="co"> METHOD OF GETTING HOST NAMES</span></span>
 <span id="cb96-2"><a href="man-pages.html#cb96-2"></a><span class="co">// use getaddrinfo() instead!</span></span>
 <span id="cb96-3"><a href="man-pages.html#cb96-3"></a></span>
@@ -1469,28 +1469,28 @@
 <span id="cb97-12"><a href="man-pages.html#cb97-12"></a>inet_pton<span class="op">(</span>AF_INET6<span class="op">,</span> <span class="st">&quot;2001:db8:63b3:1::beef&quot;</span><span class="op">,</span> <span class="op">&amp;</span>ipv6addr<span class="op">);</span></span>
 <span id="cb97-13"><a href="man-pages.html#cb97-13"></a>he <span class="op">=</span> gethostbyaddr<span class="op">(&amp;</span>ipv6addr<span class="op">,</span> <span class="kw">sizeof</span> ipv6addr<span class="op">,</span> AF_INET6<span class="op">);</span></span>
 <span id="cb97-14"><a href="man-pages.html#cb97-14"></a>printf<span class="op">(</span><span class="st">&quot;Host name: </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> he<span class="op">-&gt;</span>h_name<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-6">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-6">함께 보기</h3>
 <p><a href="man-pages.html#getaddrinfoman"><code>getaddrinfo()</code></a>, <a href="man-pages.html#getnameinfoman"><code>getnameinfo()</code></a>, <a href="man-pages.html#gethostnameman"><code>gethostname()</code></a>, <a href="man-pages.html#errnoman"><code>errno</code></a>, <a href="man-pages.html#perrorman"><code>perror()</code></a>, <a href="man-pages.html#perrorman"><code>strerror()</code></a>, <a href="man-pages.html#structsockaddrman"><code>struct in_addr</code></a></p>
 <hr />
 <h2 data-number="9.8" id="getnameinfoman"><span class="header-section-number">9.8</span> <code>getnameinfo()</code></h2>
 <p></p>
-<p>Look up the host name and service name information for a given <code>struct sockaddr</code>.</p>
-<h3 class="unnumbered unlisted" id="synopsis-7">Synopsis</h3>
+<p>주어진 <code>struct sockaddr</code>에 대해 호스트 이름과 서비스 이름 정보를 조회한다.</p>
+<h3 class="unnumbered unlisted" id="synopsis-7">형식</h3>
 <div class="sourceCode" id="cb98"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb98-1"><a href="man-pages.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb98-2"><a href="man-pages.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;netdb.h&gt;</span></span>
 <span id="cb98-3"><a href="man-pages.html#cb98-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-4"><a href="man-pages.html#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> getnameinfo<span class="op">(</span><span class="dt">const</span> <span class="kw">struct</span> sockaddr <span class="op">*</span>sa<span class="op">,</span> socklen_t salen<span class="op">,</span></span>
 <span id="cb98-5"><a href="man-pages.html#cb98-5" aria-hidden="true" tabindex="-1"></a>                <span class="dt">char</span> <span class="op">*</span>host<span class="op">,</span> <span class="dt">size_t</span> hostlen<span class="op">,</span></span>
 <span id="cb98-6"><a href="man-pages.html#cb98-6" aria-hidden="true" tabindex="-1"></a>                <span class="dt">char</span> <span class="op">*</span>serv<span class="op">,</span> <span class="dt">size_t</span> servlen<span class="op">,</span> <span class="dt">int</span> flags<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-7">Description</h3>
-<p>This function is the opposite of <code>getaddrinfo()</code>, that is, this function takes an already loaded <code>struct sockaddr</code> and does a name and service name lookup on it. It replaces the old <code>gethostbyaddr()</code> and <code>getservbyport()</code> functions.</p>
-<p>You have to pass in a pointer to a <code>struct sockaddr</code> (which in actuality is probably a <code>struct sockaddr_in</code> or <code>struct sockaddr_in6</code> that you’ve cast) in the <code>sa</code> parameter, and the length of that <code>struct</code> in the <code>salen</code>.</p>
-<p>The resultant host name and service name will be written to the area pointed to by the <code>host</code> and <code>serv</code> parameters. Of course, you have to specify the max lengths of these buffers in <code>hostlen</code> and <code>servlen</code>.</p>
-<p>Finally, there are several flags you can pass, but here a a couple good ones. <code>NI_NOFQDN</code> will cause the <code>host</code> to only contain the host name, not the whole domain name. <code>NI_NAMEREQD</code> will cause the function to fail if the name cannot be found with a DNS lookup (if you don’t specify this flag and the name can’t be found, <code>getnameinfo()</code> will put a string version of the IP address in <code>host</code> instead).</p>
-<p>As always, check your local man pages for the full scoop.</p>
-<h3 class="unnumbered unlisted" id="return-value-7">Return Value</h3>
-<p>Returns zero on success, or non-zero on error. If the return value is non-zero, it can be passed to <code>gai_strerror()</code> to get a human-readable string. See <code>getaddrinfo</code> for more information.</p>
-<h3 class="unnumbered unlisted" id="example-7">Example</h3>
+<h3 class="unnumbered unlisted" id="description-7">설명</h3>
+<p>이 함수는 <code>getaddrinfo()</code>의 반대 역할을 합니다. 즉, 이미 값이 채워져 있는 <code>struct sockaddr</code>를 받아 그에 대한 이름과 서비스 이름을 조회합니다. 예전의 <code>gethostbyaddr()</code>와 <code>getservbyport()</code>를 대체합니다.</p>
+<p><code>sa</code> 파라미터에는 <code>struct sockaddr</code>에 대한 포인터를 넘겨야 합니다. 실제로는 캐스팅된 <code>struct sockaddr_in</code> 또는 <code>struct sockaddr_in6</code>일 가능성이 큽니다. 그리고 <code>salen</code>에는 그 <code>struct</code>의 길이를 넣습니다.</p>
+<p>조회 결과인 호스트 이름과 서비스 이름은 <code>host</code> 및 <code>serv</code> 파라미터가 가리키는 영역에 기록됩니다. 물론 이 버퍼들의 최대 길이도 <code>hostlen</code>과 <code>servlen</code>으로 지정해야 합니다.</p>
+<p>마지막으로 여러 플래그를 넘길 수 있는데, 여기서는 유용한 것 두 가지만 보겠습니다. <code>NI_NOFQDN</code>은 <code>host</code>에 전체 도메인 이름이 아니라 호스트 이름만 들어가게 합니다. <code>NI_NAMEREQD</code>는 DNS 조회로 이름을 찾지 못하면 함수가 실패하게 만듭니다. 이 플래그를 주지 않았는데 이름을 찾지 못하면, <code>getnameinfo()</code>는 대신 IP 주소의 문자열 표현을 <code>host</code>에 넣습니다.</p>
+<p>늘 그렇듯 자세한 내용은 로컬 man 페이지를 확인하세요.</p>
+<h3 class="unnumbered unlisted" id="return-value-7">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 0이 아닌 값을 반환합니다. 반환값이 0이 아니면 <code>gai_strerror()</code>에 넘겨 사람이 읽을 수 있는 문자열로 바꿀 수 있습니다. 자세한 내용은 <code>getaddrinfo</code>를 참고하세요.</p>
+<h3 class="unnumbered unlisted" id="example-7">예제</h3>
 <div class="sourceCode" id="cb99"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb99-1"><a href="man-pages.html#cb99-1"></a><span class="kw">struct</span> sockaddr_in6 sa<span class="op">;</span> <span class="co">// could be IPv4 if you want</span></span>
 <span id="cb99-2"><a href="man-pages.html#cb99-2"></a><span class="dt">char</span> host<span class="op">[</span><span class="dv">1024</span><span class="op">];</span></span>
 <span id="cb99-3"><a href="man-pages.html#cb99-3"></a><span class="dt">char</span> service<span class="op">[</span><span class="dv">20</span><span class="op">];</span></span>
@@ -1502,24 +1502,24 @@
 <span id="cb99-9"><a href="man-pages.html#cb99-9"></a></span>
 <span id="cb99-10"><a href="man-pages.html#cb99-10"></a>printf<span class="op">(</span><span class="st">&quot;   host: </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> host<span class="op">);</span>    <span class="co">// e.g. &quot;www.example.com&quot;</span></span>
 <span id="cb99-11"><a href="man-pages.html#cb99-11"></a>printf<span class="op">(</span><span class="st">&quot;service: </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> service<span class="op">);</span> <span class="co">// e.g. &quot;http&quot;</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-7">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-7">함께 보기</h3>
 <p><a href="man-pages.html#getaddrinfoman"><code>getaddrinfo()</code></a>, <a href="man-pages.html#gethostbynameman"><code>gethostbyaddr()</code></a></p>
 <hr />
 <h2 data-number="9.9" id="getpeernameman"><span class="header-section-number">9.9</span> <code>getpeername()</code></h2>
 <p></p>
-<p>Return address info about the remote side of the connection</p>
-<h3 class="unnumbered unlisted" id="synopsis-8">Synopsis</h3>
+<p>연결된 원격 측의 주소 정보를 반환한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-8">형식</h3>
 <div class="sourceCode" id="cb100"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb100-1"><a href="man-pages.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb100-2"><a href="man-pages.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb100-3"><a href="man-pages.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> getpeername<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="kw">struct</span> sockaddr <span class="op">*</span>addr<span class="op">,</span> socklen_t <span class="op">*</span>len<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-8">Description</h3>
-<p>Once you have either <code>accept()</code>ed a remote connection, or <code>connect()</code>ed to a server, you now have what is known as a <em>peer</em>. Your peer is simply the computer you’re connected to, identified by an IP address and a port. So…</p>
-<p><code>getpeername()</code> simply returns a <code>struct sockaddr_in</code> filled with information about the machine you’re connected to.</p>
-<p>Why is it called a “name”? Well, there are a lot of different kinds of sockets, not just Internet Sockets like we’re using in this guide, and so “name” was a nice generic term that covered all cases. In our case, though, the peer’s “name” is it’s IP address and port.</p>
-<p>Although the function returns the size of the resultant address in <code>len</code>, you must preload <code>len</code> with the size of <code>addr</code>.</p>
-<h3 class="unnumbered unlisted" id="return-value-8">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-8">Example</h3>
+<h3 class="unnumbered unlisted" id="description-8">설명</h3>
+<p>원격 연결을 <code>accept()</code>했거나, 서버에 <code>connect()</code>했다면 이제 여러분은 이른바 <em>peer</em>를 가지게 됩니다. peer란 단순히 여러분이 연결된 컴퓨터를 뜻하며, IP 주소와 포트로 식별됩니다. 그래서…</p>
+<p><code>getpeername()</code>은 여러분이 연결된 머신 정보가 채워진 <code>struct sockaddr_in</code>을 간단히 반환합니다.</p>
+<p>왜 이름(name)이라고 부를까요? 우리가 이 가이드에서 쓰는 인터넷 소켓뿐 아니라 소켓에는 여러 종류가 있고, 그래서 “name”이라는 단어가 모든 경우를 포괄하는 무난한 일반 용어였기 때문입니다. 우리 경우 peer의 “이름”은 곧 IP 주소와 포트입니다.</p>
+<p>함수는 결과 주소의 크기를 <code>len</code>에 돌려주지만, 호출하기 전에 <code>len</code>에 <code>addr</code>의 크기를 미리 넣어 두어야 합니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-8">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-8">예제</h3>
 <div class="sourceCode" id="cb101"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb101-1"><a href="man-pages.html#cb101-1"></a><span class="co">// assume s is a connected socket</span></span>
 <span id="cb101-2"><a href="man-pages.html#cb101-2"></a></span>
 <span id="cb101-3"><a href="man-pages.html#cb101-3"></a>socklen_t len<span class="op">;</span></span>
@@ -1543,24 +1543,24 @@
 <span id="cb101-21"><a href="man-pages.html#cb101-21"></a></span>
 <span id="cb101-22"><a href="man-pages.html#cb101-22"></a>printf<span class="op">(</span><span class="st">&quot;Peer IP address: </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> ipstr<span class="op">);</span></span>
 <span id="cb101-23"><a href="man-pages.html#cb101-23"></a>printf<span class="op">(</span><span class="st">&quot;Peer port      : </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> port<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-8">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-8">함께 보기</h3>
 <p><a href="man-pages.html#gethostnameman"><code>gethostname()</code></a>, <a href="man-pages.html#gethostbynameman"><code>gethostbyname()</code></a>, <a href="man-pages.html#gethostbynameman"><code>gethostbyaddr()</code></a></p>
 <hr />
 <h2 data-number="9.10" id="errnoman"><span class="header-section-number">9.10</span> <code>errno</code></h2>
 <p></p>
-<p>Holds the error code for the last system call</p>
-<h3 class="unnumbered unlisted" id="synopsis-9">Synopsis</h3>
+<p>마지막 시스템 호출의 에러 코드를 담고 있다</p>
+<h3 class="unnumbered unlisted" id="synopsis-9">형식</h3>
 <div class="sourceCode" id="cb102"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb102-1"><a href="man-pages.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;errno.h&gt;</span></span>
 <span id="cb102-2"><a href="man-pages.html#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb102-3"><a href="man-pages.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> errno<span class="op">;</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-9">Description</h3>
-<p>This is the variable that holds error information for a lot of system calls. If you’ll recall, things like <code>socket()</code> and <code>listen()</code> return <code>-1</code> on error, and they set the exact value of <code>errno</code> to let you know specifically which error occurred.</p>
-<p>The header file <code>errno.h</code> lists a bunch of constant symbolic names for errors, such as <code>EADDRINUSE</code>, <code>EPIPE</code>, <code>ECONNREFUSED</code>, etc. Your local man pages will tell you what codes can be returned as an error, and you can use these at run time to handle different errors in different ways.</p>
-<p>Or, more commonly, you can call <code>perror()</code> or <code>strerror()</code> to get a human-readable version of the error.</p>
-<p>One thing to note, for you multithreading enthusiasts, is that on most systems <code>errno</code> is defined in a threadsafe manner. (That is, it’s not actually a global variable, but it behaves just like a global variable would in a single-threaded environment.)</p>
-<h3 class="unnumbered unlisted" id="return-value-9">Return Value</h3>
-<p>The value of the variable is the latest error to have transpired, which might be the code for “success” if the last action succeeded.</p>
-<h3 class="unnumbered unlisted" id="example-9">Example</h3>
+<h3 class="unnumbered unlisted" id="description-9">설명</h3>
+<p>많은 시스템 호출의 에러 정보를 담고 있는 변수가 바로 이것입니다. 기억하시겠지만 <code>socket()</code>이나 <code>listen()</code> 같은 함수는 오류가 나면 <code>-1</code>을 반환하고, 어떤 오류가 발생했는지를 정확히 알려 주기 위해 <code>errno</code> 값을 설정합니다.</p>
+<p>헤더 파일 <code>errno.h</code>에는 <code>EADDRINUSE</code>, <code>EPIPE</code>, <code>ECONNREFUSED</code> 같은 에러용 상수 심볼 이름이 많이 정의되어 있습니다. 로컬 man 페이지를 보면 어떤 에러 코드가 반환될 수 있는지 알 수 있고, 실행 중 그 값을 이용해 서로 다른 오류를 서로 다르게 처리할 수 있습니다.</p>
+<p>혹은 더 흔한 방식으로, <code>perror()</code>나 <code>strerror()</code>를 호출해 사람이 읽기 쉬운 오류 메시지를 얻을 수 있습니다.</p>
+<p>멀티스레드를 좋아하는 분들을 위해 덧붙이면, 대부분의 시스템에서 <code>errno</code>는 스레드 안전한 방식으로 정의되어 있습니다. 즉 실제 전역 변수는 아니지만, 단일 스레드 환경의 전역 변수처럼 행동합니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-9">반환값</h3>
+<p>이 변수의 값은 가장 최근에 발생한 오류를 나타냅니다. 마지막 동작이 성공했다면 “성공”에 해당하는 코드가 들어 있을 수도 있습니다.</p>
+<h3 class="unnumbered unlisted" id="example-9">예제</h3>
 <div class="sourceCode" id="cb103"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb103-1"><a href="man-pages.html#cb103-1"></a>s <span class="op">=</span> socket<span class="op">(</span>PF_INET<span class="op">,</span> SOCK_STREAM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb103-2"><a href="man-pages.html#cb103-2"></a><span class="cf">if</span> <span class="op">(</span>s <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb103-3"><a href="man-pages.html#cb103-3"></a>    perror<span class="op">(</span><span class="st">&quot;socket&quot;</span><span class="op">);</span> <span class="co">// or use strerror()</span></span>
@@ -1577,20 +1577,20 @@
 <span id="cb103-14"><a href="man-pages.html#cb103-14"></a>    perror<span class="op">(</span><span class="st">&quot;select&quot;</span><span class="op">);</span></span>
 <span id="cb103-15"><a href="man-pages.html#cb103-15"></a>    exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
 <span id="cb103-16"><a href="man-pages.html#cb103-16"></a><span class="op">}</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-9">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-9">함께 보기</h3>
 <p><a href="man-pages.html#perrorman"><code>perror()</code></a>, <a href="man-pages.html#perrorman"><code>strerror()</code></a></p>
 <hr />
 <h2 data-number="9.11" id="fcntlman"><span class="header-section-number">9.11</span> <code>fcntl()</code></h2>
 <p></p>
-<p>Control socket descriptors</p>
-<h3 class="unnumbered unlisted" id="synopsis-10">Synopsis</h3>
+<p>소켓 디스크립터를 제어한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-10">형식</h3>
 <div class="sourceCode" id="cb104"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb104-1"><a href="man-pages.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/unistd.h&gt;</span></span>
 <span id="cb104-2"><a href="man-pages.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/fcntl.h&gt;</span></span>
 <span id="cb104-3"><a href="man-pages.html#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb104-4"><a href="man-pages.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fcntl<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="dt">int</span> cmd<span class="op">,</span> <span class="dt">long</span> arg<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-10">Description</h3>
-<p>This function is typically used to do file locking and other file-oriented stuff, but it also has a couple socket-related functions that you might see or use from time to time.</p>
-<p>Parameter <code>s</code> is the socket descriptor you wish to operate on, <code>cmd</code> should be set to <code>F_SETFL</code>, and <code>arg</code> can be one of the following commands. (Like I said, there’s more to <code>fcntl()</code> than I’m letting on here, but I’m trying to stay socket-oriented.)</p>
+<h3 class="unnumbered unlisted" id="description-10">설명</h3>
+<p>이 함수는 보통 파일 잠금이나 그 밖의 파일 지향 작업에 사용되지만, 가끔 보거나 직접 쓰게 될 소켓 관련 기능도 몇 가지 가지고 있습니다.</p>
+<p><code>s</code> 파라미터는 조작하려는 소켓 디스크립터이고, <code>cmd</code>는 <code>F_SETFL</code>로 설정해야 하며, <code>arg</code>에는 아래 명령 중 하나를 넣을 수 있습니다. (말했듯이 <code>fcntl()</code>에는 여기서 다루는 것보다 더 많은 기능이 있지만, 저는 소켓 관련 부분에만 집중하겠습니다.)</p>
 <table>
 <colgroup>
 <col style="width: 18%" />
@@ -1599,77 +1599,77 @@
 <thead>
 <tr>
 <th><code>cmd</code></th>
-<th>Description</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>O_NONBLOCK</code></td>
-<td>Set the socket to be non-blocking. See the section on <a href="slightly-advanced-techniques.html#blocking">blocking</a> for more details.</td>
+<td>소켓을 논블로킹 모드로 설정합니다. 자세한 내용은 <a href="slightly-advanced-techniques.html#blocking">블로킹</a> 절을 참고하세요.</td>
 </tr>
 <tr>
 <td><code>O_ASYNC</code></td>
-<td>Set the socket to do asynchronous I/O. When data is ready to be <code>recv()</code>’d on the socket, the signal <code>SIGIO</code> will be raised. This is rare to see, and beyond the scope of the guide. And I think it’s only available on certain systems.</td>
+<td>소켓이 비동기 I/O를 하도록 설정합니다. 소켓에서 <code>recv()</code>할 데이터가 준비되면 <code>SIGIO</code> 시그널이 발생합니다. 흔히 보는 기능은 아니고, 이 가이드 범위도 벗어납니다. 아마 일부 시스템에서만 지원되기도 할 겁니다.</td>
 </tr>
 </tbody>
 </table>
-<h3 class="unnumbered unlisted" id="return-value-10">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<p>Different uses of the <code>fcntl()</code> system call actually have different return values, but I haven’t covered them here because they’re not socket-related. See your local <code>fcntl()</code> man page for more information.</p>
-<h3 class="unnumbered unlisted" id="example-10">Example</h3>
+<h3 class="unnumbered unlisted" id="return-value-10">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<p>실제로는 <code>fcntl()</code> 시스템 호출의 사용 방식에 따라 반환값도 달라집니다. 하지만 여기서는 소켓 관련 부분이 아니어서 다루지 않았습니다. 자세한 내용은 로컬 <code>fcntl()</code> man 페이지를 보세요.</p>
+<h3 class="unnumbered unlisted" id="example-10">예제</h3>
 <div class="sourceCode" id="cb105"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb105-1"><a href="man-pages.html#cb105-1"></a><span class="dt">int</span> s <span class="op">=</span> socket<span class="op">(</span>PF_INET<span class="op">,</span> SOCK_STREAM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb105-2"><a href="man-pages.html#cb105-2"></a></span>
 <span id="cb105-3"><a href="man-pages.html#cb105-3"></a>fcntl<span class="op">(</span>s<span class="op">,</span> F_SETFL<span class="op">,</span> O_NONBLOCK<span class="op">);</span>  <span class="co">// set to non-blocking</span></span>
 <span id="cb105-4"><a href="man-pages.html#cb105-4"></a>fcntl<span class="op">(</span>s<span class="op">,</span> F_SETFL<span class="op">,</span> O_ASYNC<span class="op">);</span>     <span class="co">// set to asynchronous I/O</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-10">See Also</h3>
-<p><a href="slightly-advanced-techniques.html#blocking">Blocking</a>, <a href="man-pages.html#sendman"><code>send()</code></a></p>
+<h3 class="unnumbered unlisted" id="see-also-10">함께 보기</h3>
+<p><a href="slightly-advanced-techniques.html#blocking">블로킹</a>, <a href="man-pages.html#sendman"><code>send()</code></a></p>
 <hr />
 <h2 data-number="9.12" id="htonsman"><span class="header-section-number">9.12</span> <code>htons()</code>, <code>htonl()</code>, <code>ntohs()</code>, <code>ntohl()</code></h2>
 <p> </p>
-<p>Convert multi-byte integer types from host byte order to network byte order</p>
-<h3 class="unnumbered unlisted" id="synopsis-11">Synopsis</h3>
+<p>멀티바이트 정수 타입을 호스트 바이트 순서에서 네트워크 바이트 순서로 변환한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-11">형식</h3>
 <div class="sourceCode" id="cb106"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb106-1"><a href="man-pages.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;netinet/in.h&gt;</span></span>
 <span id="cb106-2"><a href="man-pages.html#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb106-3"><a href="man-pages.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="dt">uint32_t</span> htonl<span class="op">(</span><span class="dt">uint32_t</span> hostlong<span class="op">);</span></span>
 <span id="cb106-4"><a href="man-pages.html#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="dt">uint16_t</span> htons<span class="op">(</span><span class="dt">uint16_t</span> hostshort<span class="op">);</span></span>
 <span id="cb106-5"><a href="man-pages.html#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="dt">uint32_t</span> ntohl<span class="op">(</span><span class="dt">uint32_t</span> netlong<span class="op">);</span></span>
 <span id="cb106-6"><a href="man-pages.html#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="dt">uint16_t</span> ntohs<span class="op">(</span><span class="dt">uint16_t</span> netshort<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-11">Description</h3>
-<p>Just to make you really unhappy, different computers use different byte orderings internally for their multibyte integers (i.e. any integer that’s larger than a <code>char</code>). The upshot of this is that if you <code>send()</code> a two-byte <code>short int</code> from an Intel box to a Mac (before they became Intel boxes, too, I mean), what one computer thinks is the number <code>1</code>, the other will think is the number <code>256</code>, and vice-versa.</p>
-<p> The way to get around this problem is for everyone to put aside their differences and agree that Motorola and IBM had it right, and Intel did it the weird way, and so we all convert our byte orderings to “big-endian” before sending them out. Since Intel is a “little-endian” machine, it’s far more politically correct to call our preferred byte ordering “Network Byte Order”. So these functions convert from your native byte order to network byte order and back again.</p>
-<p>(This means on Intel these functions swap all the bytes around, and on PowerPC they do nothing because the bytes are already in Network Byte Order. But you should always use them in your code anyway, since someone might want to build it on an Intel machine and still have things work properly.)</p>
-<p>Note that the types involved are 32-bit (4 byte, probably <code>int</code>) and 16-bit (2 byte, very likely <code>short</code>) numbers.</p>
-<p>There are non-standard 64-bit variants on various systems. Check out the <a href="https://man.archlinux.org/man/htobe64"><code>htobe64()</code></a><a href="more-references.html#fn50" class="footnote-ref" id="fnref50" role="doc-noteref"><sup>50</sup></a> function and its relatives in <code>&lt;endian.h&gt;</code> if you have it. And GCC has <a href="https://gcc.gnu.org/onlinedocs/gcc/Byte-Swapping-Builtins.html">byte swapping built-ins</a><a href="more-references.html#fn51" class="footnote-ref" id="fnref51" role="doc-noteref"><sup>51</sup></a> that even go up to 128 bits. <a href="https://beej.us/guide/bgnet/source/examples/htonll.c">Or you can roll your own</a><a href="more-references.html#fn52" class="footnote-ref" id="fnref52" role="doc-noteref"><sup>52</sup></a>, but only actually do the swap if you’re on a little-endian machine!</p>
-<p>Anyway, the way these functions work is that you first decide if you’re converting <em>from</em> host (your machine’s) byte order or from network byte order. If “host”, the the first letter of the function you’re going to call is “h”. Otherwise it’s “n” for “network”. The middle of the function name is always “to” because you’re converting from one “to” another, and the penultimate letter shows what you’re converting <em>to</em>. The last letter is the size of the data, “s” for short, or “l” for long. Thus:</p>
+<h3 class="unnumbered unlisted" id="description-11">설명</h3>
+<p>여러분을 정말 행복하지 않게 만드는 사실 하나는, 서로 다른 컴퓨터가 멀티바이트 정수(<code>char</code>보다 큰 모든 정수)의 내부 바이트 순서를 서로 다르게 쓴다는 점입니다. 그래서 Intel 머신에서 2바이트 <code>short int</code>를 예전 Mac(그러니까 걔들도 Intel이 되기 전의 Mac)으로 <code>send()</code>하면, 한쪽이 숫자 <code>1</code>이라고 생각한 값을 다른 쪽은 <code>256</code>으로 해석할 수 있고, 그 반대도 마찬가지입니다.</p>
+<p>이 문제를 피하는 방법은 모두가 차이를 잠시 접어 두고 Motorola와 IBM이 옳았고 Intel이 좀 이상한 방식으로 했다고 합의한 다음, 데이터를 보내기 전에 바이트 순서를 “big-endian”으로 바꾸는 것입니다. Intel은 “little-endian” 머신이므로, 우리가 선호하는 이 바이트 순서를 좀 더 정치적으로 올바르게 “네트워크 바이트 순서”라고 부릅니다. 그래서 이 함수들은 여러분의 네이티브 바이트 순서와 네트워크 바이트 순서 사이를 오가며 변환합니다.</p>
+<p>(즉 Intel에서는 이 함수들이 바이트 순서를 전부 뒤집고, PowerPC에서는 이미 네트워크 바이트 순서이므로 아무 일도 하지 않습니다. 그래도 누군가 Intel 머신에서 빌드해도 잘 동작하게 하려면 코드에서는 항상 이 함수를 써야 합니다.)</p>
+<p>여기서 다루는 타입은 32비트(4바이트, 아마 <code>int</code>)와 16비트(2바이트, 대개 <code>short</code>) 숫자라는 점에 유의하세요.</p>
+<p>일부 시스템에는 비표준 64비트 변형도 있습니다. <code>&lt;endian.h&gt;</code>가 있다면 <a href="https://man.archlinux.org/man/htobe64"><code>htobe64()</code></a><a href="more-references.html#fn50" class="footnote-ref" id="fnref50" role="doc-noteref"><sup>50</sup></a>와 그 친척 함수들을 살펴보세요. GCC에는 128비트까지 지원하는 <a href="https://gcc.gnu.org/onlinedocs/gcc/Byte-Swapping-Builtins.html">byte swapping built-ins</a><a href="more-references.html#fn51" class="footnote-ref" id="fnref51" role="doc-noteref"><sup>51</sup></a>도 있습니다. <a href="https://beej.us/guide/bgnet/source/examples/htonll.c">직접 만들어 써도</a><a href="more-references.html#fn52" class="footnote-ref" id="fnref52" role="doc-noteref"><sup>52</sup></a> 되지만, 실제로 스왑은 little-endian 머신에서만 해야 합니다!</p>
+<p>어쨌든 이 함수들의 이름은 먼저 무엇으로부터 <em>변환하는지</em>를 정하고 읽으면 됩니다. 호스트(즉 여러분 머신) 바이트 순서에서 변환한다면 함수 이름 첫 글자는 “h”입니다. 아니면 “network”의 “n”이 됩니다. 가운데는 항상 “to”이고, 끝에서 두 번째 글자는 무엇으로 <em>변환하는지</em>를 나타냅니다. 마지막 글자는 데이터 크기로, “s”는 short, “l”은 long입니다. 그래서 다음과 같습니다.</p>
 <table>
 <thead>
 <tr>
-<th>Function</th>
-<th>Description</th>
+<th>함수</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>htons()</code></td>
-<td><code>h</code>ost <code>to</code> <code>n</code>etwork <code>s</code>hort</td>
+<td>호스트(<code>h</code>)에서 네트워크(<code>n</code>) <code>short</code>(<code>s</code>)로</td>
 </tr>
 <tr>
 <td><code>htonl()</code></td>
-<td><code>h</code>ost <code>to</code> <code>n</code>etwork <code>l</code>ong</td>
+<td>호스트(<code>h</code>)에서 네트워크(<code>n</code>) <code>long</code>(<code>l</code>)으로</td>
 </tr>
 <tr>
 <td><code>ntohs()</code></td>
-<td><code>n</code>etwork <code>to</code> <code>h</code>ost <code>s</code>hort</td>
+<td>네트워크(<code>n</code>)에서 호스트(<code>h</code>) <code>short</code>(<code>s</code>)로</td>
 </tr>
 <tr>
 <td><code>ntohl()</code></td>
-<td><code>n</code>etwork <code>to</code> <code>h</code>ost <code>l</code>ong</td>
+<td>네트워크(<code>n</code>)에서 호스트(<code>h</code>) <code>long</code>(<code>l</code>)으로</td>
 </tr>
 </tbody>
 </table>
-<h3 class="unnumbered unlisted" id="return-value-11">Return Value</h3>
-<p>Each function returns the converted value.</p>
-<h3 class="unnumbered unlisted" id="example-11">Example</h3>
+<h3 class="unnumbered unlisted" id="return-value-11">반환값</h3>
+<p>각 함수는 변환된 값을 반환합니다.</p>
+<h3 class="unnumbered unlisted" id="example-11">예제</h3>
 <div class="sourceCode" id="cb107"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb107-1"><a href="man-pages.html#cb107-1"></a><span class="dt">uint32_t</span> some_long <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
 <span id="cb107-2"><a href="man-pages.html#cb107-2"></a><span class="dt">uint16_t</span> some_short <span class="op">=</span> <span class="dv">20</span><span class="op">;</span></span>
 <span id="cb107-3"><a href="man-pages.html#cb107-3"></a></span>
@@ -1683,8 +1683,8 @@
 <hr />
 <h2 data-number="9.13" id="inet_ntoaman"><span class="header-section-number">9.13</span> <code>inet_ntoa()</code>, <code>inet_aton()</code>, <code>inet_addr</code></h2>
 <p> </p>
-<p>Convert IP addresses from a dots-and-number string to a <code>struct in_addr</code> and back</p>
-<h3 class="unnumbered unlisted" id="synopsis-12">Synopsis</h3>
+<p>점과 숫자 형식의 IP 주소 문자열과 <code>struct in_addr</code> 사이를 상호 변환한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-12">형식</h3>
 <div class="sourceCode" id="cb108"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb108-1"><a href="man-pages.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb108-2"><a href="man-pages.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;netinet/in.h&gt;</span></span>
 <span id="cb108-3"><a href="man-pages.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;arpa/inet.h&gt;</span></span>
@@ -1695,17 +1695,17 @@
 <span id="cb108-8"><a href="man-pages.html#cb108-8" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> <span class="op">*</span>inet_ntoa<span class="op">(</span><span class="kw">struct</span> in_addr in<span class="op">);</span></span>
 <span id="cb108-9"><a href="man-pages.html#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> inet_aton<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>cp<span class="op">,</span> <span class="kw">struct</span> in_addr <span class="op">*</span>inp<span class="op">);</span></span>
 <span id="cb108-10"><a href="man-pages.html#cb108-10" aria-hidden="true" tabindex="-1"></a>in_addr_t inet_addr<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>cp<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-12">Description</h3>
-<p><em>These functions are deprecated because they don’t handle IPv6! Use <a href="man-pages.html#inet_ntopman"><code>inet_ntop()</code></a> or <a href="man-pages.html#inet_ntopman"><code>inet_pton()</code></a> instead! They are included here because they can still be found in the wild.</em></p>
-<p>All of these functions convert from a <code>struct in_addr</code> (part of your <code>struct sockaddr_in</code>, most likely) to a string in dots-and-numbers format (e.g. “192.168.5.10”) and vice-versa. If you have an IP address passed on the command line or something, this is the easiest way to get a <code>struct in_addr</code> to <code>connect()</code> to, or whatever. If you need more power, try some of the DNS functions like <code>gethostbyname()</code> or attempt a <em>coup d’État</em> in your local country.</p>
-<p>The function <code>inet_ntoa()</code> converts a network address in a <code>struct in_addr</code> to a dots-and-numbers format string. The “n” in “ntoa” stands for network, and the “a” stands for ASCII for historical reasons (so it’s “Network To ASCII”—the “toa” suffix has an analogous friend in the C library called <code>atoi()</code> which converts an ASCII string to an integer).</p>
-<p>The function <code>inet_aton()</code> is the opposite, converting from a dots-and-numbers string into a <code>in_addr_t</code> (which is the type of the field <code>s_addr</code> in your <code>struct in_addr</code>).</p>
-<p>Finally, the function <code>inet_addr()</code> is an older function that does basically the same thing as <code>inet_aton()</code>. It’s theoretically deprecated, but you’ll see it a lot and the police won’t come get you if you use it.</p>
-<h3 class="unnumbered unlisted" id="return-value-12">Return Value</h3>
-<p><code>inet_aton()</code> returns non-zero if the address is a valid one, and it returns zero if the address is invalid.</p>
-<p><code>inet_ntoa()</code> returns the dots-and-numbers string in a static buffer that is overwritten with each call to the function.</p>
-<p><code>inet_addr()</code> returns the address as an <code>in_addr_t</code>, or <code>-1</code> if there’s an error. (That is the same result as if you tried to convert the string “<code>255.255.255.255</code>”, which is a valid IP address. This is why <code>inet_aton()</code> is better.)</p>
-<h3 class="unnumbered unlisted" id="example-12">Example</h3>
+<h3 class="unnumbered unlisted" id="description-12">설명</h3>
+<p><em>이 함수들은 IPv6를 다루지 못하므로 deprecated 상태입니다! 대신 <a href="man-pages.html#inet_ntopman"><code>inet_ntop()</code></a>이나 <a href="man-pages.html#inet_ntopman"><code>inet_pton()</code></a>을 사용하세요! 그래도 여전히 현장에서 마주칠 수 있어서 여기 포함했습니다.</em></p>
+<p>이 함수들은 모두 <code>struct in_addr</code>(아마 여러분의 <code>struct sockaddr_in</code> 일부일 가능성이 큽니다)와 점과 숫자 형식 문자열(예: “192.168.5.10”) 사이를 양방향으로 변환합니다. 명령줄 등으로 전달된 IP 주소가 있다면, <code>connect()</code> 등에 넘길 <code>struct in_addr</code>를 얻는 가장 쉬운 방법입니다. 더 강력한 게 필요하다면 <code>gethostbyname()</code> 같은 DNS 함수를 써 보거나, 아니면 여러분 나라에서 <em>쿠데타</em>를 시도해 보세요.</p>
+<p><code>inet_ntoa()</code>는 <code>struct in_addr</code> 안의 네트워크 주소를 점과 숫자 형식 문자열로 변환합니다. “ntoa”의 “n”은 network를, “a”는 역사적 이유로 ASCII를 뜻합니다. 즉 “Network To ASCII”입니다. 참고로 “toa”에 대응하는 친구로 C 라이브러리의 <code>atoi()</code>가 있는데, 이건 ASCII 문자열을 정수로 바꿉니다.</p>
+<p><code>inet_aton()</code>은 그 반대로, 점과 숫자 형식 문자열을 <code>in_addr_t</code>로 변환합니다. 이 타입은 여러분 <code>struct in_addr</code> 안의 <code>s_addr</code> 필드 타입입니다.</p>
+<p>마지막으로 <code>inet_addr()</code>는 사실상 <code>inet_aton()</code>과 거의 같은 일을 하는 더 오래된 함수입니다. 이론적으로는 deprecated지만 꽤 자주 보게 될 것이고, 쓴다고 해서 경찰이 잡으러 오지는 않습니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-12">반환값</h3>
+<p><code>inet_aton()</code>은 주소가 유효하면 0이 아닌 값을 반환하고, 유효하지 않으면 0을 반환합니다.</p>
+<p><code>inet_ntoa()</code>는 점과 숫자 형식 문자열을 static 버퍼에 담아 반환하며, 이 버퍼는 함수가 호출될 때마다 덮어써집니다.</p>
+<p><code>inet_addr()</code>는 주소를 <code>in_addr_t</code>로 반환하고, 오류가 있으면 <code>-1</code>을 반환합니다. (그런데 이것은 유효한 IP 주소인 “<code>255.255.255.255</code>”를 변환했을 때와 같은 결과입니다. 그래서 <code>inet_aton()</code>이 더 낫습니다.)</p>
+<h3 class="unnumbered unlisted" id="example-12">예제</h3>
 <div class="sourceCode" id="cb109"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb109-1"><a href="man-pages.html#cb109-1"></a><span class="kw">struct</span> sockaddr_in antelope<span class="op">;</span></span>
 <span id="cb109-2"><a href="man-pages.html#cb109-2"></a><span class="dt">char</span> <span class="op">*</span>some_addr<span class="op">;</span></span>
 <span id="cb109-3"><a href="man-pages.html#cb109-3"></a></span>
@@ -1716,31 +1716,31 @@
 <span id="cb109-8"><a href="man-pages.html#cb109-8"></a></span>
 <span id="cb109-9"><a href="man-pages.html#cb109-9"></a><span class="co">// and this call is the same as the inet_aton() call, above:</span></span>
 <span id="cb109-10"><a href="man-pages.html#cb109-10"></a>antelope<span class="op">.</span>sin_addr<span class="op">.</span>s_addr <span class="op">=</span> inet_addr<span class="op">(</span><span class="st">&quot;10.0.0.1&quot;</span><span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-11">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-11">함께 보기</h3>
 <p><a href="man-pages.html#inet_ntopman"><code>inet_ntop()</code></a>, <a href="man-pages.html#inet_ntopman"><code>inet_pton()</code></a>, <a href="man-pages.html#gethostbynameman"><code>gethostbyname()</code></a>, <a href="man-pages.html#gethostbynameman"><code>gethostbyaddr()</code></a></p>
 <hr />
 <h2 data-number="9.14" id="inet_ntopman"><span class="header-section-number">9.14</span> <code>inet_ntop()</code>, <code>inet_pton()</code></h2>
 <p> </p>
-<p>Convert IP addresses to human-readable form and back.</p>
-<h3 class="unnumbered unlisted" id="synopsis-13">Synopsis</h3>
+<p>IP 주소를 사람이 읽을 수 있는 형식으로 바꾸고, 다시 되돌린다.</p>
+<h3 class="unnumbered unlisted" id="synopsis-13">형식</h3>
 <div class="sourceCode" id="cb110"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb110-1"><a href="man-pages.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;arpa/inet.h&gt;</span></span>
 <span id="cb110-2"><a href="man-pages.html#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb110-3"><a href="man-pages.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>inet_ntop<span class="op">(</span><span class="dt">int</span> af<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>src<span class="op">,</span></span>
 <span id="cb110-4"><a href="man-pages.html#cb110-4" aria-hidden="true" tabindex="-1"></a>                      <span class="dt">char</span> <span class="op">*</span>dst<span class="op">,</span> socklen_t size<span class="op">);</span></span>
 <span id="cb110-5"><a href="man-pages.html#cb110-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb110-6"><a href="man-pages.html#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> inet_pton<span class="op">(</span><span class="dt">int</span> af<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>src<span class="op">,</span> <span class="dt">void</span> <span class="op">*</span>dst<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-13">Description</h3>
-<p>These functions are for dealing with human-readable IP addresses and converting them to their binary representation for use with various functions and system calls. The “n” stands for “network”, and “p” for “presentation”. Or “text presentation”. But you can think of it as “printable”. “ntop” is “network to printable”. See?</p>
-<p>Sometimes you don’t want to look at a pile of binary numbers when looking at an IP address. You want it in a nice printable form, like <code>192.0.2.180</code>, or <code>2001:db8:8714:3a90::12</code>. In that case, <code>inet_ntop()</code> is for you.</p>
-<p><code>inet_ntop()</code> takes the address family in the <code>af</code> parameter (either <code>AF_INET</code> or <code>AF_INET6</code>). The <code>src</code> parameter should be a pointer to either a <code>struct in_addr</code> or <code>struct in6_addr</code> containing the address you wish to convert to a string. Finally <code>dst</code> and <code>size</code> are the pointer to the destination string and the maximum length of that string.</p>
-<p>What should the maximum length of the <code>dst</code> string be? What is the maximum length for IPv4 and IPv6 addresses? Fortunately there are a couple of macros to help you out. The maximum lengths are: <code>INET_ADDRSTRLEN</code> and <code>INET6_ADDRSTRLEN</code>.</p>
-<p>Other times, you might have a string containing an IP address in readable form, and you want to pack it into a <code>struct sockaddr_in</code> or a <code>struct sockaddr_in6</code>. In that case, the opposite function <code>inet_pton()</code> is what you’re after.</p>
-<p><code>inet_pton()</code> also takes an address family (either <code>AF_INET</code> or <code>AF_INET6</code>) in the <code>af</code> parameter. The <code>src</code> parameter is a pointer to a string containing the IP address in printable form. Lastly the <code>dst</code> parameter points to where the result should be stored, which is probably a <code>struct in_addr</code> or <code>struct in6_addr</code>.</p>
-<p>These functions don’t do DNS lookups—you’ll need <code>getaddrinfo()</code> for that.</p>
-<h3 class="unnumbered unlisted" id="return-value-13">Return Value</h3>
-<p><code>inet_ntop()</code> returns the <code>dst</code> parameter on success, or <code>NULL</code> on failure (and <code>errno</code> is set).</p>
-<p><code>inet_pton()</code> returns <code>1</code> on success. It returns <code>-1</code> if there was an error (<code>errno</code> is set), or <code>0</code> if the input isn’t a valid IP address.</p>
-<h3 class="unnumbered unlisted" id="example-13">Example</h3>
+<h3 class="unnumbered unlisted" id="description-13">설명</h3>
+<p>이 함수들은 사람이 읽을 수 있는 IP 주소를 다루고, 이를 다양한 함수와 시스템 호출에서 사용할 수 있는 바이너리 표현으로 바꾸는 데 쓰입니다. “n”은 “network”, “p”는 “presentation” 또는 “text presentation”을 뜻합니다. 그냥 “printable”이라고 생각해도 됩니다. “ntop”은 “network to printable”입니다. 보이시죠?</p>
+<p>IP 주소를 볼 때 바이너리 숫자 덩어리를 보고 싶지 않을 때가 있습니다. <code>192.0.2.180</code>이나 <code>2001:db8:8714:3a90::12</code>처럼 보기 좋은 문자열이 필요하죠. 그런 경우 <code>inet_ntop()</code>이 딱입니다.</p>
+<p><code>inet_ntop()</code>은 <code>af</code> 파라미터로 주소 계열(<code>AF_INET</code> 또는 <code>AF_INET6</code>)을 받습니다. <code>src</code> 파라미터는 문자열로 바꾸고 싶은 주소가 들어 있는 <code>struct in_addr</code> 또는 <code>struct in6_addr</code> 포인터여야 합니다. 마지막으로 <code>dst</code>와 <code>size</code>는 목적지 문자열 포인터와 그 문자열의 최대 길이입니다.</p>
+<p><code>dst</code> 문자열의 최대 길이는 얼마로 잡아야 할까요? IPv4와 IPv6 주소의 최대 길이는 얼마일까요? 다행히 이를 도와주는 매크로가 몇 개 있습니다. 최대 길이는 각각 <code>INET_ADDRSTRLEN</code>과 <code>INET6_ADDRSTRLEN</code>입니다.</p>
+<p>반대로, 사람이 읽을 수 있는 IP 주소 문자열을 가지고 이를 <code>struct sockaddr_in</code>이나 <code>struct sockaddr_in6</code>에 채워 넣고 싶을 수도 있습니다. 그럴 때는 반대 함수인 <code>inet_pton()</code>을 사용합니다.</p>
+<p><code>inet_pton()</code> 역시 <code>af</code> 파라미터로 주소 계열(<code>AF_INET</code> 또는 <code>AF_INET6</code>)을 받습니다. <code>src</code>는 출력 가능한 형태의 IP 주소 문자열을 가리키는 포인터입니다. 마지막 <code>dst</code>는 결과를 저장할 위치를 가리키며, 보통 <code>struct in_addr</code> 또는 <code>struct in6_addr</code>일 것입니다.</p>
+<p>이 함수들은 DNS 조회는 하지 않습니다. 그건 <code>getaddrinfo()</code>가 필요합니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-13">반환값</h3>
+<p><code>inet_ntop()</code>은 성공하면 <code>dst</code> 파라미터를 반환하고, 실패하면 <code>NULL</code>을 반환합니다. 이때 <code>errno</code>가 설정됩니다.</p>
+<p><code>inet_pton()</code>은 성공하면 <code>1</code>을 반환합니다. 오류가 나면 <code>-1</code>을 반환하며(<code>errno</code> 설정), 입력이 유효한 IP 주소가 아니면 <code>0</code>을 반환합니다.</p>
+<h3 class="unnumbered unlisted" id="example-13">예제</h3>
 <div class="sourceCode" id="cb111"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb111-1"><a href="man-pages.html#cb111-1"></a><span class="co">// IPv4 demo of inet_ntop() and inet_pton()</span></span>
 <span id="cb111-2"><a href="man-pages.html#cb111-2"></a></span>
 <span id="cb111-3"><a href="man-pages.html#cb111-3"></a><span class="kw">struct</span> sockaddr_in sa<span class="op">;</span></span>
@@ -1792,23 +1792,23 @@
 <span id="cb113-24"><a href="man-pages.html#cb113-24"></a></span>
 <span id="cb113-25"><a href="man-pages.html#cb113-25"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
 <span id="cb113-26"><a href="man-pages.html#cb113-26"></a><span class="op">}</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-12">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-12">함께 보기</h3>
 <p><a href="man-pages.html#getaddrinfoman"><code>getaddrinfo()</code></a></p>
 <hr />
 <h2 data-number="9.15" id="listenman"><span class="header-section-number">9.15</span> <code>listen()</code></h2>
 <p></p>
-<p>Tell a socket to listen for incoming connections</p>
-<h3 class="unnumbered unlisted" id="synopsis-14">Synopsis</h3>
+<p>소켓이 들어오는 연결을 기다리도록 만든다</p>
+<h3 class="unnumbered unlisted" id="synopsis-14">형식</h3>
 <div class="sourceCode" id="cb114"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb114-1"><a href="man-pages.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb114-2"><a href="man-pages.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb114-3"><a href="man-pages.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> listen<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="dt">int</span> backlog<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-14">Description</h3>
-<p>You can take your socket descriptor (made with the <code>socket()</code> system call) and tell it to listen for incoming connections. This is what differentiates the servers from the clients, guys.</p>
-<p>The <code>backlog</code> parameter can mean a couple different things depending on the system you on, but loosely it is how many pending connections you can have before the kernel starts rejecting new ones. So as the new connections come in, you should be quick to <code>accept()</code> them so that the backlog doesn’t fill. Try setting it to 10 or so, and if your clients start getting “Connection refused” under heavy load, set it higher.</p>
-<p>Before calling <code>listen()</code>, your server should call <code>bind()</code> to attach itself to a specific port number. That port number (on the server’s IP address) will be the one that clients connect to.</p>
-<h3 class="unnumbered unlisted" id="return-value-14">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-14">Example</h3>
+<h3 class="unnumbered unlisted" id="description-14">설명</h3>
+<p><code>socket()</code> 시스템 호출로 만든 소켓 디스크립터를 가져다가, 들어오는 연결을 기다리도록 설정할 수 있습니다. 바로 이 점이 서버와 클라이언트를 갈라놓는 요소입니다.</p>
+<p><code>backlog</code> 파라미터는 시스템에 따라 조금씩 의미가 다르지만, 대체로 커널이 새 연결을 거부하기 전에 대기시켜 둘 수 있는 보류 연결 수를 뜻합니다. 따라서 새 연결이 들어오면 backlog가 꽉 차지 않도록 재빨리 <code>accept()</code>해야 합니다. 일단 10 정도로 두고, 부하가 높을 때 클라이언트가 “Connection refused”를 받기 시작하면 더 크게 올려 보세요.</p>
+<p><code>listen()</code>을 호출하기 전에 서버는 특정 포트 번호에 자신을 연결하기 위해 <code>bind()</code>를 호출해야 합니다. 클라이언트는 서버 IP 주소의 그 포트 번호로 연결합니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-14">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-14">예제</h3>
 <div class="sourceCode" id="cb115"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb115-1"><a href="man-pages.html#cb115-1"></a><span class="kw">struct</span> addrinfo hints<span class="op">,</span> <span class="op">*</span>res<span class="op">;</span></span>
 <span id="cb115-2"><a href="man-pages.html#cb115-2"></a><span class="dt">int</span> sockfd<span class="op">;</span></span>
 <span id="cb115-3"><a href="man-pages.html#cb115-3"></a></span>
@@ -1833,26 +1833,26 @@
 <span id="cb115-22"><a href="man-pages.html#cb115-22"></a>listen<span class="op">(</span>sockfd<span class="op">,</span> <span class="dv">10</span><span class="op">);</span> <span class="co">// set sockfd up to be a server socket</span></span>
 <span id="cb115-23"><a href="man-pages.html#cb115-23"></a></span>
 <span id="cb115-24"><a href="man-pages.html#cb115-24"></a><span class="co">// then have an accept() loop down here somewhere</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-13">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-13">함께 보기</h3>
 <p><a href="man-pages.html#acceptman"><code>accept()</code></a>, <a href="man-pages.html#bindman"><code>bind()</code></a>, <a href="man-pages.html#socketman"><code>socket()</code></a></p>
 <hr />
 <h2 data-number="9.16" id="perrorman"><span class="header-section-number">9.16</span> <code>perror()</code>, <code>strerror()</code></h2>
 <p> </p>
-<p>Print an error as a human-readable string</p>
-<h3 class="unnumbered unlisted" id="synopsis-15">Synopsis</h3>
+<p>오류를 사람이 읽을 수 있는 문자열로 출력한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-15">형식</h3>
 <div class="sourceCode" id="cb116"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb116-1"><a href="man-pages.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb116-2"><a href="man-pages.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span><span class="pp">   </span><span class="co">// for strerror()</span></span>
 <span id="cb116-3"><a href="man-pages.html#cb116-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb116-4"><a href="man-pages.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> perror<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">);</span></span>
 <span id="cb116-5"><a href="man-pages.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> <span class="op">*</span>strerror<span class="op">(</span><span class="dt">int</span> errnum<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-15">Description</h3>
-<p>Since so many functions return <code>-1</code> on error and set the value of the variable <code>errno</code> to be some number, it would sure be nice if you could easily print that in a form that made sense to you.</p>
-<p>Mercifully, <code>perror()</code> does that. If you want more description to be printed before the error, you can point the parameter <code>s</code> to it (or you can leave <code>s</code> as <code>NULL</code> and nothing additional will be printed).</p>
-<p>In a nutshell, this function takes <code>errno</code> values, like <code>ECONNRESET</code>, and prints them nicely, like “Connection reset by peer.”</p>
-<p>The function <code>strerror()</code> is very similar to <code>perror()</code>, except it returns a pointer to the error message string for a given value (you usually pass in the variable <code>errno</code>).</p>
-<h3 class="unnumbered unlisted" id="return-value-15">Return Value</h3>
-<p><code>strerror()</code> returns a pointer to the error message string.</p>
-<h3 class="unnumbered unlisted" id="example-15">Example</h3>
+<h3 class="unnumbered unlisted" id="description-15">설명</h3>
+<p>워낙 많은 함수가 오류 시 <code>-1</code>을 반환하고 <code>errno</code> 변수에 어떤 숫자를 넣어 두기 때문에, 그 값을 사람이 이해할 수 있는 형태로 쉽게 출력할 수 있으면 참 좋겠죠.</p>
+<p>다행히 <code>perror()</code>가 그 일을 해 줍니다. 오류 메시지 앞에 추가 설명을 붙이고 싶다면 <code>s</code> 파라미터가 그 문자열을 가리키게 하면 됩니다. (<code>s</code>를 <code>NULL</code>로 두면 아무 추가 문구도 출력되지 않습니다.)</p>
+<p>한마디로 이 함수는 <code>ECONNRESET</code> 같은 <code>errno</code> 값을 받아 “Connection reset by peer.”처럼 보기 좋게 출력합니다.</p>
+<p><code>strerror()</code>는 <code>perror()</code>와 매우 비슷하지만, 주어진 값(보통 <code>errno</code>)에 대한 에러 메시지 문자열 포인터를 반환한다는 점이 다릅니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-15">반환값</h3>
+<p><code>strerror()</code>는 에러 메시지 문자열에 대한 포인터를 반환합니다.</p>
+<h3 class="unnumbered unlisted" id="example-15">예제</h3>
 <div class="sourceCode" id="cb117"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb117-1"><a href="man-pages.html#cb117-1"></a><span class="dt">int</span> s<span class="op">;</span></span>
 <span id="cb117-2"><a href="man-pages.html#cb117-2"></a></span>
 <span id="cb117-3"><a href="man-pages.html#cb117-3"></a>s <span class="op">=</span> socket<span class="op">(</span>PF_INET<span class="op">,</span> SOCK_STREAM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
@@ -1867,27 +1867,27 @@
 <span id="cb117-12"><a href="man-pages.html#cb117-12"></a>    <span class="co">// this prints &quot;an error: &quot; + the error message from errno:</span></span>
 <span id="cb117-13"><a href="man-pages.html#cb117-13"></a>    printf<span class="op">(</span><span class="st">&quot;an error: </span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> strerror<span class="op">(</span>errno<span class="op">));</span></span>
 <span id="cb117-14"><a href="man-pages.html#cb117-14"></a><span class="op">}</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-14">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-14">함께 보기</h3>
 <p><a href="man-pages.html#errnoman"><code>errno</code></a></p>
 <hr />
 <h2 data-number="9.17" id="pollman"><span class="header-section-number">9.17</span> <code>poll()</code></h2>
 <p></p>
-<p>Test for events on multiple sockets simultaneously</p>
-<h3 class="unnumbered unlisted" id="synopsis-16">Synopsis</h3>
+<p>여러 소켓에서 발생한 이벤트를 동시에 검사한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-16">형식</h3>
 <div class="sourceCode" id="cb118"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb118-1"><a href="man-pages.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/poll.h&gt;</span></span>
 <span id="cb118-2"><a href="man-pages.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb118-3"><a href="man-pages.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> poll<span class="op">(</span><span class="kw">struct</span> pollfd <span class="op">*</span>ufds<span class="op">,</span> <span class="dt">unsigned</span> <span class="dt">int</span> nfds<span class="op">,</span> <span class="dt">int</span> timeout<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-16">Description</h3>
-<p>This function is very similar to <code>select()</code> in that they both watch sets of file descriptors for events, such as incoming data ready to <code>recv()</code>, socket ready to <code>send()</code> data to, out-of-band data ready to <code>recv()</code>, errors, etc.</p>
-<p>The basic idea is that you pass an array of <code>nfds</code> <code>struct pollfd</code>s in <code>ufds</code>, along with a timeout in milliseconds (1000 milliseconds in a second). The <code>timeout</code> can be negative if you want to wait forever. If no event happens on any of the socket descriptors by the timeout, <code>poll()</code> will return.</p>
-<p>Each element in the array of <code>struct pollfd</code>s represents one socket descriptor, and contains the following fields:</p>
+<h3 class="unnumbered unlisted" id="description-16">설명</h3>
+<p>이 함수는 여러 파일 디스크립터 집합을 감시해 이벤트를 본다는 점에서 <code>select()</code>와 매우 비슷합니다. 예를 들어 <code>recv()</code>할 준비가 된 데이터, <code>send()</code> 가능한 소켓, <code>recv()</code>할 준비가 된 out-of-band 데이터, 오류 등을 감시할 수 있습니다.</p>
+<p>기본 아이디어는 <code>ufds</code>에 <code>nfds</code>개의 <code>struct pollfd</code> 배열을 넘기고, 밀리초 단위의 타임아웃도 함께 넘기는 것입니다. (1초는 1000밀리초입니다.) 영원히 기다리고 싶다면 <code>timeout</code>에 음수를 넣을 수 있습니다. 타임아웃 시점까지 어느 소켓 디스크립터에서도 이벤트가 일어나지 않으면 <code>poll()</code>이 반환합니다.</p>
+<p><code>struct pollfd</code> 배열의 각 원소는 하나의 소켓 디스크립터를 나타내며, 다음 필드를 가집니다.</p>
 <p></p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb119-1"><a href="man-pages.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> pollfd <span class="op">{</span></span>
 <span id="cb119-2"><a href="man-pages.html#cb119-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> fd<span class="op">;</span>         <span class="co">// the socket descriptor</span></span>
 <span id="cb119-3"><a href="man-pages.html#cb119-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">short</span> events<span class="op">;</span>   <span class="co">// bitmap of events we&#39;re interested in</span></span>
 <span id="cb119-4"><a href="man-pages.html#cb119-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">short</span> revents<span class="op">;</span>  <span class="co">// after return, bitmap of events that occurred</span></span>
 <span id="cb119-5"><a href="man-pages.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<p>Before calling <code>poll()</code>, load <code>fd</code> with the socket descriptor (if you set <code>fd</code> to a negative number, this <code>struct pollfd</code> is ignored and its <code>revents</code> field is set to zero) and then construct the <code>events</code> field by bitwise-ORing the following macros:</p>
+<p><code>poll()</code>을 호출하기 전에 <code>fd</code>에 소켓 디스크립터를 넣습니다. (<code>fd</code>를 음수로 설정하면 해당 <code>struct pollfd</code>는 무시되고, <code>revents</code> 필드는 0으로 설정됩니다.) 그리고 아래 매크로를 비트 OR 하여 <code>events</code> 필드를 구성합니다.</p>
 <table>
 <colgroup>
 <col style="width: 15%" />
@@ -1895,26 +1895,26 @@
 </colgroup>
 <thead>
 <tr>
-<th>Macro</th>
-<th>Description</th>
+<th>매크로</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>POLLIN</code></td>
-<td>Alert me when data is ready to <code>recv()</code> on this socket.</td>
+<td>이 소켓에서 <code>recv()</code>할 데이터가 준비되면 알려 줍니다.</td>
 </tr>
 <tr>
 <td><code>POLLOUT</code></td>
-<td>Alert me when I can <code>send()</code> data to this socket without blocking.</td>
+<td>이 소켓에 블록 없이 <code>send()</code>할 수 있게 되면 알려 줍니다.</td>
 </tr>
 <tr>
 <td><code>POLLPRI</code></td>
-<td>Alert me when out-of-band data is ready to <code>recv()</code> on this socket.</td>
+<td>이 소켓에서 out-of-band 데이터를 <code>recv()</code>할 수 있게 되면 알려 줍니다.</td>
 </tr>
 </tbody>
 </table>
-<p>Once the <code>poll()</code> call returns, the <code>revents</code> field will be constructed as a bitwise-OR of the above fields, telling you which descriptors actually have had that event occur. Additionally, these other fields might be present:</p>
+<p><code>poll()</code> 호출이 반환되고 나면 <code>revents</code> 필드가 위 필드들의 비트 OR 형태로 채워져, 어떤 디스크립터에서 실제로 어떤 이벤트가 일어났는지 알려 줍니다. 추가로 다음 필드들도 나타날 수 있습니다.</p>
 <table>
 <colgroup>
 <col style="width: 16%" />
@@ -1922,28 +1922,28 @@
 </colgroup>
 <thead>
 <tr>
-<th>Macro</th>
-<th>Description</th>
+<th>매크로</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>POLLERR</code></td>
-<td>An error has occurred on this socket.</td>
+<td>이 소켓에서 오류가 발생했습니다.</td>
 </tr>
 <tr>
 <td><code>POLLHUP</code></td>
-<td>The remote side of the connection hung up.</td>
+<td>연결 반대편이 연결을 끊었습니다.</td>
 </tr>
 <tr>
 <td><code>POLLNVAL</code></td>
-<td>Something was wrong with the socket descriptor <code>fd</code>—maybe it’s uninitialized?</td>
+<td>소켓 디스크립터 <code>fd</code>에 뭔가 문제가 있습니다. 초기화되지 않았을 수도 있습니다.</td>
 </tr>
 </tbody>
 </table>
-<h3 class="unnumbered unlisted" id="return-value-16">Return Value</h3>
-<p>Returns the number of elements in the <code>ufds</code> array that have had event occur on them; this can be zero if the timeout occurred. Also returns <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-16">Example</h3>
+<h3 class="unnumbered unlisted" id="return-value-16">반환값</h3>
+<p>이벤트가 발생한 <code>ufds</code> 배열 원소 수를 반환합니다. 타임아웃이 발생한 경우 이 값은 0일 수 있습니다. 오류 시에는 <code>-1</code>을 반환하며, <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-16">예제</h3>
 <div class="sourceCode" id="cb120"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb120-1"><a href="man-pages.html#cb120-1"></a><span class="dt">int</span> s1<span class="op">,</span> s2<span class="op">;</span></span>
 <span id="cb120-2"><a href="man-pages.html#cb120-2"></a><span class="dt">int</span> rv<span class="op">;</span></span>
 <span id="cb120-3"><a href="man-pages.html#cb120-3"></a><span class="dt">char</span> buf1<span class="op">[</span><span class="dv">256</span><span class="op">],</span> buf2<span class="op">[</span><span class="dv">256</span><span class="op">];</span></span>
@@ -1988,24 +1988,24 @@
 <span id="cb120-42"><a href="man-pages.html#cb120-42"></a>        recv<span class="op">(</span>s1<span class="op">,</span> buf2<span class="op">,</span> <span class="kw">sizeof</span> buf2<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb120-43"><a href="man-pages.html#cb120-43"></a>    <span class="op">}</span></span>
 <span id="cb120-44"><a href="man-pages.html#cb120-44"></a><span class="op">}</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-15">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-15">함께 보기</h3>
 <p><a href="man-pages.html#selectman"><code>select()</code></a></p>
 <hr />
 <h2 data-number="9.18" id="recvman"><span class="header-section-number">9.18</span> <code>recv()</code>, <code>recvfrom()</code></h2>
 <p> </p>
-<p>Receive data on a socket</p>
-<h3 class="unnumbered unlisted" id="synopsis-17">Synopsis</h3>
+<p>소켓에서 데이터를 받는다</p>
+<h3 class="unnumbered unlisted" id="synopsis-17">형식</h3>
 <div class="sourceCode" id="cb121"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb121-1"><a href="man-pages.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb121-2"><a href="man-pages.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb121-3"><a href="man-pages.html#cb121-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb121-4"><a href="man-pages.html#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="dt">ssize_t</span> recv<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="dt">void</span> <span class="op">*</span>buf<span class="op">,</span> <span class="dt">size_t</span> len<span class="op">,</span> <span class="dt">int</span> flags<span class="op">);</span></span>
 <span id="cb121-5"><a href="man-pages.html#cb121-5" aria-hidden="true" tabindex="-1"></a><span class="dt">ssize_t</span> recvfrom<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="dt">void</span> <span class="op">*</span>buf<span class="op">,</span> <span class="dt">size_t</span> len<span class="op">,</span> <span class="dt">int</span> flags<span class="op">,</span></span>
 <span id="cb121-6"><a href="man-pages.html#cb121-6" aria-hidden="true" tabindex="-1"></a>                 <span class="kw">struct</span> sockaddr <span class="op">*</span>from<span class="op">,</span> socklen_t <span class="op">*</span>fromlen<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-17">Description</h3>
-<p>Once you have a socket up and connected, you can read incoming data from the remote side using the <code>recv()</code> (for TCP <code>SOCK_STREAM</code> sockets) and <code>recvfrom()</code> (for UDP <code>SOCK_DGRAM</code> sockets).</p>
-<p>Both functions take the socket descriptor <code>s</code>, a pointer to the buffer <code>buf</code>, the size (in bytes) of the buffer <code>len</code>, and a set of <code>flags</code> that control how the functions work.</p>
-<p>Additionally, the <code>recvfrom()</code> takes a <code>struct sockaddr*</code>, <code>from</code> that will tell you where the data came from, and will fill in <code>fromlen</code> with the size of <code>struct sockaddr</code>. (You must also initialize <code>fromlen</code> to be the size of <code>from</code> or <code>struct sockaddr</code>.)</p>
-<p>So what wondrous flags can you pass into this function? Here are some of them, but you should check your local man pages for more information and what is actually supported on your system. You bitwise-or these together, or just set <code>flags</code> to <code>0</code> if you want it to be a regular vanilla <code>recv()</code>.</p>
+<h3 class="unnumbered unlisted" id="description-17">설명</h3>
+<p>소켓을 만들고 연결까지 마쳤다면, 원격 측에서 들어오는 데이터를 <code>recv()</code>(TCP <code>SOCK_STREAM</code> 소켓용) 또는 <code>recvfrom()</code>(UDP <code>SOCK_DGRAM</code> 소켓용)으로 읽을 수 있습니다.</p>
+<p>두 함수 모두 소켓 디스크립터 <code>s</code>, 버퍼 포인터 <code>buf</code>, 버퍼 크기(바이트 단위) <code>len</code>, 그리고 함수 동작을 제어하는 <code>flags</code> 집합을 받습니다.</p>
+<p>추가로 <code>recvfrom()</code>은 데이터가 어디서 왔는지를 알려 줄 <code>struct sockaddr*</code>인 <code>from</code>을 받으며, <code>fromlen</code>에는 <code>struct sockaddr</code>의 크기를 채웁니다. (호출 전에 <code>fromlen</code>도 <code>from</code> 또는 <code>struct sockaddr</code>의 크기로 초기화해야 합니다.)</p>
+<p>그럼 이 함수에 어떤 멋진 플래그를 넘길 수 있을까요? 여기 몇 가지만 소개하지만, 더 많은 정보와 실제 시스템 지원 여부는 로컬 man 페이지를 확인하세요. 플래그들은 비트 OR 해서 함께 쓸 수 있고, 평범한 기본 <code>recv()</code>가 필요하다면 <code>flags</code>를 그냥 <code>0</code>으로 두면 됩니다.</p>
 <table>
 <colgroup>
 <col style="width: 20%" />
@@ -2013,30 +2013,30 @@
 </colgroup>
 <thead>
 <tr>
-<th>Macro</th>
-<th>Description</th>
+<th>매크로</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>MSG_OOB</code></td>
-<td>Receive Out of Band data. This is how to get data that has been sent to you with the <code>MSG_OOB</code> flag in <code>send()</code>. As the receiving side, you will have had signal <code>SIGURG</code> raised telling you there is urgent data. In your handler for that signal, you could call <code>recv()</code> with this <code>MSG_OOB</code> flag.</td>
+<td>Out of Band 데이터를 받습니다. <code>send()</code>에서 <code>MSG_OOB</code> 플래그를 붙여 보낸 데이터를 이렇게 받을 수 있습니다. 수신 측에서는 긴급 데이터가 있다는 뜻으로 <code>SIGURG</code> 시그널을 받게 되고, 그 시그널 핸들러 안에서 이 <code>MSG_OOB</code> 플래그와 함께 <code>recv()</code>를 호출할 수 있습니다.</td>
 </tr>
 <tr>
 <td><code>MSG_PEEK</code></td>
-<td>If you want to call <code>recv()</code> “just for pretend”, you can call it with this flag. This will tell you what’s waiting in the buffer for when you call <code>recv()</code> “for real” (i.e. <em>without</em> the <code>MSG_PEEK</code> flag.) It’s like a sneak preview into the next <code>recv()</code> call.</td>
+<td><code>recv()</code>를 “살짝 보기만” 하고 싶다면 이 플래그를 사용합니다. 그러면 나중에 진짜 <code>recv()</code>(즉 <code>MSG_PEEK</code> 없이 호출하는 경우)를 했을 때 버퍼에 무엇이 기다리고 있는지 알 수 있습니다. 다음 <code>recv()</code> 호출을 미리 엿보는 것과 비슷합니다.</td>
 </tr>
 <tr>
 <td><code>MSG_WAITALL</code></td>
-<td>Tell <code>recv()</code> to not return until all the data you specified in the <code>len</code> parameter has been received. It will ignore your wishes in extreme circumstances, however, like if a signal interrupts the call or if some error occurs or if the remote side closes the connection, etc. Don’t be mad with it.</td>
+<td><code>len</code> 파라미터로 지정한 데이터를 전부 받을 때까지 <code>recv()</code>가 반환하지 않게 합니다. 다만 시그널로 호출이 끊기거나 오류가 나거나 원격 측이 연결을 닫는 극단적인 상황에서는 여러분의 뜻을 무시할 수도 있습니다. 너무 화내지는 마세요.</td>
 </tr>
 </tbody>
 </table>
-<p>When you call <code>recv()</code>, it will block until there is some data to read. If you want to not block, set the socket to non-blocking or check with <code>select()</code> or <code>poll()</code> to see if there is incoming data before calling <code>recv()</code> or <code>recvfrom()</code>.</p>
-<h3 class="unnumbered unlisted" id="return-value-17">Return Value</h3>
-<p>Returns the number of bytes actually received (which might be less than you requested in the <code>len</code> parameter), or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<p>If the remote side has closed the connection, <code>recv()</code> will return <code>0</code>. This is the normal method for determining if the remote side has closed the connection. Normality is good, rebel!</p>
-<h3 class="unnumbered unlisted" id="example-17">Example</h3>
+<p><code>recv()</code>를 호출하면 읽을 데이터가 생길 때까지 블록됩니다. 블록되지 않게 하려면 소켓을 논블로킹으로 설정하거나, <code>recv()</code> 또는 <code>recvfrom()</code>를 호출하기 전에 <code>select()</code>나 <code>poll()</code>로 들어오는 데이터가 있는지 확인하세요.</p>
+<h3 class="unnumbered unlisted" id="return-value-17">반환값</h3>
+<p>실제로 받은 바이트 수를 반환합니다. 이 값은 <code>len</code> 파라미터에서 요청한 수보다 적을 수도 있습니다. 오류 시에는 <code>-1</code>을 반환하며, <code>errno</code>가 알맞게 설정됩니다.</p>
+<p>원격 측이 연결을 닫았다면 <code>recv()</code>는 <code>0</code>을 반환합니다. 이것이 원격 측이 연결을 닫았는지 판별하는 정상적인 방법입니다. 정상적인 게 좋죠, 반항아 여러분!</p>
+<h3 class="unnumbered unlisted" id="example-17">예제</h3>
 <div class="sourceCode" id="cb122"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb122-1"><a href="man-pages.html#cb122-1"></a><span class="co">// stream sockets and recv()</span></span>
 <span id="cb122-2"><a href="man-pages.html#cb122-2"></a></span>
 <span id="cb122-3"><a href="man-pages.html#cb122-3"></a><span class="kw">struct</span> addrinfo hints<span class="op">,</span> <span class="op">*</span>res<span class="op">;</span></span>
@@ -2086,13 +2086,13 @@
 <span id="cb123-29"><a href="man-pages.html#cb123-29"></a>            <span class="op">((</span><span class="kw">struct</span> sockaddr_in <span class="op">*)&amp;</span>addr<span class="op">)-&gt;</span>sin_addr<span class="op">:</span></span>
 <span id="cb123-30"><a href="man-pages.html#cb123-30"></a>            <span class="op">((</span><span class="kw">struct</span> sockaddr_in6 <span class="op">*)&amp;</span>addr<span class="op">)-&gt;</span>sin6_addr<span class="op">,</span></span>
 <span id="cb123-31"><a href="man-pages.html#cb123-31"></a>        ipstr<span class="op">,</span> <span class="kw">sizeof</span> ipstr<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-16">See Also</h3>
-<p><a href="man-pages.html#sendman"><code>send()</code></a>, <a href="man-pages.html#sendman"><code>sendto()</code></a>, <a href="man-pages.html#selectman"><code>select()</code></a>, <a href="man-pages.html#pollman"><code>poll()</code></a>, <a href="slightly-advanced-techniques.html#blocking">Blocking</a></p>
+<h3 class="unnumbered unlisted" id="see-also-16">함께 보기</h3>
+<p><a href="man-pages.html#sendman"><code>send()</code></a>, <a href="man-pages.html#sendman"><code>sendto()</code></a>, <a href="man-pages.html#selectman"><code>select()</code></a>, <a href="man-pages.html#pollman"><code>poll()</code></a>, <a href="slightly-advanced-techniques.html#blocking">블로킹</a></p>
 <hr />
 <h2 data-number="9.19" id="selectman"><span class="header-section-number">9.19</span> <code>select()</code></h2>
 <p></p>
-<p>Check if sockets descriptors are ready to read/write</p>
-<h3 class="unnumbered unlisted" id="synopsis-18">Synopsis</h3>
+<p>소켓 디스크립터가 읽기/쓰기를 할 준비가 되었는지 확인한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-18">형식</h3>
 <div class="sourceCode" id="cb124"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb124-1"><a href="man-pages.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/select.h&gt;</span></span>
 <span id="cb124-2"><a href="man-pages.html#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb124-3"><a href="man-pages.html#cb124-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> select<span class="op">(</span><span class="dt">int</span> n<span class="op">,</span> fd_set <span class="op">*</span>readfds<span class="op">,</span> fd_set <span class="op">*</span>writefds<span class="op">,</span></span>
@@ -2102,12 +2102,12 @@
 <span id="cb124-7"><a href="man-pages.html#cb124-7" aria-hidden="true" tabindex="-1"></a>FD_CLR<span class="op">(</span><span class="dt">int</span> fd<span class="op">,</span> fd_set <span class="op">*</span>set<span class="op">);</span></span>
 <span id="cb124-8"><a href="man-pages.html#cb124-8" aria-hidden="true" tabindex="-1"></a>FD_ISSET<span class="op">(</span><span class="dt">int</span> fd<span class="op">,</span> fd_set <span class="op">*</span>set<span class="op">);</span></span>
 <span id="cb124-9"><a href="man-pages.html#cb124-9" aria-hidden="true" tabindex="-1"></a>FD_ZERO<span class="op">(</span>fd_set <span class="op">*</span>set<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-18">Description</h3>
-<p>The <code>select()</code> function gives you a way to simultaneously check multiple sockets to see if they have data waiting to be <code>recv()</code>d, or if you can <code>send()</code> data to them without blocking, or if some exception has occurred.</p>
-<p>You populate your sets of socket descriptors using the macros, like <code>FD_SET()</code>, above. Once you have the set, you pass it into the function as one of the following parameters: <code>readfds</code> if you want to know when any of the sockets in the set is ready to <code>recv()</code> data, <code>writefds</code> if any of the sockets is ready to <code>send()</code> data to, and/or <code>exceptfds</code> if you need to know when an exception (error) occurs on any of the sockets. Any or all of these parameters can be <code>NULL</code> if you’re not interested in those types of events. After <code>select()</code> returns, the values in the sets will be changed to show which are ready for reading or writing, and which have exceptions.</p>
-<p>The first parameter, <code>n</code> is the highest-numbered socket descriptor (they’re just <code>int</code>s, remember?) plus one.</p>
-<p>Lastly, the <code>struct timeval</code>, <code>timeout</code>, at the end—this lets you tell <code>select()</code> how long to check these sets for. It’ll return after the timeout, or when an event occurs, whichever is first. The <code>struct timeval</code> has two fields: <code>tv_sec</code> is the number of seconds, to which is added <code>tv_usec</code>, the number of microseconds (1,000,000 microseconds in a second).</p>
-<p>The helper macros do the following:</p>
+<h3 class="unnumbered unlisted" id="description-18">설명</h3>
+<p><code>select()</code> 함수는 여러 소켓을 동시에 검사해, <code>recv()</code>할 데이터가 대기 중인지, 블록 없이 <code>send()</code>할 수 있는지, 혹은 어떤 예외 상황이 발생했는지를 알아볼 수 있게 해 줍니다.</p>
+<p>위의 <code>FD_SET()</code> 같은 매크로를 사용해 소켓 디스크립터 집합을 채웁니다. 집합이 준비되면 함수에 다음 파라미터 중 하나로 넘깁니다. 집합 안의 어떤 소켓이든 <code>recv()</code>할 준비가 되었는지 알고 싶다면 <code>readfds</code>, 어떤 소켓이든 <code>send()</code>할 준비가 되었는지 알고 싶다면 <code>writefds</code>, 그리고 어떤 소켓에서든 예외(오류)가 발생했는지 알고 싶다면 <code>exceptfds</code>를 사용합니다. 이 이벤트 타입에 관심이 없다면 각 파라미터는 <code>NULL</code>이어도 됩니다. <code>select()</code>가 반환한 뒤에는 집합의 값이 바뀌어서, 어떤 소켓이 읽기/쓰기를 할 준비가 되었고 어떤 소켓에서 예외가 났는지를 보여 줍니다.</p>
+<p>첫 번째 파라미터 <code>n</code>은 가장 큰 번호의 소켓 디스크립터에 1을 더한 값입니다. (소켓 디스크립터도 그냥 <code>int</code>라는 점을 기억하세요.)</p>
+<p>마지막의 <code>struct timeval</code>인 <code>timeout</code>은 <code>select()</code>가 이 집합들을 얼마 동안 검사할지를 정합니다. 타임아웃이 지나거나 이벤트가 발생하면, 둘 중 먼저 일어난 시점에 반환합니다. <code>struct timeval</code>에는 두 필드가 있습니다. <code>tv_sec</code>는 초 단위 시간이고, 여기에 마이크로초 단위의 <code>tv_usec</code>가 더해집니다. (1초는 1,000,000마이크로초입니다.)</p>
+<p>보조 매크로들은 다음과 같은 일을 합니다.</p>
 <table>
 <colgroup>
 <col style="width: 46%" />
@@ -2115,33 +2115,33 @@
 </colgroup>
 <thead>
 <tr>
-<th>Macro</th>
-<th>Description</th>
+<th>매크로</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>FD_SET(int fd, fd_set *set);</code></td>
-<td>Add <code>fd</code> to the <code>set</code>.</td>
+<td><code>fd</code>를 <code>set</code>에 추가합니다.</td>
 </tr>
 <tr>
 <td><code>FD_CLR(int fd, fd_set *set);</code></td>
-<td>Remove <code>fd</code> from the <code>set</code>.</td>
+<td><code>fd</code>를 <code>set</code>에서 제거합니다.</td>
 </tr>
 <tr>
 <td><code>FD_ISSET(int fd, fd_set *set);</code></td>
-<td>Return true if <code>fd</code> is in the <code>set</code>.</td>
+<td><code>fd</code>가 <code>set</code>에 들어 있으면 참을 반환합니다.</td>
 </tr>
 <tr>
 <td><code>FD_ZERO(fd_set *set);</code></td>
-<td>Clear all entries from the <code>set</code>.</td>
+<td><code>set</code>의 모든 항목을 비웁니다.</td>
 </tr>
 </tbody>
 </table>
-<p>Note for Linux users: Linux’s <code>select()</code> can return “ready-to-read” and then not actually be ready to read, thus causing the subsequent <code>read()</code> call to block. You can work around this bug by setting <code>O_NONBLOCK</code> flag on the receiving socket so it errors with <code>EWOULDBLOCK</code>, then ignoring this error if it occurs. See the <a href="man-pages.html#fcntlman"><code>fcntl()</code> man page</a> for more info on setting a socket to non-blocking.</p>
-<h3 class="unnumbered unlisted" id="return-value-18">Return Value</h3>
-<p>Returns the number of descriptors in the set on success, <code>0</code> if the timeout was reached, or <code>-1</code> on error (and <code>errno</code> will be set accordingly). Also, the sets are modified to show which sockets are ready.</p>
-<h3 class="unnumbered unlisted" id="example-18">Example</h3>
+<p>Linux 사용자에게 드리는 참고: Linux의 <code>select()</code>는 “읽을 준비가 됨”을 반환해 놓고도 실제로는 읽을 준비가 안 된 상태일 수 있고, 그 결과 이어지는 <code>read()</code> 호출이 블록될 수 있습니다. 이 버그는 수신 소켓에 <code>O_NONBLOCK</code> 플래그를 설정해 <code>EWOULDBLOCK</code> 오류가 나게 한 뒤, 그 오류가 발생하면 무시하는 방식으로 우회할 수 있습니다. 소켓을 논블로킹으로 설정하는 방법은 <a href="man-pages.html#fcntlman"><code>fcntl()</code> man 페이지</a>를 참고하세요.</p>
+<h3 class="unnumbered unlisted" id="return-value-18">반환값</h3>
+<p>성공하면 집합 안에서 준비된 디스크립터 수를 반환하고, 타임아웃이 발생하면 <code>0</code>을, 오류가 나면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다. 또한 집합 자체도 어떤 소켓이 준비되었는지를 나타내도록 수정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-18">예제</h3>
 <div class="sourceCode" id="cb125"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb125-1"><a href="man-pages.html#cb125-1"></a><span class="dt">int</span> s1<span class="op">,</span> s2<span class="op">,</span> n<span class="op">;</span></span>
 <span id="cb125-2"><a href="man-pages.html#cb125-2"></a>fd_set readfds<span class="op">;</span></span>
 <span id="cb125-3"><a href="man-pages.html#cb125-3"></a><span class="kw">struct</span> timeval tv<span class="op">;</span></span>
@@ -2183,13 +2183,13 @@
 <span id="cb125-39"><a href="man-pages.html#cb125-39"></a>        recv<span class="op">(</span>s2<span class="op">,</span> buf2<span class="op">,</span> <span class="kw">sizeof</span> buf2<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb125-40"><a href="man-pages.html#cb125-40"></a>    <span class="op">}</span></span>
 <span id="cb125-41"><a href="man-pages.html#cb125-41"></a><span class="op">}</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-17">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-17">함께 보기</h3>
 <p><a href="man-pages.html#pollman"><code>poll()</code></a></p>
 <hr />
 <h2 data-number="9.20" id="setsockoptman"><span class="header-section-number">9.20</span> <code>setsockopt()</code>, <code>getsockopt()</code></h2>
 <p> </p>
-<p>Set various options for a socket</p>
-<h3 class="unnumbered unlisted" id="synopsis-19">Synopsis</h3>
+<p>소켓의 여러 옵션을 설정한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-19">형식</h3>
 <div class="sourceCode" id="cb126"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb126-1"><a href="man-pages.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb126-2"><a href="man-pages.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb126-3"><a href="man-pages.html#cb126-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2197,10 +2197,10 @@
 <span id="cb126-5"><a href="man-pages.html#cb126-5" aria-hidden="true" tabindex="-1"></a>               socklen_t <span class="op">*</span>optlen<span class="op">);</span></span>
 <span id="cb126-6"><a href="man-pages.html#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> setsockopt<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="dt">int</span> level<span class="op">,</span> <span class="dt">int</span> optname<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>optval<span class="op">,</span></span>
 <span id="cb126-7"><a href="man-pages.html#cb126-7" aria-hidden="true" tabindex="-1"></a>               socklen_t optlen<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-19">Description</h3>
-<p>Sockets are fairly configurable beasts. In fact, they are so configurable, I’m not even going to cover it all here. It’s probably system-dependent anyway. But I will talk about the basics.</p>
-<p>Obviously, these functions get and set certain options on a socket. On a Linux box, all the socket information is in the man page for socket in section 7. (Type: “<code>man 7 socket</code>” to get all these goodies.)</p>
-<p>As for parameters, <code>s</code> is the socket you’re talking about, level should be set to <code>SOL_SOCKET</code>. Then you set the <code>optname</code> to the name you’re interested in. Again, see your man page for all the options, but here are some of the most fun ones:</p>
+<h3 class="unnumbered unlisted" id="description-19">설명</h3>
+<p>소켓은 꽤나 설정 가능한 녀석들입니다. 사실 너무 설정 가능한 나머지, 여기서 전부 다루지는 않겠습니다. 어차피 시스템 의존적인 부분도 많습니다. 대신 기본은 이야기하겠습니다.</p>
+<p>말 그대로 이 함수들은 소켓의 특정 옵션을 읽고 설정합니다. Linux에서는 소켓 관련 정보가 모두 섹션 7의 socket man 페이지에 있습니다. (“<code>man 7 socket</code>”를 입력해 온갖 좋은 내용을 볼 수 있습니다.)</p>
+<p>파라미터를 보면, <code>s</code>는 대상 소켓이고, <code>level</code>은 <code>SOL_SOCKET</code>으로 설정해야 합니다. 그리고 <code>optname</code>에 관심 있는 옵션 이름을 넣습니다. 모든 옵션은 역시 로컬 man 페이지를 봐야 하지만, 여기서는 그중 재미있는 것 몇 가지를 보겠습니다.</p>
 <table>
 <colgroup>
 <col style="width: 26%" />
@@ -2209,30 +2209,30 @@
 <thead>
 <tr>
 <th><code>optname</code></th>
-<th>Description</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>SO_BINDTODEVICE</code></td>
-<td>Bind this socket to a symbolic device name like <code>eth0</code> instead of using <code>bind()</code> to bind it to an IP address. Type the command <code>ifconfig</code> under Unix to see the device names.</td>
+<td><code>bind()</code>로 IP 주소에 묶는 대신, 이 소켓을 <code>eth0</code> 같은 심볼릭 장치 이름에 바인드합니다. 장치 이름은 유닉스에서 <code>ifconfig</code> 명령으로 볼 수 있습니다.</td>
 </tr>
 <tr>
 <td><code>SO_REUSEADDR</code></td>
-<td>Allows other sockets to <code>bind()</code> to this port, unless there is an active listening socket bound to the port already. This enables you to get around those “Address already in use” error messages when you try to restart your server after a crash.</td>
+<td>이미 그 포트에 활성 리스닝 소켓이 바인드되어 있지 않은 한, 다른 소켓도 이 포트에 <code>bind()</code>할 수 있게 합니다. 서버가 크래시한 뒤 재시작할 때 나오는 “Address already in use” 오류를 피하는 데 유용합니다.</td>
 </tr>
 <tr>
 <td><code>SO_BROADCAST</code></td>
-<td>Allows UDP datagram (<code>SOCK_DGRAM</code>) sockets to send and receive packets sent to and from the broadcast address. Does nothing—<em>NOTHING!!</em>—to TCP stream sockets! Hahaha!</td>
+<td>UDP 데이터그램(<code>SOCK_DGRAM</code>) 소켓이 브로드캐스트 주소로 보내고 받는 패킷을 다룰 수 있게 합니다. TCP 스트림 소켓에는 아무 일도 하지 않습니다. 정말로, <em>아무 일도요!!</em></td>
 </tr>
 </tbody>
 </table>
-<p>As for the parameter <code>optval</code>, it’s usually a pointer to an <code>int</code> indicating the value in question. For booleans, zero is false, and non-zero is true. And that’s an absolute fact, unless it’s different on your system. If there is no parameter to be passed, <code>optval</code> can be <code>NULL</code>.</p>
-<p>The final parameter, <code>optlen</code>, should be set to the length of <code>optval</code>, probably <code>sizeof(int)</code>, but varies depending on the option. Note that in the case of <code>getsockopt()</code>, this is a pointer to a <code>socklen_t</code>, and it specifies the maximum size object that will be stored in <code>optval</code> (to prevent buffer overflows). And <code>getsockopt()</code> will modify the value of <code>optlen</code> to reflect the number of bytes actually set.</p>
-<p><strong>Warning</strong>: on some systems (notably Sun and Windows), the option can be a <code>char</code> instead of an <code>int</code>, and is set to, for example, a character value of <code>'1'</code> instead of an <code>int</code> value of <code>1</code>. Again, check your own man pages for more info with “<code>man setsockopt</code>” and “<code>man 7 socket</code>”!</p>
-<h3 class="unnumbered unlisted" id="return-value-19">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-19">Example</h3>
+<p><code>optval</code> 파라미터는 보통 해당 값을 나타내는 <code>int</code>에 대한 포인터입니다. 불리언의 경우 0은 거짓, 0이 아닌 값은 참입니다. 물론 여러분 시스템이 다르게 정의해 두지 않았다면 말이죠. 넘길 파라미터가 없다면 <code>optval</code>은 <code>NULL</code>이어도 됩니다.</p>
+<p>마지막 파라미터 <code>optlen</code>은 <code>optval</code>의 길이로 설정해야 하며, 보통 <code>sizeof(int)</code>이지만 옵션에 따라 달라집니다. <code>getsockopt()</code>의 경우 이 값은 <code>socklen_t</code> 포인터이며, <code>optval</code>에 저장될 객체의 최대 크기를 지정해 버퍼 오버플로를 막습니다. 그리고 <code>getsockopt()</code>는 실제로 설정된 바이트 수를 반영하도록 <code>optlen</code> 값을 수정합니다.</p>
+<p><strong>경고</strong>: 일부 시스템(특히 Sun과 Windows)에서는 옵션 값이 <code>int</code>가 아니라 <code>char</code>일 수 있고, 예를 들어 정수 <code>1</code> 대신 문자 값 <code>'1'</code>로 설정되기도 합니다. 다시 말하지만 “<code>man setsockopt</code>”와 “<code>man 7 socket</code>”로 각자 시스템의 man 페이지를 꼭 확인하세요!</p>
+<h3 class="unnumbered unlisted" id="return-value-19">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-19">예제</h3>
 <div class="sourceCode" id="cb127"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb127-1"><a href="man-pages.html#cb127-1"></a><span class="dt">int</span> optval<span class="op">;</span></span>
 <span id="cb127-2"><a href="man-pages.html#cb127-2"></a><span class="dt">int</span> optlen<span class="op">;</span></span>
 <span id="cb127-3"><a href="man-pages.html#cb127-3"></a><span class="dt">char</span> <span class="op">*</span>optval2<span class="op">;</span></span>
@@ -2250,13 +2250,13 @@
 <span id="cb127-15"><a href="man-pages.html#cb127-15"></a><span class="cf">if</span> <span class="op">(</span>optval <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb127-16"><a href="man-pages.html#cb127-16"></a>    print<span class="op">(</span><span class="st">&quot;SO_BROADCAST enabled on s3!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
 <span id="cb127-17"><a href="man-pages.html#cb127-17"></a><span class="op">}</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-18">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-18">함께 보기</h3>
 <p><a href="man-pages.html#fcntlman"><code>fcntl()</code></a></p>
 <hr />
 <h2 data-number="9.21" id="sendman"><span class="header-section-number">9.21</span> <code>send()</code>, <code>sendto()</code></h2>
 <p> </p>
-<p>Send data out over a socket</p>
-<h3 class="unnumbered unlisted" id="synopsis-20">Synopsis</h3>
+<p>소켓을 통해 데이터를 보낸다</p>
+<h3 class="unnumbered unlisted" id="synopsis-20">형식</h3>
 <div class="sourceCode" id="cb128"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb128-1"><a href="man-pages.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb128-2"><a href="man-pages.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb128-3"><a href="man-pages.html#cb128-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2264,9 +2264,9 @@
 <span id="cb128-5"><a href="man-pages.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="dt">ssize_t</span> sendto<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>buf<span class="op">,</span> <span class="dt">size_t</span> len<span class="op">,</span></span>
 <span id="cb128-6"><a href="man-pages.html#cb128-6" aria-hidden="true" tabindex="-1"></a>               <span class="dt">int</span> flags<span class="op">,</span> <span class="dt">const</span> <span class="kw">struct</span> sockaddr <span class="op">*</span>to<span class="op">,</span></span>
 <span id="cb128-7"><a href="man-pages.html#cb128-7" aria-hidden="true" tabindex="-1"></a>               socklen_t tolen<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-20">Description</h3>
-<p>These functions send data to a socket. Generally speaking, <code>send()</code> is used for TCP <code>SOCK_STREAM</code> connected sockets, and <code>sendto()</code> is used for UDP <code>SOCK_DGRAM</code> unconnected datagram sockets. With the unconnected sockets, you must specify the destination of a packet each time you send one, and that’s why the last parameters of <code>sendto()</code> define where the packet is going.</p>
-<p>With both <code>send()</code> and <code>sendto()</code>, the parameter <code>s</code> is the socket, <code>buf</code> is a pointer to the data you want to send, <code>len</code> is the number of bytes you want to send, and <code>flags</code> allows you to specify more information about how the data is to be sent. Set <code>flags</code> to zero if you want it to be “normal” data. Here are some of the commonly used flags, but check your local <code>send()</code> man pages for more details:</p>
+<h3 class="unnumbered unlisted" id="description-20">설명</h3>
+<p>이 함수들은 소켓으로 데이터를 보냅니다. 일반적으로 <code>send()</code>는 TCP <code>SOCK_STREAM</code> 연결 소켓에, <code>sendto()</code>는 UDP <code>SOCK_DGRAM</code> 비연결 데이터그램 소켓에 사용됩니다. 비연결 소켓에서는 패킷을 보낼 때마다 목적지를 매번 지정해야 하므로, <code>sendto()</code>의 마지막 파라미터들이 패킷이 어디로 가는지를 정의합니다.</p>
+<p><code>send()</code>와 <code>sendto()</code> 모두에서 <code>s</code>는 소켓, <code>buf</code>는 보내려는 데이터 포인터, <code>len</code>은 보내려는 바이트 수, <code>flags</code>는 데이터 전송 방식을 추가로 지정하는 값입니다. 그냥 “일반적인” 데이터를 보내고 싶다면 <code>flags</code>를 0으로 두면 됩니다. 흔히 쓰는 플래그 몇 가지를 아래에 적었지만, 자세한 내용은 로컬 <code>send()</code> man 페이지를 보세요.</p>
 <table>
 <colgroup>
 <col style="width: 23%" />
@@ -2274,33 +2274,33 @@
 </colgroup>
 <thead>
 <tr>
-<th>Macro</th>
-<th>Description</th>
+<th>매크로</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>MSG_OOB</code></td>
-<td>Send as “out of band” data. TCP supports this, and it’s a way to tell the receiving system that this data has a higher priority than the normal data. The receiver will receive the signal <code>SIGURG</code> and it can then receive this data without first receiving all the rest of the normal data in the queue.</td>
+<td>“Out of band” 데이터로 보냅니다. TCP가 이를 지원하며, 수신 시스템에 이 데이터가 일반 데이터보다 우선순위가 높다고 알리는 방식입니다. 수신 측은 <code>SIGURG</code> 시그널을 받게 되고, 큐에 있는 일반 데이터를 모두 먼저 받지 않아도 이 데이터를 받아 볼 수 있습니다.</td>
 </tr>
 <tr>
 <td><code>MSG_DONTROUTE</code></td>
-<td>Don’t send this data over a router, just keep it local.</td>
+<td>이 데이터를 라우터를 거쳐 보내지 말고 로컬에만 머무르게 합니다.</td>
 </tr>
 <tr>
 <td><code>MSG_DONTWAIT</code></td>
-<td>If <code>send()</code> would block because outbound traffic is clogged, have it return <code>EAGAIN</code>. This is like a “enable non-blocking just for this send.” See the section on <a href="slightly-advanced-techniques.html#blocking">blocking</a> for more details.</td>
+<td>송신 트래픽이 막혀 <code>send()</code>가 블록될 상황이면 <code>EAGAIN</code>을 반환하게 합니다. “이번 send에 한해서만 논블로킹을 켠다”는 느낌입니다. 자세한 내용은 <a href="slightly-advanced-techniques.html#blocking">블로킹</a> 절을 참고하세요.</td>
 </tr>
 <tr>
 <td><code>MSG_NOSIGNAL</code></td>
-<td>If you <code>send()</code> to a remote host which is no longer <code>recv()</code>ing, you’ll typically get the signal <code>SIGPIPE</code>. Adding this flag prevents that signal from being raised.</td>
+<td>더 이상 <code>recv()</code>하지 않는 원격 호스트에 <code>send()</code>하면 보통 <code>SIGPIPE</code> 시그널을 받게 됩니다. 이 플래그를 추가하면 그 시그널이 발생하지 않습니다.</td>
 </tr>
 </tbody>
 </table>
-<h3 class="unnumbered unlisted" id="return-value-20">Return Value</h3>
-<p>Returns the number of bytes actually sent, or <code>-1</code> on error (and <code>errno</code> will be set accordingly). Note that the number of bytes actually sent might be less than the number you asked it to send! See the section on <a href="slightly-advanced-techniques.html#sendall">handling partial <code>send()</code>s</a> for a helper function to get around this.</p>
-<p>Also, if the socket has been closed by either side, the process calling <code>send()</code> will get the signal <code>SIGPIPE</code>. (Unless <code>send()</code> was called with the <code>MSG_NOSIGNAL</code> flag.)</p>
-<h3 class="unnumbered unlisted" id="example-20">Example</h3>
+<h3 class="unnumbered unlisted" id="return-value-20">반환값</h3>
+<p>실제로 전송된 바이트 수를 반환하고, 오류가 나면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다. 실제로 보낸 바이트 수는 요청한 수보다 적을 수 있다는 점에 유의하세요! 이를 다루는 보조 함수는 <a href="slightly-advanced-techniques.html#sendall">부분 <code>send()</code> 처리</a> 절을 참고하세요.</p>
+<p>또한 소켓이 어느 한쪽에서라도 닫힌 상태라면, <code>send()</code>를 호출한 프로세스는 <code>SIGPIPE</code> 시그널을 받습니다. (<code>MSG_NOSIGNAL</code> 플래그와 함께 <code>send()</code>를 호출한 경우는 예외입니다.)</p>
+<h3 class="unnumbered unlisted" id="example-20">예제</h3>
 <div class="sourceCode" id="cb129"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb129-1"><a href="man-pages.html#cb129-1"></a><span class="dt">int</span> spatula_count <span class="op">=</span> <span class="dv">3490</span><span class="op">;</span></span>
 <span id="cb129-2"><a href="man-pages.html#cb129-2"></a><span class="dt">char</span> <span class="op">*</span>secret_message <span class="op">=</span> <span class="st">&quot;The Cheese is in The Toaster&quot;</span><span class="op">;</span></span>
 <span id="cb129-3"><a href="man-pages.html#cb129-3"></a></span>
@@ -2331,45 +2331,45 @@
 <span id="cb129-28"><a href="man-pages.html#cb129-28"></a><span class="co">// send secret message normally:</span></span>
 <span id="cb129-29"><a href="man-pages.html#cb129-29"></a>sendto<span class="op">(</span>dgram_socket<span class="op">,</span> secret_message<span class="op">,</span> strlen<span class="op">(</span>secret_message<span class="op">)+</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> </span>
 <span id="cb129-30"><a href="man-pages.html#cb129-30"></a>       <span class="op">(</span><span class="kw">struct</span> sockaddr<span class="op">*)&amp;</span>dest<span class="op">,</span> <span class="kw">sizeof</span> dest<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-19">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-19">함께 보기</h3>
 <p><a href="man-pages.html#recvman"><code>recv()</code></a>, <a href="man-pages.html#recvman"><code>recvfrom()</code></a></p>
 <hr />
 <h2 data-number="9.22" id="shutdownman"><span class="header-section-number">9.22</span> <code>shutdown()</code></h2>
 <p></p>
-<p>Stop further sends and receives on a socket</p>
-<h3 class="unnumbered unlisted" id="synopsis-21">Synopsis</h3>
+<p>소켓에서 더 이상의 송수신을 중단한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-21">형식</h3>
 <div class="sourceCode" id="cb130"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb130-1"><a href="man-pages.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb130-2"><a href="man-pages.html#cb130-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb130-3"><a href="man-pages.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> shutdown<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="dt">int</span> how<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-21">Description</h3>
-<p>That’s it! I’ve had it! No more <code>send()</code>s are allowed on this socket, but I still want to <code>recv()</code> data on it! Or vice-versa! How can I do this?</p>
-<p>When you <code>close()</code> a socket descriptor, it closes both sides of the socket for reading and writing, and frees the socket descriptor. If you just want to close one side or the other, you can use this <code>shutdown()</code> call.</p>
-<p>As for parameters, <code>s</code> is obviously the socket you want to perform this action on, and what action that is can be specified with the <code>how</code> parameter. <code>how</code> can be <code>SHUT_RD</code> to prevent further <code>recv()</code>s, <code>SHUT_WR</code> to prohibit further <code>send()</code>s, or <code>SHUT_RDWR</code> to do both.</p>
-<p>Note that <code>shutdown()</code> doesn’t free up the socket descriptor, so you still have to eventually <code>close()</code> the socket even if it has been fully shut down.</p>
-<p>This is a rarely used system call.</p>
-<h3 class="unnumbered unlisted" id="return-value-21">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-21">Example</h3>
+<h3 class="unnumbered unlisted" id="description-21">설명</h3>
+<p>이제 됐다! 더는 못 참겠다! 이 소켓에서는 더 이상 <code>send()</code>는 못 하게 하고 싶지만, 그래도 <code>recv()</code>는 계속하고 싶다! 혹은 그 반대다! 이걸 어떻게 할까요?</p>
+<p>소켓 디스크립터에 <code>close()</code>를 호출하면 읽기와 쓰기 양쪽이 모두 닫히고, 소켓 디스크립터도 해제됩니다. 한쪽만 닫고 싶다면 이 <code>shutdown()</code> 호출을 사용하면 됩니다.</p>
+<p>파라미터를 보면 <code>s</code>는 당연히 이 동작을 수행할 소켓이고, 정확히 어떤 동작을 할지는 <code>how</code> 파라미터로 지정합니다. <code>how</code>는 더 이상의 <code>recv()</code>를 막는 <code>SHUT_RD</code>, 더 이상의 <code>send()</code>를 금지하는 <code>SHUT_WR</code>, 또는 둘 다 하는 <code>SHUT_RDWR</code>가 될 수 있습니다.</p>
+<p><code>shutdown()</code>은 소켓 디스크립터 자체를 해제하지는 않으므로, 완전히 종료했더라도 결국에는 <code>close()</code>를 호출해야 합니다.</p>
+<p>자주 쓰이는 시스템 호출은 아닙니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-21">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-21">예제</h3>
 <div class="sourceCode" id="cb131"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb131-1"><a href="man-pages.html#cb131-1"></a><span class="dt">int</span> s <span class="op">=</span> socket<span class="op">(</span>PF_INET<span class="op">,</span> SOCK_STREAM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb131-2"><a href="man-pages.html#cb131-2"></a></span>
 <span id="cb131-3"><a href="man-pages.html#cb131-3"></a><span class="co">// ...do some send()s and stuff in here...</span></span>
 <span id="cb131-4"><a href="man-pages.html#cb131-4"></a></span>
 <span id="cb131-5"><a href="man-pages.html#cb131-5"></a><span class="co">// and now that we&#39;re done, don&#39;t allow any more sends()s:</span></span>
 <span id="cb131-6"><a href="man-pages.html#cb131-6"></a>shutdown<span class="op">(</span>s<span class="op">,</span> SHUT_WR<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-20">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-20">함께 보기</h3>
 <p><a href="man-pages.html#closeman"><code>close()</code></a></p>
 <hr />
 <h2 data-number="9.23" id="socketman"><span class="header-section-number">9.23</span> <code>socket()</code></h2>
 <p></p>
-<p>Allocate a socket descriptor</p>
-<h3 class="unnumbered unlisted" id="synopsis-22">Synopsis</h3>
+<p>소켓 디스크립터를 할당한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-22">형식</h3>
 <div class="sourceCode" id="cb132"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb132-1"><a href="man-pages.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb132-2"><a href="man-pages.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb132-3"><a href="man-pages.html#cb132-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb132-4"><a href="man-pages.html#cb132-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> socket<span class="op">(</span><span class="dt">int</span> domain<span class="op">,</span> <span class="dt">int</span> type<span class="op">,</span> <span class="dt">int</span> protocol<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-22">Description</h3>
-<p>Returns a new socket descriptor that you can use to do sockety things with. This is generally the first call in the whopping process of writing a socket program, and you can use the result for subsequent calls to <code>listen()</code>, <code>bind()</code>, <code>accept()</code>, or a variety of other functions.</p>
-<p>In usual usage, you get the values for these parameters from a call to <code>getaddrinfo()</code>, as shown in the example below. But you can fill them in by hand if you really want to.</p>
+<h3 class="unnumbered unlisted" id="description-22">설명</h3>
+<p>소켓 관련 일을 하는 데 쓸 수 있는 새 소켓 디스크립터를 반환합니다. 보통 소켓 프로그램을 작성하는 거대한 과정의 첫 호출이 이것이며, 반환값은 이후 <code>listen()</code>, <code>bind()</code>, <code>accept()</code> 같은 여러 함수 호출에 사용할 수 있습니다.</p>
+<p>일반적으로는 아래 예제처럼 <code>getaddrinfo()</code> 호출 결과에서 이 파라미터 값들을 얻습니다. 물론 정말 원한다면 손으로 직접 채워 넣어도 됩니다.</p>
 <table>
 <colgroup>
 <col style="width: 16%" />
@@ -2377,28 +2377,28 @@
 </colgroup>
 <thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>파라미터</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>domain</code></td>
-<td><code>domain</code> describes what kind of socket you’re interested in. This can, believe me, be a wide variety of things, but since this is a socket guide, it’s going to be <code>PF_INET</code> for IPv4, and <code>PF_INET6</code> for IPv6.</td>
+<td><code>domain</code>은 어떤 종류의 소켓이 필요한지를 나타냅니다. 믿기 어렵겠지만 정말 여러 값이 가능하지만, 이건 소켓 가이드이므로 보통 IPv4는 <code>PF_INET</code>, IPv6는 <code>PF_INET6</code>를 씁니다.</td>
 </tr>
 <tr>
 <td><code>type</code></td>
-<td>Also, the <code>type</code> parameter can be a number of things, but you’ll probably be setting it to either <code>SOCK_STREAM</code> for reliable TCP sockets (<code>send()</code>, <code>recv()</code>) or <code>SOCK_DGRAM</code> for unreliable fast UDP sockets (<code>sendto()</code>, <code>recvfrom()</code>). (Another interesting socket type is <code>SOCK_RAW</code> which can be used to construct packets by hand. It’s pretty cool.)</td>
+<td><code>type</code> 파라미터도 여러 값이 가능하지만, 아마 대부분은 신뢰성 있는 TCP 소켓(<code>send()</code>, <code>recv()</code>)용 <code>SOCK_STREAM</code>이나, 빠르지만 비신뢰적인 UDP 소켓(<code>sendto()</code>, <code>recvfrom()</code>)용 <code>SOCK_DGRAM</code>을 쓰게 될 것입니다. (흥미로운 타입으로 <code>SOCK_RAW</code>도 있는데, 패킷을 직접 구성할 때 사용할 수 있습니다. 꽤 멋집니다.)</td>
 </tr>
 <tr>
 <td><code>protocol</code></td>
-<td>Finally, the <code>protocol</code> parameter tells which protocol to use with a certain socket type. Like I’ve already said, for instance, <code>SOCK_STREAM</code> uses TCP. Fortunately for you, when using <code>SOCK_STREAM</code> or <code>SOCK_DGRAM</code>, you can just set the protocol to 0, and it’ll use the proper protocol automatically. Otherwise, you can use <code>getprotobyname()</code> to look up the proper protocol number.</td>
+<td>마지막으로 <code>protocol</code> 파라미터는 특정 소켓 타입과 함께 어떤 프로토콜을 쓸지 지정합니다. 이미 말했듯 예를 들어 <code>SOCK_STREAM</code>은 TCP를 사용합니다. 다행히 <code>SOCK_STREAM</code>이나 <code>SOCK_DGRAM</code>을 쓸 때는 프로토콜을 0으로 두기만 해도 알맞은 프로토콜이 자동으로 선택됩니다. 그렇지 않다면 <code>getprotobyname()</code>으로 적절한 프로토콜 번호를 찾을 수 있습니다.</td>
 </tr>
 </tbody>
 </table>
-<h3 class="unnumbered unlisted" id="return-value-22">Return Value</h3>
-<p>The new socket descriptor to be used in subsequent calls, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-22">Example</h3>
+<h3 class="unnumbered unlisted" id="return-value-22">반환값</h3>
+<p>이후 호출에서 사용할 새 소켓 디스크립터를 반환합니다. 오류가 발생하면 <code>-1</code>을 반환하며, <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-22">예제</h3>
 <div class="sourceCode" id="cb133"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb133-1"><a href="man-pages.html#cb133-1"></a><span class="kw">struct</span> addrinfo hints<span class="op">,</span> <span class="op">*</span>res<span class="op">;</span></span>
 <span id="cb133-2"><a href="man-pages.html#cb133-2"></a><span class="dt">int</span> sockfd<span class="op">;</span></span>
 <span id="cb133-3"><a href="man-pages.html#cb133-3"></a></span>
@@ -2412,13 +2412,13 @@
 <span id="cb133-11"><a href="man-pages.html#cb133-11"></a></span>
 <span id="cb133-12"><a href="man-pages.html#cb133-12"></a><span class="co">// make a socket using the information gleaned from getaddrinfo():</span></span>
 <span id="cb133-13"><a href="man-pages.html#cb133-13"></a>sockfd <span class="op">=</span> socket<span class="op">(</span>res<span class="op">-&gt;</span>ai_family<span class="op">,</span> res<span class="op">-&gt;</span>ai_socktype<span class="op">,</span> res<span class="op">-&gt;</span>ai_protocol<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-21">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-21">함께 보기</h3>
 <p><a href="man-pages.html#acceptman"><code>accept()</code></a>, <a href="man-pages.html#bindman"><code>bind()</code></a>, <a href="man-pages.html#getaddrinfoman"><code>getaddrinfo()</code></a>, <a href="man-pages.html#listenman"><code>listen()</code></a></p>
 <hr />
-<h2 data-number="9.24" id="structsockaddrman"><span class="header-section-number">9.24</span> <code>struct sockaddr</code> and pals</h2>
+<h2 data-number="9.24" id="structsockaddrman"><span class="header-section-number">9.24</span> <code>struct sockaddr</code>와 친구들</h2>
 <p> </p>
-<p>Structures for handling internet addresses</p>
-<h3 class="unnumbered unlisted" id="synopsis-23">Synopsis</h3>
+<p>인터넷 주소를 다루기 위한 구조체들</p>
+<h3 class="unnumbered unlisted" id="synopsis-23">형식</h3>
 <div class="sourceCode" id="cb134"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb134-1"><a href="man-pages.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;netinet/in.h&gt;</span></span>
 <span id="cb134-2"><a href="man-pages.html#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb134-3"><a href="man-pages.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="co">// All pointers to socket address structures are often cast to</span></span>
@@ -2471,17 +2471,17 @@
 <span id="cb134-50"><a href="man-pages.html#cb134-50" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span>   __ss_align<span class="op">;</span></span>
 <span id="cb134-51"><a href="man-pages.html#cb134-51" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span>      __ss_pad2<span class="op">[</span>_SS_PAD2SIZE<span class="op">];</span></span>
 <span id="cb134-52"><a href="man-pages.html#cb134-52" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-23">Description</h3>
-<p>These are the basic structures for all syscalls and functions that deal with internet addresses. Often you’ll use <code>getaddrinfo()</code> to fill these structures out, and then will read them when you have to.</p>
-<p>In memory, the <code>struct sockaddr_in</code> and <code>struct sockaddr_in6</code> share the same beginning structure as <code>struct sockaddr</code>, and you can freely cast the pointer of one type to the other without any harm, except the possible end of the universe.</p>
-<p>Just kidding on that end-of-the-universe thing…if the universe does end when you cast a <code>struct sockaddr_in*</code> to a <code>struct sockaddr*</code>, I promise you it’s pure coincidence and you shouldn’t even worry about it.</p>
-<p>So, with that in mind, remember that whenever a function says it takes a <code>struct sockaddr*</code> you can cast your <code>struct sockaddr_in*</code>, <code>struct sockaddr_in6*</code>, or <code>struct sockaddr_storage*</code> to that type with ease and safety.</p>
-<p><code>struct sockaddr_in</code> is the structure used with IPv4 addresses (e.g. “192.0.2.10”). It holds an address family (<code>AF_INET</code>), a port in <code>sin_port</code>, and an IPv4 address in <code>sin_addr</code>.</p>
-<p>There’s also this <code>sin_zero</code> field in <code>struct sockaddr_in</code> which some people claim must be set to zero. Other people don’t claim anything about it (the Linux documentation doesn’t even mention it at all), and setting it to zero doesn’t seem to be actually necessary. So, if you feel like it, set it to zero using <code>memset()</code>.</p>
-<p>Now, that <code>struct in_addr</code> is a weird beast on different systems. Sometimes it’s a crazy <code>union</code> with all kinds of <code>#define</code>s and other nonsense. But what you should do is only use the <code>s_addr</code> field in this structure, because many systems only implement that one.</p>
-<p><code>struct sockaddr_in6</code> and <code>struct in6_addr</code> are very similar, except they’re used for IPv6.</p>
-<p><code>struct sockaddr_storage</code> is a struct you can pass to <code>accept()</code> or <code>recvfrom()</code> when you’re trying to write IP version-agnostic code and you don’t know if the new address is going to be IPv4 or IPv6. The <code>struct sockaddr_storage</code> structure is large enough to hold both types, unlike the original small <code>struct sockaddr</code>.</p>
-<h3 class="unnumbered unlisted" id="example-23">Example</h3>
+<h3 class="unnumbered unlisted" id="description-23">설명</h3>
+<p>이 구조체들은 인터넷 주소를 다루는 모든 시스템 호출과 함수의 기본 구조입니다. 대개는 <code>getaddrinfo()</code>가 이 구조체들을 채워 주고, 여러분은 필요할 때 그 안의 내용을 읽게 됩니다.</p>
+<p>메모리 안에서 <code>struct sockaddr_in</code>과 <code>struct sockaddr_in6</code>은 <code>struct sockaddr</code>와 같은 형태의 시작 부분을 공유하므로, 우주의 종말만 아니라면 한 타입의 포인터를 다른 타입으로 자유롭게 캐스팅해도 해가 없습니다.</p>
+<p>물론 우주 종말 이야기는 농담입니다. 만약 <code>struct sockaddr_in*</code>를 <code>struct sockaddr*</code>로 캐스팅하는 순간 우주가 끝난다면, 그건 순전히 우연일 테니 너무 걱정하지 마세요.</p>
+<p>그러니 함수가 <code>struct sockaddr*</code>를 받는다고 하면, 여러분의 <code>struct sockaddr_in*</code>, <code>struct sockaddr_in6*</code>, 또는 <code>struct sockaddr_storage*</code>를 그 타입으로 쉽고 안전하게 캐스팅할 수 있다는 점을 기억하세요.</p>
+<p><code>struct sockaddr_in</code>은 IPv4 주소(예: “192.0.2.10”)에 사용하는 구조체입니다. 주소 계열(<code>AF_INET</code>), <code>sin_port</code>에 들어가는 포트, 그리고 <code>sin_addr</code>에 들어가는 IPv4 주소를 담습니다.</p>
+<p><code>struct sockaddr_in</code>에는 <code>sin_zero</code> 필드도 있는데, 어떤 사람들은 이 값을 0으로 설정해야 한다고 주장합니다. 다른 사람들은 아무 말도 하지 않고(Linux 문서에는 아예 언급도 없습니다), 실제로 꼭 0으로 채워야 하는 것 같지도 않습니다. 그래도 그러고 싶다면 <code>memset()</code>으로 0으로 채우세요.</p>
+<p><code>struct in_addr</code>는 시스템마다 꽤 괴상한 물건일 수 있습니다. 온갖 <code>#define</code>과 기타 수상한 것들이 붙은 기묘한 <code>union</code>인 경우도 있습니다. 하지만 여러분은 이 구조체에서 <code>s_addr</code> 필드만 사용하면 됩니다. 많은 시스템이 그 필드만 구현하기 때문입니다.</p>
+<p><code>struct sockaddr_in6</code>과 <code>struct in6_addr</code>도 매우 비슷하지만, 이쪽은 IPv6에 사용됩니다.</p>
+<p><code>struct sockaddr_storage</code>는 IP 버전에 독립적인 코드를 작성할 때, 새 주소가 IPv4일지 IPv6일지 모르는 상황에서 <code>accept()</code>나 <code>recvfrom()</code>에 넘길 수 있는 구조체입니다. 원래의 작은 <code>struct sockaddr</code>와 달리, <code>struct sockaddr_storage</code>는 두 타입을 모두 담을 만큼 충분히 큽니다.</p>
+<h3 class="unnumbered unlisted" id="example-23">예제</h3>
 <div class="sourceCode" id="cb135"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb135-1"><a href="man-pages.html#cb135-1"></a><span class="co">// IPv4:</span></span>
 <span id="cb135-2"><a href="man-pages.html#cb135-2"></a></span>
 <span id="cb135-3"><a href="man-pages.html#cb135-3"></a><span class="kw">struct</span> sockaddr_in ip4addr<span class="op">;</span></span>
@@ -2504,8 +2504,8 @@
 <span id="cb136-9"><a href="man-pages.html#cb136-9"></a></span>
 <span id="cb136-10"><a href="man-pages.html#cb136-10"></a>s <span class="op">=</span> socket<span class="op">(</span>PF_INET6<span class="op">,</span> SOCK_STREAM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb136-11"><a href="man-pages.html#cb136-11"></a>bind<span class="op">(</span>s<span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr<span class="op">*)&amp;</span>ip6addr<span class="op">,</span> <span class="kw">sizeof</span> ip6addr<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-22">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-22">함께 보기</h3>
 <p><a href="man-pages.html#acceptman"><code>accept()</code></a>, <a href="man-pages.html#bindman"><code>bind()</code></a>, <a href="man-pages.html#connectman"><code>connect()</code></a>, <a href="man-pages.html#inet_ntoaman"><code>inet_aton()</code></a>, <a href="man-pages.html#inet_ntoaman"><code>inet_ntoa()</code></a></p>
 <!-- BG_NEW_CHAPTER -->
-<hr><div style="text-align:center"><span><a href="common-questions.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="more-references.html" rel="next">Next</a></span></div></body>
+<hr><div style="text-align:center"><span><a href="common-questions.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="more-references.html" rel="next">다음</a></span></div></body>
 </html>
