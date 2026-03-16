@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Beej's Guide to Network Programming</title>
+  <title>Beej의 네트워크 프로그래밍 가이드</title>
   <style>
     html {
       color: #1a1a1a;
@@ -988,62 +988,62 @@
   </style>
 </head>
 <body>
-<div style="text-align:center"><span><a href="intro.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="ip-addresses-structs-and-data-munging.html" rel="next">Next</a></span></div><hr>
-<h1 data-number="2" id="what-is-a-socket"><span class="header-section-number">2</span> What is a socket?</h1>
-<p>You hear talk of “sockets” all the time, and perhaps you are wondering just what they are exactly. Well, they’re this: a way to speak to other programs using standard Unix file descriptors.</p>
-<p>What?</p>
-<p>Ok—you may have heard some Unix hacker state, “Jeez, <em>everything</em> in Unix is a file!” What that person may have been talking about is the fact that when Unix programs do any sort of I/O, they do it by reading or writing to a file descriptor. A file descriptor is simply an integer associated with an open file. But (and here’s the catch), that file can be a network connection, a FIFO, a pipe, a terminal, a real on-the-disk file, or just about anything else. Everything in Unix <em>is</em> a file! So when you want to communicate with another program over the Internet you’re gonna do it through a file descriptor, you’d better believe it.</p>
-<p>“Where do I get this file descriptor for network communication, Mr. Smarty-Pants?” is probably the last question on your mind right now, but I’m going to answer it anyway: You make a call to the <code>socket()</code> system routine. It returns the socket descriptor, and you communicate through it using the specialized <code>send()</code> and <code>recv()</code> (<a href="man-pages.html#sendman"><code>man send</code></a>, <a href="man-pages.html#recvman"><code>man recv</code></a>) socket calls.</p>
-<p>“But, hey!” you might be exclaiming right about now. “If it’s a file descriptor, why in the name of Neptune can’t I just use the normal <code>read()</code> and <code>write()</code> calls to communicate through the socket?” The short answer is, “You can!” The longer answer is, “You can, but <code>send()</code> and <code>recv()</code> offer much greater control over your data transmission.”</p>
-<p>What next? How about this: there are all kinds of sockets. There are DARPA Internet addresses (Internet Sockets), path names on a local node (Unix Sockets), CCITT X.25 addresses (X.25 Sockets that you can safely ignore), and probably many others depending on which Unix flavor you run. This document deals only with the first: Internet Sockets.</p>
-<h2 data-number="2.1" id="two-types-of-internet-sockets"><span class="header-section-number">2.1</span> Two Types of Internet Sockets</h2>
-<p>What’s this? There are two types of Internet sockets? Yes. Well, no. I’m lying. There are more, but I didn’t want to scare you. I’m only going to talk about two types here. Except for this sentence, where I’m going to tell you that “Raw Sockets” are also very powerful and you should look them up.</p>
-<p>All right, already. What are the two types? One is “Stream Sockets”; the other is “Datagram Sockets”, which may hereafter be referred to as “<code>SOCK_STREAM</code>” and “<code>SOCK_DGRAM</code>”, respectively. Datagram sockets are sometimes called “connectionless sockets”. (Though they can be <code>connect()</code>’d if you really want. See <a href="system-calls-or-bust.html#connect"><code>connect()</code></a>, below.)</p>
-<p>Stream sockets are reliable two-way connected communication streams. If you output two items into the socket in the order “1, 2”, they will arrive in the order “1, 2” at the opposite end. They will also be error-free. I’m so certain, in fact, they will be error-free, that I’m just going to put my fingers in my ears and chant <em>la la la la</em> if anyone tries to claim otherwise.</p>
-<p>What uses stream sockets? Well, you may have heard of the <code>telnet</code> or <code>ssh</code> applications, yes? They use stream sockets. All the characters you type need to arrive in the same order you type them, right? Also, web browsers use the Hypertext Transfer Protocol (HTTP) which uses stream sockets to get pages. Indeed, if you telnet to a web site on port 80, and type “<code>GET / HTTP/1.0</code>” and hit RETURN twice, it’ll dump the HTML back at you!</p>
+<div style="text-align:center"><span><a href="intro.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="ip-addresses-structs-and-data-munging.html" rel="next">다음</a></span></div><hr>
+<h1 data-number="2" id="what-is-a-socket"><span class="header-section-number">2</span> 소켓이란 무엇인가?</h1>
+<p>사람들이 늘 “소켓” 이야기를 하는데, 정확히 그게 무엇인지 궁금할 수도 있습니다. 소켓은 이것입니다. 표준 Unix 파일 디스크립터를 사용해서 다른 프로그램과 대화하는 방법입니다.</p>
+<p>네?</p>
+<p>좋습니다. 아마 어떤 Unix 해커가 “세상에, Unix에서는 <em>모든 것</em>이 파일이야!”라고 말하는 걸 들어본 적이 있을 겁니다. 그 사람이 말하려던 것은, Unix 프로그램이 어떤 형태로든 I/O를 할 때 파일 디스크립터에 읽거나 쓰는 방식으로 처리한다는 뜻일 가능성이 큽니다. 파일 디스크립터는 단순히 열린 파일에 연결된 정수 하나입니다. 그런데 여기 함정이 있습니다. 그 “파일”은 네트워크 연결일 수도 있고, FIFO일 수도 있고, 파이프일 수도 있고, 터미널일 수도 있고, 실제 디스크 파일일 수도 있고, 사실상 거의 무엇이든 될 수 있습니다. Unix에서는 정말로 <em>모든 것</em>이 파일입니다! 그러니 인터넷을 통해 다른 프로그램과 통신하고 싶다면, 결국 파일 디스크립터를 통해 하게 되는 것입니다.</p>
+<p>“그 네트워크 통신용 파일 디스크립터는 어디서 얻나요, 똑똑박사님?”이 지금 당장 떠오르는 마지막 질문일지도 모르지만, 어쨌든 답하겠습니다. <code>socket()</code> 시스템 루틴을 호출하면 됩니다. 그러면 소켓 디스크립터가 반환되고, 특수한 소켓 호출인 <code>send()</code>와 <code>recv()</code>(<a href="man-pages.html#sendman"><code>man send</code></a>, <a href="man-pages.html#recvman"><code>man recv</code></a>)를 사용해 그 소켓으로 통신합니다.</p>
+<p>“잠깐만요!”라고 지금쯤 외치고 있을지도 모르겠습니다. “파일 디스크립터라면 대체 왜 평범한 <code>read()</code>와 <code>write()</code> 호출로 소켓을 통해 통신하면 안 되는 거죠?” 짧은 대답은 “할 수 있습니다!”이고, 긴 대답은 “할 수는 있지만 <code>send()</code>와 <code>recv()</code>가 데이터 전송을 훨씬 더 세밀하게 제어할 수 있게 해줍니다.”입니다.</p>
+<p>그다음은 무엇일까요? 이런 사실이 있습니다. 소켓에는 여러 종류가 있습니다. DARPA 인터넷 주소(인터넷 소켓), 로컬 노드의 경로명(Unix 소켓), CCITT X.25 주소(X.25 소켓, 이건 안심하고 무시해도 됩니다), 그리고 사용하는 Unix 계열에 따라 그 밖의 여러 종류가 더 있습니다. 이 문서에서는 그중 첫 번째, 즉 인터넷 소켓만 다룹니다.</p>
+<h2 data-number="2.1" id="two-types-of-internet-sockets"><span class="header-section-number">2.1</span> 인터넷 소켓의 두 가지 유형</h2>
+<p>이건 또 뭘까요? 인터넷 소켓에 두 가지 유형이 있다고요? 맞습니다. 아니, 사실은 아닙니다. 제가 거짓말했습니다. 실제로는 더 많지만, 겁주고 싶지 않았습니다. 여기서는 두 가지만 이야기하겠습니다. 다만 이 문장만큼은 예외로, “Raw Socket”도 매우 강력하니 따로 찾아보라고 말씀드리겠습니다.</p>
+<p>좋아요, 알겠습니다. 그 두 가지가 뭐냐고요? 하나는 “스트림 소켓(Stream Sockets)”이고, 다른 하나는 “데이터그램 소켓(Datagram Sockets)”입니다. 앞으로는 각각 “<code>SOCK_STREAM</code>”과 “<code>SOCK_DGRAM</code>”이라고 부르겠습니다. 데이터그램 소켓은 가끔 “비연결형 소켓(connectionless sockets)”이라고도 불립니다. (물론 정말 원한다면 <code>connect()</code>할 수도 있습니다. 아래의 <a href="system-calls-or-bust.html#connect"><code>connect()</code></a>를 보세요.)</p>
+<p>스트림 소켓은 신뢰할 수 있는 양방향 연결 통신 스트림입니다. 소켓에 “1, 2” 순서로 두 항목을 출력하면, 반대편에도 “1, 2” 순서로 도착합니다. 게다가 오류도 없습니다. 사실 저는 그게 오류 없이 도착한다는 데 너무 확신이 있어서, 누가 아니라는 주장을 하면 그냥 귀를 막고 <em>라라라라</em>를 외칠 생각입니다.</p>
+<p>어떤 것이 스트림 소켓을 사용할까요? <code>telnet</code>이나 <code>ssh</code> 같은 프로그램을 들어보셨죠? 그런 것들이 스트림 소켓을 사용합니다. 여러분이 입력한 문자들은 입력한 순서 그대로 도착해야 하니까요. 또 웹 브라우저는 페이지를 가져올 때 스트림 소켓을 사용하는 하이퍼텍스트 전송 프로토콜(HTTP)을 사용합니다. 실제로 웹 사이트의 80번 포트에 telnet으로 접속한 뒤 “<code>GET / HTTP/1.0</code>”을 입력하고 RETURN을 두 번 누르면, 서버가 HTML을 그대로 여러분에게 쏟아낼 것입니다!</p>
 <blockquote>
-<p>If you don’t have <code>telnet</code> installed and don’t want to install it, or your <code>telnet</code> is being picky about connecting to clients, the guide comes with a <code>telnet</code>-like program called <a href="https://beej.us/guide/bgnet/source/examples/telnot.c"><code>telnot</code></a><a href="more-references.html#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. This should work well for all the needs of the guide. (Note that telnet is actually a <a href="https://tools.ietf.org/html/rfc854">spec’d networking protocol</a><a href="more-references.html#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, and <code>telnot</code> doesn’t implement this protocol at all.)</p>
+<p><code>telnet</code>이 설치되어 있지 않고 설치하고 싶지도 않거나, 가지고 있는 <code>telnet</code>이 클라이언트 연결에 지나치게 까다롭게 군다면, 이 가이드에는 <code>telnet</code> 비슷한 프로그램인 <a href="https://beej.us/guide/bgnet/source/examples/telnot.c"><code>telnot</code></a><a href="more-references.html#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>가 함께 제공됩니다. 이 가이드에서 필요한 용도에는 충분히 잘 동작할 것입니다. (참고로 telnet은 실제로 <a href="https://tools.ietf.org/html/rfc854">명세가 있는 네트워킹 프로토콜</a><a href="more-references.html#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>이고, <code>telnot</code>은 그 프로토콜을 전혀 구현하지 않습니다.)</p>
 </blockquote>
-<p>How do stream sockets achieve this high level of data transmission quality? They use a protocol called “The Transmission Control Protocol”, otherwise known as “TCP” (see <a href="https://tools.ietf.org/html/rfc793">RFC 793</a><a href="more-references.html#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> for extremely detailed info on TCP). TCP makes sure your data arrives sequentially and error-free. You may have heard “TCP” before as the better half of “TCP/IP” where “IP” stands for “Internet Protocol” (see <a href="https://tools.ietf.org/html/rfc791">RFC 791</a><a href="more-references.html#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>). IP deals primarily with Internet routing and is not generally responsible for data integrity.</p>
+<p>스트림 소켓은 어떻게 이렇게 높은 수준의 데이터 전송 품질을 보장할까요? “전송 제어 프로토콜(Transmission Control Protocol)”이라 불리는, 즉 “TCP”라는 프로토콜을 사용합니다. (TCP에 대한 아주 자세한 정보는 <a href="https://tools.ietf.org/html/rfc793">RFC 793</a><a href="more-references.html#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>을 보세요.) TCP는 데이터가 순서대로, 그리고 오류 없이 도착하도록 보장합니다. “TCP”라는 말을 “TCP/IP”의 절반으로 들어본 적이 있을 텐데, 여기서 “IP”는 “Internet Protocol”을 뜻합니다. (<a href="https://tools.ietf.org/html/rfc791">RFC 791</a><a href="more-references.html#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> 참고.) IP는 주로 인터넷 라우팅을 담당하며, 일반적으로 데이터 무결성 자체를 책임지지는 않습니다.</p>
 <p></p>
-<p>Cool. What about Datagram sockets? Why are they called connectionless? What is the deal, here, anyway? Why are they unreliable? Well, here are some facts: if you send a datagram, it may arrive. It may arrive out of order. If it arrives, the data within the packet will be error-free.</p>
-<p>Datagram sockets also use IP for routing, but they don’t use TCP; they use the “User Datagram Protocol”, or “UDP” (see <a href="https://tools.ietf.org/html/rfc768">RFC 768</a><a href="more-references.html#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>).</p>
-<p>Why are they connectionless? Well, basically, it’s because you don’t have to maintain an open connection as you do with stream sockets. You just build a packet, slap an IP header on it with destination information, and send it out. No connection needed. They are generally used either when a TCP stack is unavailable or when a few dropped packets here and there don’t mean the end of the Universe. Sample applications: <code>tftp</code> (trivial file transfer protocol, a little brother to FTP), <code>dhcpcd</code> (a DHCP client), multiplayer games, streaming audio, video conferencing, etc.</p>
+<p>좋습니다. 그럼 데이터그램 소켓은 어떨까요? 왜 비연결형이라고 부를까요? 대체 무슨 개념일까요? 왜 신뢰할 수 없다고 할까요? 사실은 이렇습니다. 데이터그램을 보내면 도착할 수도 있습니다. 순서가 뒤죽박죽으로 도착할 수도 있습니다. 하지만 도착만 한다면, 패킷 안의 데이터 자체는 오류가 없습니다.</p>
+<p>데이터그램 소켓도 라우팅에는 IP를 사용하지만 TCP는 사용하지 않습니다. 대신 “사용자 데이터그램 프로토콜(User Datagram Protocol)”, 즉 “UDP”를 사용합니다. (<a href="https://tools.ietf.org/html/rfc768">RFC 768</a><a href="more-references.html#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> 참고.)</p>
+<p>왜 비연결형일까요? 기본적으로 스트림 소켓처럼 열린 연결 상태를 계속 유지할 필요가 없기 때문입니다. 그냥 패킷을 하나 만들고, 목적지 정보를 담은 IP 헤더를 붙여서 보내면 됩니다. 연결은 필요 없습니다. 보통 TCP 스택을 사용할 수 없을 때, 혹은 여기저기서 패킷 몇 개쯤 유실돼도 세상이 끝나지 않을 때 사용합니다. 예로는 <code>tftp</code>(trivial file transfer protocol, FTP의 간단한 동생쯤 됩니다), <code>dhcpcd</code>(DHCP 클라이언트), 멀티플레이어 게임, 스트리밍 오디오, 화상 회의 등이 있습니다.</p>
 <p></p>
-<p>“Wait a minute! <code>tftp</code> and <code>dhcpcd</code> are used to transfer binary applications from one host to another! Data can’t be lost if you expect the application to work when it arrives! What kind of dark magic is this?”</p>
-<p>Well, my human friend, <code>tftp</code> and similar programs have their own protocol on top of UDP. For example, the tftp protocol says that for each packet that gets sent, the recipient has to send back a packet that says, “I got it!” (an “ACK” packet). If the sender of the original packet gets no reply in, say, five seconds, he’ll re-transmit the packet until he finally gets an ACK. This acknowledgment procedure is very important when implementing reliable <code>SOCK_DGRAM</code> applications.</p>
-<p>For unreliable applications like games, audio, or video, you just ignore the dropped packets, or perhaps try to cleverly compensate for them. (Quake players will know the manifestation of this effect by the technical term: <em>accursed lag</em>. The word “accursed”, in this case, represents any extremely profane utterance.)</p>
-<p>Why would you use an unreliable underlying protocol? Two reasons: speed and speed. It’s way faster to fire-and-forget than it is to keep track of what has arrived safely and make sure it’s in order and all that. If you’re sending chat messages, TCP is great; if you’re sending 40 positional updates per second of the players in the world, maybe it doesn’t matter so much if one or two get dropped, and UDP is a good choice.</p>
-<h2 data-number="2.2" id="lowlevel"><span class="header-section-number">2.2</span> Low level Nonsense and Network Theory</h2>
-<p>Since I just mentioned layering of protocols, it’s time to talk about how networks really work, and to show some examples of how <code>SOCK_DGRAM</code> packets are built. Practically, you can probably skip this section. It’s good background, however.</p>
+<p>“잠깐만요! <code>tftp</code>와 <code>dhcpcd</code>는 한 호스트에서 다른 호스트로 바이너리 애플리케이션을 전송하는 데 쓰이잖아요! 도착한 뒤 제대로 실행되려면 데이터가 유실되면 안 되는데요! 이건 무슨 흑마법이죠?”</p>
+<p>음, 인간 친구여. <code>tftp</code>와 비슷한 프로그램들은 UDP 위에 자체 프로토콜을 하나 더 올려서 사용합니다. 예를 들어 tftp 프로토콜은 보낸 각 패킷마다 수신자가 “받았습니다!”라고 말하는 패킷, 즉 “ACK” 패킷을 돌려보내야 한다고 정합니다. 원래 패킷의 송신자가 예를 들어 5초 안에 응답을 받지 못하면, 결국 ACK를 받을 때까지 그 패킷을 다시 전송합니다. 이런 확인 응답 절차는 신뢰할 수 있는 <code>SOCK_DGRAM</code> 애플리케이션을 구현할 때 매우 중요합니다.</p>
+<p>게임, 오디오, 비디오처럼 어느 정도 신뢰성이 낮아도 되는 애플리케이션에서는, 유실된 패킷을 그냥 무시하거나, 혹은 똑똑하게 보정하려고 시도하면 됩니다. (Quake 플레이어라면 이런 현상을 기술 용어로 <em>지독한 랙</em>이라고 부르는 걸 알 겁니다. 여기서 “지독한”은 실제로는 훨씬 더 험한 표현을 대신한 말입니다.)</p>
+<p>그렇다면 왜 애초에 신뢰성이 낮은 하위 프로토콜을 사용할까요? 이유는 두 가지입니다. 속도와 속도입니다. 무엇이 안전하게 도착했는지 추적하고, 순서가 맞는지 확인하는 것보다 그냥 쏘고 잊어버리는 편이 훨씬 빠릅니다. 채팅 메시지를 보낸다면 TCP가 훌륭합니다. 하지만 게임 속 플레이어 위치 정보를 초당 40번씩 보내는 상황이라면, 한두 개쯤 빠져도 그렇게 큰 문제가 아닐 수 있으니 UDP가 좋은 선택입니다.</p>
+<h2 data-number="2.2" id="lowlevel"><span class="header-section-number">2.2</span> 저수준 잡설과 네트워크 이론</h2>
+<p>방금 프로토콜 계층화를 언급했으니, 이제 네트워크가 실제로 어떻게 동작하는지 이야기하고 <code>SOCK_DGRAM</code> 패킷이 어떻게 만들어지는지 몇 가지 예를 보여줄 차례입니다. 실용적으로는 이 절을 건너뛰어도 괜찮을 가능성이 큽니다. 그래도 배경지식으로는 꽤 유용합니다.</p>
 <figure>
-<embed src="dataencap.svg" title="[Encapsulated Protocols Diagram]" />
-<figcaption aria-hidden="true">Data Encapsulation.</figcaption>
+<embed src="dataencap.svg" title="[캡슐화된 프로토콜 다이어그램]" />
+<figcaption aria-hidden="true">데이터 캡슐화.</figcaption>
 </figure>
-<p>Hey, kids, it’s time to learn about <em>Data Encapsulation</em>! This is very very important. It’s so important that you might just learn about it if you take the networks course here at Chico State <code>;-)</code>. Basically, it says this: a packet is born, the packet is wrapped (“encapsulated”) in a header (and rarely a footer) by the first protocol (say, the TFTP protocol), then the whole thing (TFTP header included) is encapsulated again by the next protocol (say, UDP), then again by the next (IP), then again by the final protocol on the hardware (physical) layer (say, Ethernet).</p>
-<p>When another computer receives the packet, the hardware strips the Ethernet header, the kernel strips the IP and UDP headers, the TFTP program strips the TFTP header, and it finally has the data.</p>
-<p>Now I can finally talk about the infamous <em>Layered Network Model</em> (aka “ISO/OSI”). This Network Model describes a system of network functionality that has many advantages over other models. For instance, you can write sockets programs that are exactly the same without caring how the data is physically transmitted (serial, thin Ethernet, AUI, whatever) because programs on lower levels deal with it for you. The actual network hardware and topology is transparent to the socket programmer.</p>
-<p>Without any further ado, I’ll present the layers of the full-blown model. Remember this for network class exams:</p>
+<p>자, 여러분, 이제 <em>데이터 캡슐화(Data Encapsulation)</em>를 배울 시간입니다! 이건 정말 정말 중요합니다. 너무 중요해서, Chico State에서 네트워크 수업을 듣게 되면 아마 이걸 배우게 될지도 모릅니다 <code>;&#45;)</code>. 기본 개념은 이렇습니다. 패킷이 하나 만들어지면, 첫 번째 프로토콜(예를 들어 TFTP 프로토콜)이 헤더(드물게는 푸터도)를 붙여 그 패킷을 감쌉니다. 그러고 나면 그 전체(TFTP 헤더를 포함한 상태)가 다음 프로토콜(예를 들어 UDP)에 의해 다시 캡슐화되고, 그다음 프로토콜(IP)에 의해 또 캡슐화되며, 마지막으로 하드웨어(물리) 계층의 최종 프로토콜(예를 들어 Ethernet)에 의해 다시 한 번 캡슐화됩니다.</p>
+<p>다른 컴퓨터가 그 패킷을 받으면, 하드웨어가 Ethernet 헤더를 벗기고, 커널이 IP와 UDP 헤더를 벗기고, TFTP 프로그램이 TFTP 헤더를 벗긴 뒤, 마침내 실제 데이터를 얻게 됩니다.</p>
+<p>이제야 비로소 악명 높은 <em>계층형 네트워크 모델</em>(일명 “ISO/OSI”)을 이야기할 수 있겠습니다. 이 네트워크 모델은 다른 모델에 비해 많은 장점을 가진 네트워크 기능 체계를 설명합니다. 예를 들어 데이터가 물리적으로 어떻게 전송되는지(직렬, thin Ethernet, AUI 등)를 신경 쓰지 않고도 완전히 같은 소켓 프로그램을 작성할 수 있는데, 그 이유는 더 아래 계층의 프로그램들이 그 일을 대신 처리해 주기 때문입니다. 실제 네트워크 하드웨어와 토폴로지는 소켓 프로그래머에게 투명하게 감춰져 있습니다.</p>
+<p>더 미루지 않고, 완전한 모델의 계층들을 소개하겠습니다. 네트워크 수업 시험을 위해 외워두세요.</p>
 <ul>
-<li>Application</li>
-<li>Presentation</li>
-<li>Session</li>
-<li>Transport</li>
-<li>Network</li>
-<li>Data Link</li>
-<li>Physical</li>
+<li>응용 계층</li>
+<li>표현 계층</li>
+<li>세션 계층</li>
+<li>전송 계층</li>
+<li>네트워크 계층</li>
+<li>데이터 링크 계층</li>
+<li>물리 계층</li>
 </ul>
-<p>The Physical Layer is the hardware (serial, Ethernet, etc.). The Application Layer is just about as far from the physical layer as you can imagine—it’s the place where users interact with the network.</p>
-<p>Now, this model is so general you could probably use it as an automobile repair guide if you really wanted to. A layered model more consistent with Unix might be:</p>
+<p>물리 계층은 하드웨어(직렬, Ethernet 등)입니다. 응용 계층은 상상할 수 있는 한 물리 계층에서 가장 멀리 떨어진 곳으로, 사용자가 네트워크와 상호작용하는 지점입니다.</p>
+<p>그런데 이 모델은 너무 일반적이어서, 정말 원한다면 자동차 수리 안내서로도 쓸 수 있을 것 같습니다. Unix에 더 잘 맞는 계층 모델을 들자면 다음과 같습니다.</p>
 <ul>
-<li>Application Layer (<em>telnet, ftp, etc.</em>)</li>
-<li>Host-to-Host Transport Layer (<em>TCP, UDP</em>)</li>
-<li>Internet Layer (<em>IP and routing</em>)</li>
-<li>Network Access Layer (<em>Ethernet, wi-fi, or whatever</em>)</li>
+<li>응용 계층 (<em>telnet, ftp 등</em>)</li>
+<li>호스트 간 전송 계층 (<em>TCP, UDP</em>)</li>
+<li>인터넷 계층 (<em>IP와 라우팅</em>)</li>
+<li>네트워크 접근 계층 (<em>Ethernet, wi-fi 등</em>)</li>
 </ul>
-<p>At this point in time, you can probably see how these layers correspond to the encapsulation of the original data.</p>
-<p>See how much work there is in building a simple packet? Jeez! And you have to type in the packet headers yourself using “<code>cat</code>”! Just kidding. All you have to do for stream sockets is <code>send()</code> the data out. All you have to do for datagram sockets is encapsulate the packet in the method of your choosing and <code>sendto()</code> it out. The kernel builds the Transport Layer and Internet Layer on for you and the hardware does the Network Access Layer. Ah, modern technology.</p>
-<p>So ends our brief foray into network theory. Oh yes, I forgot to tell you everything I wanted to say about routing: nothing! That’s right, I’m not going to talk about it at all. The router strips the packet to the IP header, consults its routing table, <em>blah blah blah</em>. Check out the <a href="https://tools.ietf.org/html/rfc791">IP RFC</a><a href="more-references.html#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> if you really really care. If you never learn about it, well, you’ll live.</p>
+<p>이쯤 되면 이 계층들이 원래 데이터의 캡슐화와 어떻게 대응되는지 대략 보일 것입니다.</p>
+<p>단순한 패킷 하나를 만드는 데도 얼마나 많은 일이 들어가는지 보이시나요? 세상에! 게다가 패킷 헤더를 “<code>cat</code>”으로 직접 타이핑해야 한다고요! 농담입니다. 스트림 소켓에서는 그냥 <code>send()</code>로 데이터를 보내기만 하면 됩니다. 데이터그램 소켓에서는 원하는 방식으로 패킷을 캡슐화한 뒤 <code>sendto()</code>로 보내면 됩니다. 전송 계층과 인터넷 계층은 커널이 알아서 만들어 주고, 네트워크 접근 계층은 하드웨어가 처리합니다. 아, 현대 기술이란.</p>
+<p>이것으로 짧은 네트워크 이론 탐험을 마치겠습니다. 아, 맞다. 라우팅에 대해 하고 싶었던 말을 전부 전하지 않았네요. 왜냐하면 없습니다! 맞습니다. 라우팅에 대해서는 전혀 이야기하지 않을 겁니다. 라우터는 패킷을 IP 헤더까지 벗기고, 라우팅 테이블을 조회하고, <em>블라블라블라</em>. 정말 정말 궁금하다면 <a href="https://tools.ietf.org/html/rfc791">IP RFC</a><a href="more-references.html#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>를 살펴보세요. 평생 그걸 배우지 않아도, 뭐, 살아가는 데는 지장 없습니다.</p>
 <!-- BG_NEW_CHAPTER -->
-<hr><div style="text-align:center"><span><a href="intro.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="ip-addresses-structs-and-data-munging.html" rel="next">Next</a></span></div></body>
+<hr><div style="text-align:center"><span><a href="intro.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="ip-addresses-structs-and-data-munging.html" rel="next">다음</a></span></div></body>
 </html>

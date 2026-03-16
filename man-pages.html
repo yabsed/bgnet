@@ -988,37 +988,37 @@
   </style>
 </head>
 <body>
-<div style="text-align:center"><span><a href="common-questions.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="more-references.html" rel="next">Next</a></span></div><hr>
-<h1 data-number="9" id="man-pages"><span class="header-section-number">9</span> Man Pages</h1>
+<div style="text-align:center"><span><a href="common-questions.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="more-references.html" rel="next">다음</a></span></div><hr>
+<h1 data-number="9" id="man-pages"><span class="header-section-number">9</span> man 페이지</h1>
 <p></p>
-<p>In the Unix world, there are a lot of manuals. They have little sections that describe individual functions that you have at your disposal.</p>
-<p>Of course, <code>manual</code> would be too much of a thing to type. I mean, no one in the Unix world, including myself, likes to type that much. Indeed I could go on and on at great length about how much I prefer to be terse but instead I shall be brief and not bore you with long-winded diatribes about how utterly amazingly brief I prefer to be in virtually all circumstances in their entirety.</p>
-<p><em>[Applause]</em></p>
-<p>Thank you. What I am getting at is that these pages are called “man pages” in the Unix world, and I have included my own personal truncated variant here for your reading enjoyment. The thing is, many of these functions are way more general purpose than I’m letting on, but I’m only going to present the parts that are relevant for Internet Sockets Programming.</p>
-<p>But wait! That’s not all that’s wrong with my man pages:</p>
+<p>유닉스 세계에는 매뉴얼이 아주 많습니다. 그 안에는 여러분이 사용할 수 있는 개별 함수들을 설명하는 작은 절들이 들어 있습니다.</p>
+<p>물론 <code>manual</code>이라고 쓰기에는 너무 길죠. 제 말은, 저를 포함해서 유닉스 세계 사람들 중 그렇게 많이 타이핑하길 좋아하는 사람은 없다는 겁니다. 사실 제가 얼마나 짧게 쓰는 걸 좋아하는지 끝도 없이 길게 떠들 수도 있겠지만, 제가 모든 상황에서 얼마나 놀라울 정도로 간결함을 선호하는지에 대한 장황한 연설로 여러분을 지루하게 만들지는 않겠습니다.</p>
+<p><em>[박수]</em></p>
+<p>감사합니다. 제가 하려는 말은, 유닉스 세계에서는 이런 페이지를 “man 페이지”라고 부른다는 것입니다. 그리고 여러분이 읽기 편하도록 제 개인용 축약판을 여기 실어 두었습니다. 다만 이런 함수들 중 상당수는 제가 여기서 보여 주는 것보다 훨씬 더 범용적이고, 저는 그중에서도 인터넷 소켓 프로그래밍과 관련 있는 부분만 소개하려고 합니다.</p>
+<p>하지만 잠깐! 제 man 페이지에는 이것 말고도 문제가 더 있습니다.</p>
 <ul>
-<li>They are incomplete and only show the basics from the guide.</li>
-<li>There are many more man pages than this in the real world.</li>
-<li>They are different than the ones on your system.</li>
-<li>The header files might be different for certain functions on your system.</li>
-<li>The function parameters might be different for certain functions on your system.</li>
+<li>불완전하며, 이 가이드에 나온 기본 내용만 보여 줍니다.</li>
+<li>실제 세상에는 이것보다 훨씬 더 많은 man 페이지가 있습니다.</li>
+<li>여기 내용은 여러분 시스템의 man 페이지와 다를 수 있습니다.</li>
+<li>어떤 함수는 여러분 시스템에서 헤더 파일이 다를 수 있습니다.</li>
+<li>어떤 함수는 여러분 시스템에서 파라미터가 다를 수 있습니다.</li>
 </ul>
-<p>If you want the real information, check your local Unix man pages by typing <code>man whatever</code>, where “whatever” is something that you’re incredibly interested in, such as “<code>accept</code>”. (I’m sure Microsoft Visual Studio has something similar in their help section. But “man” is better because it is one byte more concise than “help”. Unix wins again!)</p>
-<p>So, if these are so flawed, why even include them at all in the Guide? Well, there are a few reasons, but the best are that (a) these versions are geared specifically toward network programming and are easier to digest than the real ones, and (b) these versions contain examples!</p>
-<p>Oh! And speaking of the examples, I don’t tend to put in all the error checking because it really increases the length of the code. But you should absolutely do error checking pretty much any time you make any of the system calls unless you’re totally 100% sure it’s not going to fail, and you should probably do it even then!</p>
+<p>진짜 정보가 필요하다면 로컬 유닉스 man 페이지를 확인하세요. <code>man whatever</code>라고 입력하면 되는데, 여기서 “whatever”는 여러분이 몹시 관심 있는 무언가입니다. 예를 들면 “<code>accept</code>” 같은 것이죠. (Microsoft Visual Studio에도 도움말 섹션에 비슷한 게 분명 있겠죠. 하지만 “man”이 “help”보다 1바이트 더 짧으니 더 낫습니다. 또다시 유닉스의 승리입니다!)</p>
+<p>그렇다면 이렇게 허점이 많은데 왜 굳이 가이드에 포함했을까요? 이유는 몇 가지 있지만, 가장 큰 이유는 (a) 이 버전들은 네트워크 프로그래밍에 맞춰져 있어서 실제 man 페이지보다 소화하기 쉽고, (b) 예제가 들어 있기 때문입니다!</p>
+<p>아, 그리고 예제 이야기가 나와서 말인데, 저는 코드 길이가 너무 늘어나는 걸 막으려고 에러 검사를 전부 넣지는 않는 편입니다. 하지만 어떤 시스템 호출이든 실패하지 않는다고 100% 확신하는 경우가 아니라면 거의 항상 에러 검사를 해야 하고, 사실 그런 경우라도 하는 편이 좋습니다!</p>
 <p></p>
 <hr />
 <h2 data-number="9.1" id="acceptman"><span class="header-section-number">9.1</span> <code>accept()</code></h2>
 <p></p>
-<p>Accept an incoming connection on a listening socket</p>
-<h3 class="unnumbered unlisted" id="synopsis">Synopsis</h3>
+<p>리스닝 소켓에서 들어오는 연결을 수락한다</p>
+<h3 class="unnumbered unlisted" id="synopsis">형식</h3>
 <div class="sourceCode" id="cb81"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb81-1"><a href="man-pages.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb81-2"><a href="man-pages.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb81-3"><a href="man-pages.html#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb81-4"><a href="man-pages.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> accept<span class="op">(</span><span class="dt">int</span> s<span class="op">,</span> <span class="kw">struct</span> sockaddr <span class="op">*</span>addr<span class="op">,</span> socklen_t <span class="op">*</span>addrlen<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description">Description</h3>
-<p>Once you’ve gone through the trouble of getting a <code>SOCK_STREAM</code> socket and setting it up for incoming connections with <code>listen()</code>, then you call <code>accept()</code> to actually get yourself a new socket descriptor to use for subsequent communication with the newly connected client.</p>
-<p>The old socket that you are using for listening is still there, and will be used for further <code>accept()</code> calls as they come in.</p>
+<h3 class="unnumbered unlisted" id="description">설명</h3>
+<p><code>SOCK_STREAM</code> 소켓을 만들고 <code>listen()</code>으로 들어오는 연결을 받을 준비까지 마쳤다면, 이제 <code>accept()</code>를 호출해서 새로 연결된 클라이언트와 이후 통신에 사용할 새 소켓 디스크립터를 실제로 얻습니다.</p>
+<p>리스닝에 사용하던 기존 소켓은 그대로 남아 있고, 앞으로 들어오는 추가 연결에 대해 계속 <code>accept()</code>를 호출하는 데 사용됩니다.</p>
 <table>
 <colgroup>
 <col style="width: 14%" />
@@ -1026,30 +1026,30 @@
 </colgroup>
 <thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>파라미터</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>s</code></td>
-<td>The <code>listen()</code>ing socket descriptor.</td>
+<td><code>listen()</code> 중인 소켓 디스크립터입니다.</td>
 </tr>
 <tr>
 <td><code>addr</code></td>
-<td>This is filled in with the address of the site that’s connecting to you.</td>
+<td>여기에는 여러분에게 연결을 시도한 상대의 주소가 채워집니다.</td>
 </tr>
 <tr>
 <td><code>addrlen</code></td>
-<td>This is filled in with the <code>sizeof()</code> the structure returned in the <code>addr</code> parameter. You can safely ignore it if you assume you’re getting a <code>struct sockaddr_in</code> back, which you know you are, because that’s the type you passed in for <code>addr</code>.</td>
+<td>여기에는 <code>addr</code> 파라미터로 돌려받은 구조체의 <code>sizeof()</code> 값이 채워집니다. <code>addr</code>로 넘긴 타입이 <code>struct sockaddr_in</code>이고 실제로도 그것이 돌아올 것이라고 알고 있다면, 이 값은 무시해도 안전합니다.</td>
 </tr>
 </tbody>
 </table>
-<p><code>accept()</code> will normally block, and you can use <code>select()</code> to peek on the listening socket descriptor ahead of time to see if it’s “ready to read”. If so, then there’s a new connection waiting to be <code>accept()</code>ed! Yay! Alternatively, you could set the <code>O_NONBLOCK</code> flag on the listening socket using <code>fcntl()</code>, and then it will never block, choosing instead to return <code>-1</code> with <code>errno</code> set to <code>EWOULDBLOCK</code>.</p>
-<p>The socket descriptor returned by <code>accept()</code> is a bona fide socket descriptor, open and connected to the remote host. You have to <code>close()</code> it when you’re done with it.</p>
-<h3 class="unnumbered unlisted" id="return-value">Return Value</h3>
-<p><code>accept()</code> returns the newly connected socket descriptor, or <code>-1</code> on error, with <code>errno</code> set appropriately.</p>
-<h3 class="unnumbered unlisted" id="example">Example</h3>
+<p><code>accept()</code>는 보통 블록됩니다. 미리 리스닝 소켓 디스크립터를 살펴 “읽을 준비가 되었는지” 확인하려면 <code>select()</code>를 사용할 수 있습니다. 준비가 되어 있다면, <code>accept()</code>되기를 기다리는 새 연결이 있다는 뜻입니다! 야호! 또는 <code>fcntl()</code>로 리스닝 소켓에 <code>O_NONBLOCK</code> 플래그를 설정할 수도 있습니다. 그러면 블록되지 않고, 대신 <code>errno</code>를 <code>EWOULDBLOCK</code>으로 설정한 채 <code>-1</code>을 반환합니다.</p>
+<p><code>accept()</code>가 반환하는 소켓 디스크립터는 진짜배기 소켓 디스크립터로, 열린 상태이며 원격 호스트와 연결되어 있습니다. 사용이 끝나면 반드시 <code>close()</code>해야 합니다.</p>
+<h3 class="unnumbered unlisted" id="return-value">반환값</h3>
+<p><code>accept()</code>는 새로 연결된 소켓 디스크립터를 반환합니다. 오류가 발생하면 <code>-1</code>을 반환하고, <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example">예제</h3>
 <div class="sourceCode" id="cb82"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb82-1"><a href="man-pages.html#cb82-1"></a><span class="kw">struct</span> sockaddr_storage their_addr<span class="op">;</span></span>
 <span id="cb82-2"><a href="man-pages.html#cb82-2"></a>socklen_t addr_size<span class="op">;</span></span>
 <span id="cb82-3"><a href="man-pages.html#cb82-3"></a><span class="kw">struct</span> addrinfo hints<span class="op">,</span> <span class="op">*</span>res<span class="op">;</span></span>
@@ -1076,26 +1076,26 @@
 <span id="cb82-24"><a href="man-pages.html#cb82-24"></a>new_fd <span class="op">=</span> accept<span class="op">(</span>sockfd<span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr <span class="op">*)&amp;</span>their_addr<span class="op">,</span> <span class="op">&amp;</span>addr_size<span class="op">);</span></span>
 <span id="cb82-25"><a href="man-pages.html#cb82-25"></a></span>
 <span id="cb82-26"><a href="man-pages.html#cb82-26"></a><span class="co">// ready to communicate on socket descriptor new_fd!</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also">함께 보기</h3>
 <p><a href="man-pages.html#socketman"><code>socket()</code></a>, <a href="man-pages.html#getaddrinfoman"><code>getaddrinfo()</code></a>, <a href="man-pages.html#listenman"><code>listen()</code></a>, <a href="man-pages.html#structsockaddrman"><code>struct sockaddr_in</code></a></p>
 <hr />
 <h2 data-number="9.2" id="bindman"><span class="header-section-number">9.2</span> <code>bind()</code></h2>
 <p></p>
-<p>Associate a socket with an IP address and port number</p>
-<h3 class="unnumbered unlisted" id="synopsis-1">Synopsis</h3>
+<p>소켓을 IP 주소와 포트 번호에 연결한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-1">형식</h3>
 <div class="sourceCode" id="cb83"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb83-1"><a href="man-pages.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb83-2"><a href="man-pages.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb83-3"><a href="man-pages.html#cb83-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb83-4"><a href="man-pages.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> bind<span class="op">(</span><span class="dt">int</span> sockfd<span class="op">,</span> <span class="kw">struct</span> sockaddr <span class="op">*</span>my_addr<span class="op">,</span> socklen_t addrlen<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-1">Description</h3>
-<p>When a remote machine wants to connect to your server program, it needs two pieces of information: the IP address and the port number. The <code>bind()</code> call allows you to do just that.</p>
-<p>First, you call <code>getaddrinfo()</code> to load up a <code>struct sockaddr</code> with the destination address and port information. Then you call <code>socket()</code> to get a socket descriptor, and then you pass the socket and address into <code>bind()</code>, and the IP address and port are magically (using actual magic) bound to the socket!</p>
-<p>If you don’t know your IP address, or you know you only have one IP address on the machine, or you don’t care which of the machine’s IP addresses is used, you can simply pass the <code>AI_PASSIVE</code> flag in the <code>hints</code> parameter to <code>getaddrinfo()</code>. What this does is fill in the IP address part of the <code>struct sockaddr</code> with a special value that tells <code>bind()</code> that it should automatically fill in this host’s IP address.</p>
-<p>What what? What special value is loaded into the <code>struct sockaddr</code>’s IP address to cause it to auto-fill the address with the current host? I’ll tell you, but keep in mind this is only if you’re filling out the <code>struct sockaddr</code> by hand; if not, use the results from <code>getaddrinfo()</code>, as per above. In IPv4, the <code>sin_addr.s_addr</code> field of the <code>struct sockaddr_in</code> structure is set to <code>INADDR_ANY</code>. In IPv6, the <code>sin6_addr</code> field of the <code>struct sockaddr_in6</code> structure is assigned into from the global variable <code>in6addr_any</code>. Or, if you’re declaring a new <code>struct in6_addr</code>, you can initialize it to <code>IN6ADDR_ANY_INIT</code>.</p>
-<p>Lastly, the <code>addrlen</code> parameter should be set to <code>sizeof my_addr</code>.</p>
-<h3 class="unnumbered unlisted" id="return-value-1">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-1">Example</h3>
+<h3 class="unnumbered unlisted" id="description-1">설명</h3>
+<p>원격 머신이 여러분의 서버 프로그램에 연결하려면 두 가지 정보가 필요합니다. IP 주소와 포트 번호입니다. <code>bind()</code> 호출은 바로 그 일을 하게 해 줍니다.</p>
+<p>먼저 <code>getaddrinfo()</code>를 호출해서 목적지 주소와 포트 정보가 들어 있는 <code>struct sockaddr</code>를 준비합니다. 그런 다음 <code>socket()</code>으로 소켓 디스크립터를 얻고, 그 소켓과 주소를 <code>bind()</code>에 넘기면 IP 주소와 포트가 마법처럼(진짜 마법을 써서) 소켓에 묶입니다!</p>
+<p>자신의 IP 주소를 모르거나, 머신에 IP 주소가 하나뿐이라는 걸 알거나, 그 머신의 어떤 IP 주소를 쓸지 신경 쓰지 않는다면, <code>getaddrinfo()</code>의 <code>hints</code> 파라미터에 <code>AI_PASSIVE</code> 플래그를 넘기기만 하면 됩니다. 그러면 <code>struct sockaddr</code>의 IP 주소 부분에 특별한 값이 채워지고, <code>bind()</code>는 이를 보고 이 호스트의 IP 주소를 자동으로 채워 넣습니다.</p>
+<p>뭐라고요? 현재 호스트 주소가 자동으로 채워지게 만드는 특별한 값이 <code>struct sockaddr</code>의 IP 주소에 정확히 무엇으로 들어가느냐고요? 알려 드리죠. 다만 이건 <code>struct sockaddr</code>를 손으로 채울 때 이야기입니다. 그렇지 않다면 위에서처럼 <code>getaddrinfo()</code> 결과를 쓰면 됩니다. IPv4에서는 <code>struct sockaddr_in</code> 구조체의 <code>sin_addr.s_addr</code> 필드를 <code>INADDR_ANY</code>로 설정합니다. IPv6에서는 <code>struct sockaddr_in6</code> 구조체의 <code>sin6_addr</code> 필드에 전역 변수 <code>in6addr_any</code>를 대입합니다. 또는 새 <code>struct in6_addr</code>를 선언하는 경우 <code>IN6ADDR_ANY_INIT</code>으로 초기화할 수 있습니다.</p>
+<p>마지막으로 <code>addrlen</code> 파라미터는 <code>sizeof my_addr</code>로 설정해야 합니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-1">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-1">예제</h3>
 <div class="sourceCode" id="cb84"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb84-1"><a href="man-pages.html#cb84-1"></a><span class="co">// modern way of doing things with getaddrinfo()</span></span>
 <span id="cb84-2"><a href="man-pages.html#cb84-2"></a></span>
 <span id="cb84-3"><a href="man-pages.html#cb84-3"></a><span class="kw">struct</span> addrinfo hints<span class="op">,</span> <span class="op">*</span>res<span class="op">;</span></span>
@@ -1134,27 +1134,27 @@
 <span id="cb85-14"><a href="man-pages.html#cb85-14"></a></span>
 <span id="cb85-15"><a href="man-pages.html#cb85-15"></a>s <span class="op">=</span> socket<span class="op">(</span>PF_INET<span class="op">,</span> SOCK_STREAM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb85-16"><a href="man-pages.html#cb85-16"></a>bind<span class="op">(</span>s<span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr<span class="op">*)&amp;</span>myaddr<span class="op">,</span> <span class="kw">sizeof</span> myaddr<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-1">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-1">함께 보기</h3>
 <p><a href="man-pages.html#getaddrinfoman"><code>getaddrinfo()</code></a>, <a href="man-pages.html#socketman"><code>socket()</code></a>, <a href="man-pages.html#structsockaddrman"><code>struct sockaddr_in</code></a>, <a href="man-pages.html#structsockaddrman"><code>struct in_addr</code></a></p>
 <hr />
 <h2 data-number="9.3" id="connectman"><span class="header-section-number">9.3</span> <code>connect()</code></h2>
 <p></p>
-<p>Connect a socket to a server</p>
-<h3 class="unnumbered unlisted" id="synopsis-2">Synopsis</h3>
+<p>소켓을 서버에 연결한다</p>
+<h3 class="unnumbered unlisted" id="synopsis-2">형식</h3>
 <div class="sourceCode" id="cb86"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb86-1"><a href="man-pages.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
 <span id="cb86-2"><a href="man-pages.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/socket.h&gt;</span></span>
 <span id="cb86-3"><a href="man-pages.html#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb86-4"><a href="man-pages.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> connect<span class="op">(</span><span class="dt">int</span> sockfd<span class="op">,</span> <span class="dt">const</span> <span class="kw">struct</span> sockaddr <span class="op">*</span>serv_addr<span class="op">,</span></span>
 <span id="cb86-5"><a href="man-pages.html#cb86-5" aria-hidden="true" tabindex="-1"></a>            socklen_t addrlen<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-2">Description</h3>
-<p>Once you’ve built a socket descriptor with the <code>socket()</code> call, you can <code>connect()</code> that socket to a remote server using the well-named <code>connect()</code> system call. All you need to do is pass it the socket descriptor and the address of the server you’re interested in getting to know better. (Oh, and the length of the address, which is commonly passed to functions like this.)</p>
-<p>Usually this information comes along as the result of a call to <code>getaddrinfo()</code>, but you can fill out your own <code>struct sockaddr</code> if you want to.</p>
-<p>If you haven’t yet called <code>bind()</code> on the socket descriptor, it is automatically bound to your IP address and a random local port. This is usually just fine with you if you’re not a server, since you really don’t care what your local port is; you only care what the remote port is so you can put it in the <code>serv_addr</code> parameter. You <em>can</em> call <code>bind()</code> if you really want your client socket to be on a specific IP address and port, but this is pretty rare.</p>
-<p>Once the socket is <code>connect()</code>ed, you’re free to <code>send()</code> and <code>recv()</code> data on it to your heart’s content.</p>
-<p> Special note: if you <code>connect()</code> a <code>SOCK_DGRAM</code> UDP socket to a remote host, you can use <code>send()</code> and <code>recv()</code> as well as <code>sendto()</code> and <code>recvfrom()</code>. If you want.</p>
-<h3 class="unnumbered unlisted" id="return-value-2">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-2">Example</h3>
+<h3 class="unnumbered unlisted" id="description-2">설명</h3>
+<p><code>socket()</code> 호출로 소켓 디스크립터를 만들었다면, 이름 그대로인 <code>connect()</code> 시스템 호출을 사용해 그 소켓을 원격 서버에 연결할 수 있습니다. 해야 할 일은 소켓 디스크립터와, 좀 더 가까이 알고 싶은 서버의 주소를 넘기는 것뿐입니다. (아, 그리고 이런 함수들에 흔히 함께 넘기는 주소 길이도요.)</p>
+<p>보통 이 정보는 <code>getaddrinfo()</code> 호출 결과로 얻지만, 원한다면 직접 <code>struct sockaddr</code>를 채워 넣어도 됩니다.</p>
+<p>아직 그 소켓 디스크립터에 대해 <code>bind()</code>를 호출하지 않았다면, 여러분의 IP 주소와 임의의 로컬 포트에 자동으로 바인드됩니다. 서버가 아니라면 대개 이걸로 충분합니다. 로컬 포트가 무엇인지는 별로 중요하지 않고, <code>serv_addr</code> 파라미터에 넣어야 하는 원격 포트만 중요하기 때문입니다. 정말로 클라이언트 소켓을 특정 IP 주소와 포트에 두고 싶다면 <code>bind()</code>를 호출할 <em>수는</em> 있지만, 그런 경우는 꽤 드뭅니다.</p>
+<p>소켓이 <code>connect()</code>되면 마음껏 <code>send()</code>와 <code>recv()</code>로 데이터를 주고받을 수 있습니다.</p>
+<p>특별 참고: <code>SOCK_DGRAM</code> UDP 소켓을 원격 호스트에 <code>connect()</code>하면, 원한다면 <code>sendto()</code>와 <code>recvfrom()</code>뿐 아니라 <code>send()</code>와 <code>recv()</code>도 사용할 수 있습니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-2">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-2">예제</h3>
 <div class="sourceCode" id="cb87"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb87-1"><a href="man-pages.html#cb87-1"></a><span class="co">// connect to www.example.com port 80 (http)</span></span>
 <span id="cb87-2"><a href="man-pages.html#cb87-2"></a></span>
 <span id="cb87-3"><a href="man-pages.html#cb87-3"></a><span class="kw">struct</span> addrinfo hints<span class="op">,</span> <span class="op">*</span>res<span class="op">;</span></span>
@@ -1176,23 +1176,23 @@
 <span id="cb87-19"><a href="man-pages.html#cb87-19"></a><span class="co">// connect it to the address and port we passed in to getaddrinfo():</span></span>
 <span id="cb87-20"><a href="man-pages.html#cb87-20"></a></span>
 <span id="cb87-21"><a href="man-pages.html#cb87-21"></a>connect<span class="op">(</span>sockfd<span class="op">,</span> res<span class="op">-&gt;</span>ai_addr<span class="op">,</span> res<span class="op">-&gt;</span>ai_addrlen<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-2">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-2">함께 보기</h3>
 <p><a href="man-pages.html#socketman"><code>socket()</code></a>, <a href="man-pages.html#bindman"><code>bind()</code></a></p>
 <hr />
 <h2 data-number="9.4" id="closeman"><span class="header-section-number">9.4</span> <code>close()</code></h2>
 <p></p>
-<p>Close a socket descriptor</p>
-<h3 class="unnumbered unlisted" id="synopsis-3">Synopsis</h3>
+<p>소켓 디스크립터를 닫는다</p>
+<h3 class="unnumbered unlisted" id="synopsis-3">형식</h3>
 <div class="sourceCode" id="cb88"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb88-1"><a href="man-pages.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
 <span id="cb88-2"><a href="man-pages.html#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb88-3"><a href="man-pages.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> close<span class="op">(</span><span class="dt">int</span> s<span class="op">);</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="description-3">Description</h3>
-<p>After you’ve finished using the socket for whatever demented scheme you have concocted and you don’t want to <code>send()</code> or <code>recv()</code> or, indeed, do <em>anything else</em> at all with the socket, you can <code>close()</code> it, and it’ll be freed up, never to be used again.</p>
-<p>The remote side can tell if this happens one of two ways. One: if the remote side calls <code>recv()</code>, it will return <code>0</code>. Two: if the remote side calls <code>send()</code>, it’ll receive a signal <code>SIGPIPE</code> and send() will return <code>-1</code> and <code>errno</code> will be set to <code>EPIPE</code>.</p>
-<p> <strong>Windows users</strong>: the function you need to use is called <code>closesocket()</code>, not <code>close()</code>. If you try to use <code>close()</code> on a socket descriptor, it’s possible Windows will get angry… And you wouldn’t like it when it’s angry.</p>
-<h3 class="unnumbered unlisted" id="return-value-3">Return Value</h3>
-<p>Returns zero on success, or <code>-1</code> on error (and <code>errno</code> will be set accordingly).</p>
-<h3 class="unnumbered unlisted" id="example-3">Example</h3>
+<h3 class="unnumbered unlisted" id="description-3">설명</h3>
+<p>여러분이 꾸며 낸 그 기상천외한 계획을 위해 소켓을 다 사용했고, 더 이상 그 소켓으로 <code>send()</code>도 <code>recv()</code>도, 아니 사실상 <em>아무것도</em> 하고 싶지 않다면, <code>close()</code>를 호출하면 됩니다. 그러면 소켓은 해제되고 다시는 사용되지 않습니다.</p>
+<p>원격 측은 이 상황을 두 가지 방식으로 알 수 있습니다. 첫째, 원격 측이 <code>recv()</code>를 호출하면 <code>0</code>을 반환합니다. 둘째, 원격 측이 <code>send()</code>를 호출하면 <code>SIGPIPE</code> 시그널을 받고, <code>send()</code>는 <code>-1</code>을 반환하며 <code>errno</code>는 <code>EPIPE</code>로 설정됩니다.</p>
+<p><strong>Windows 사용자</strong>: 이때 써야 하는 함수는 <code>close()</code>가 아니라 <code>closesocket()</code>입니다. 소켓 디스크립터에 <code>close()</code>를 쓰려고 하면 Windows가 화를 낼 수도 있습니다. 그리고 Windows가 화났을 때는 별로 보고 싶지 않을 겁니다.</p>
+<h3 class="unnumbered unlisted" id="return-value-3">반환값</h3>
+<p>성공하면 0을, 오류가 발생하면 <code>-1</code>을 반환합니다. 이때 <code>errno</code>가 알맞게 설정됩니다.</p>
+<h3 class="unnumbered unlisted" id="example-3">예제</h3>
 <div class="sourceCode" id="cb89"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb89-1"><a href="man-pages.html#cb89-1"></a>s <span class="op">=</span> socket<span class="op">(</span>PF_INET<span class="op">,</span> SOCK_DGRAM<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
 <span id="cb89-2"><a href="man-pages.html#cb89-2"></a><span class="op">.</span></span>
 <span id="cb89-3"><a href="man-pages.html#cb89-3"></a><span class="op">.</span></span>
@@ -1202,7 +1202,7 @@
 <span id="cb89-7"><a href="man-pages.html#cb89-7"></a><span class="op">.</span></span>
 <span id="cb89-8"><a href="man-pages.html#cb89-8"></a><span class="op">.</span></span>
 <span id="cb89-9"><a href="man-pages.html#cb89-9"></a>close<span class="op">(</span>s<span class="op">);</span>  <span class="co">// not much to it, really.</span></span></code></pre></div>
-<h3 class="unnumbered unlisted" id="see-also-3">See Also</h3>
+<h3 class="unnumbered unlisted" id="see-also-3">함께 보기</h3>
 <p><a href="man-pages.html#socketman"><code>socket()</code></a>, <a href="man-pages.html#shutdownman"><code>shutdown()</code></a></p>
 <hr />
 <h2 data-number="9.5" id="getaddrinfoman"><span class="header-section-number">9.5</span> <code>getaddrinfo()</code>, <code>freeaddrinfo()</code>, <code>gai_strerror()</code></h2>

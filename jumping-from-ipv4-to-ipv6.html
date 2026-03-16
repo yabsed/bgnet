@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Beej's Guide to Network Programming</title>
+  <title>Beej의 네트워크 프로그래밍 가이드</title>
   <style>
     html {
       color: #1a1a1a;
@@ -988,34 +988,34 @@
   </style>
 </head>
 <body>
-<div style="text-align:center"><span><a href="ip-addresses-structs-and-data-munging.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="system-calls-or-bust.html" rel="next">Next</a></span></div><hr>
-<h1 data-number="4" id="jumping-from-ipv4-to-ipv6"><span class="header-section-number">4</span> Jumping from IPv4 to IPv6</h1>
+<div style="text-align:center"><span><a href="ip-addresses-structs-and-data-munging.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="system-calls-or-bust.html" rel="next">다음</a></span></div><hr>
+<h1 data-number="4" id="jumping-from-ipv4-to-ipv6"><span class="header-section-number">4</span> IPv4에서 IPv6로 넘어가기</h1>
 <p></p>
-<p>But I just want to know what to change in my code to get it going with IPv6! Tell me now!</p>
-<p>Ok! Ok!</p>
-<p>Almost everything in here is something I’ve gone over, above, but it’s the short version for the impatient. (Of course, there is more than this, but this is what applies to the guide.)</p>
+<p>하지만 제 코드를 IPv6에서 돌아가게 하려면 무엇을 바꿔야 하는지만 알고 싶어요! 지금 바로 알려주세요!</p>
+<p>알겠어요! 알겠어요!</p>
+<p>여기에 있는 거의 모든 내용은 위에서 이미 설명한 것이지만, 조급한 사람들을 위한 짧은 버전입니다. (물론 이보다 더 많은 내용이 있지만, 이 가이드에 해당하는 건 이 정도입니다.)</p>
 <ol type="1">
-<li><p>First of all, try to use <a href="ip-addresses-structs-and-data-munging.html#structs"><code>getaddrinfo()</code></a> to get all the <code>struct sockaddr</code> info, instead of packing the structures by hand. This will keep you IP version-agnostic, and will eliminate many of the subsequent steps.</p></li>
-<li><p>Any place that you find you’re hard-coding anything related to the IP version, try to wrap up in a helper function.</p></li>
-<li><p>Change <code>AF_INET</code> to <code>AF_INET6</code>.</p></li>
-<li><p>Change <code>PF_INET</code> to <code>PF_INET6</code>.</p></li>
-<li><p>Change <code>INADDR_ANY</code> assignments to <code>in6addr_any</code> assignments, which are slightly different:</p>
+<li><p>무엇보다도, 구조체를 손으로 직접 채워 넣는 대신 <a href="ip-addresses-structs-and-data-munging.html#structs"><code>getaddrinfo()</code></a>를 사용해 모든 <code>struct sockaddr</code> 정보를 얻도록 해보세요. 이렇게 하면 IP 버전에 독립적인 코드를 유지할 수 있고, 뒤따르는 여러 단계를 생략할 수 있습니다.</p></li>
+<li><p>IP 버전과 관련된 값을 하드코딩한 곳을 발견하면, 가능하면 헬퍼 함수로 감싸 두세요.</p></li>
+<li><p><code>AF_INET</code>을 <code>AF_INET6</code>으로 바꾸세요.</p></li>
+<li><p><code>PF_INET</code>을 <code>PF_INET6</code>으로 바꾸세요.</p></li>
+<li><p><code>INADDR_ANY</code> 대입은 약간 방식이 다른 <code>in6addr_any</code> 대입으로 바꾸세요:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="jumping-from-ipv4-to-ipv6.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> sockaddr_in sa<span class="op">;</span></span>
 <span id="cb18-2"><a href="jumping-from-ipv4-to-ipv6.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> sockaddr_in6 sa6<span class="op">;</span></span>
 <span id="cb18-3"><a href="jumping-from-ipv4-to-ipv6.html#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="jumping-from-ipv4-to-ipv6.html#cb18-4" aria-hidden="true" tabindex="-1"></a>sa<span class="op">.</span>sin_addr<span class="op">.</span>s_addr <span class="op">=</span> INADDR_ANY<span class="op">;</span>  <span class="co">// use my IPv4 address</span></span>
-<span id="cb18-5"><a href="jumping-from-ipv4-to-ipv6.html#cb18-5" aria-hidden="true" tabindex="-1"></a>sa6<span class="op">.</span>sin6_addr <span class="op">=</span> in6addr_any<span class="op">;</span> <span class="co">// use my IPv6 address</span></span></code></pre></div>
-<p>Also, the value <code>IN6ADDR_ANY_INIT</code> can be used as an initializer when the <code>struct in6_addr</code> is declared, like so:</p>
+<span id="cb18-4"><a href="jumping-from-ipv4-to-ipv6.html#cb18-4" aria-hidden="true" tabindex="-1"></a>sa<span class="op">.</span>sin_addr<span class="op">.</span>s_addr <span class="op">=</span> INADDR_ANY<span class="op">;</span>  <span class="co">// 내 IPv4 주소 사용</span></span>
+<span id="cb18-5"><a href="jumping-from-ipv4-to-ipv6.html#cb18-5" aria-hidden="true" tabindex="-1"></a>sa6<span class="op">.</span>sin6_addr <span class="op">=</span> in6addr_any<span class="op">;</span> <span class="co">// 내 IPv6 주소 사용</span></span></code></pre></div>
+<p>또한 <code>struct in6_addr</code>를 선언할 때는 <code>IN6ADDR_ANY_INIT</code> 값을 다음과 같이 초기화 값으로 사용할 수 있습니다:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="jumping-from-ipv4-to-ipv6.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> in6_addr ia6 <span class="op">=</span> IN6ADDR_ANY_INIT<span class="op">;</span></span></code></pre></div></li>
-<li><p>Instead of <code>struct sockaddr_in</code> use <code>struct sockaddr_in6</code>, being sure to add “6” to the fields as appropriate (see <a href="ip-addresses-structs-and-data-munging.html#structs"><code>struct</code>s</a>, above). There is no <code>sin6_zero</code> field.</p></li>
-<li><p>Instead of <code>struct in_addr</code> use <code>struct in6_addr</code>, being sure to add “6” to the fields as appropriate (see <a href="ip-addresses-structs-and-data-munging.html#structs"><code>struct</code>s</a>, above).</p></li>
-<li><p>Instead of <code>inet_aton()</code> or <code>inet_addr()</code>, use <code>inet_pton()</code>.</p></li>
-<li><p>Instead of <code>inet_ntoa()</code>, use <code>inet_ntop()</code>.</p></li>
-<li><p>Instead of <code>gethostbyname()</code>, use the superior <code>getaddrinfo()</code>.</p></li>
-<li><p>Instead of <code>gethostbyaddr()</code>, use the superior <code>getnameinfo()</code> (although <code>gethostbyaddr()</code> can still work with IPv6).</p></li>
-<li><p><code>INADDR_BROADCAST</code> no longer works. Use IPv6 multicast instead.</p></li>
+<li><p><code>struct sockaddr_in</code> 대신 <code>struct sockaddr_in6</code>을 사용하고, 필드 이름에도 알맞게 “6”을 붙이세요(위의 <a href="ip-addresses-structs-and-data-munging.html#structs"><code>struct</code> 설명</a> 참고). <code>sin6_zero</code> 필드는 없습니다.</p></li>
+<li><p><code>struct in_addr</code> 대신 <code>struct in6_addr</code>를 사용하고, 필드 이름에도 알맞게 “6”을 붙이세요(위의 <a href="ip-addresses-structs-and-data-munging.html#structs"><code>struct</code> 설명</a> 참고).</p></li>
+<li><p><code>inet_aton()</code> 또는 <code>inet_addr()</code> 대신 <code>inet_pton()</code>을 사용하세요.</p></li>
+<li><p><code>inet_ntoa()</code> 대신 <code>inet_ntop()</code>을 사용하세요.</p></li>
+<li><p><code>gethostbyname()</code> 대신 더 나은 <code>getaddrinfo()</code>를 사용하세요.</p></li>
+<li><p><code>gethostbyaddr()</code> 대신 더 나은 <code>getnameinfo()</code>를 사용하세요(<code>gethostbyaddr()</code>도 IPv6에서 여전히 동작할 수는 있습니다).</p></li>
+<li><p><code>INADDR_BROADCAST</code>는 더 이상 작동하지 않습니다. 대신 IPv6 멀티캐스트를 사용하세요.</p></li>
 </ol>
-<p><em>Et voilà</em>!</p>
+<p><em>이상입니다</em>!</p>
 <!-- BG_NEW_CHAPTER -->
-<hr><div style="text-align:center"><span><a href="ip-addresses-structs-and-data-munging.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="system-calls-or-bust.html" rel="next">Next</a></span></div></body>
+<hr><div style="text-align:center"><span><a href="ip-addresses-structs-and-data-munging.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="system-calls-or-bust.html" rel="next">다음</a></span></div></body>
 </html>
