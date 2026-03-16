@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Beej's Guide to Network Programming</title>
+  <title>Beej의 네트워크 프로그래밍 가이드</title>
   <style>
     html {
       color: #1a1a1a;
@@ -988,81 +988,81 @@
   </style>
 </head>
 <body>
-<div style="text-align:center"><span style="visibility: hidden"><a href="" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="intro.html" rel="next">Next</a></span></div><hr>
+<div style="text-align:center"><span style="visibility: hidden"><a href="" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="intro.html" rel="next">다음</a></span></div><hr>
 <header id="title-block-header">
-<h1 class="title">Beej's Guide to Network Programming</h1>
-<p class="subtitle">Using Internet Sockets</p>
+<h1 class="title">Beej의 네트워크 프로그래밍 가이드</h1>
+<p class="subtitle">인터넷 소켓 사용하기</p>
 <p class="author">Brian “Beej Jorgensen” Hall</p>
-<p class="date">v3.3.0, Copyright © January 19, 2026</p>
+<p class="date">v3.3.0, 저작권 © 2026년 1월 19일</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="intro.html#intro" id="toc-intro"><span class="toc-section-number">1</span> Intro</a>
+<li><a href="intro.html#intro" id="toc-intro"><span class="toc-section-number">1</span> 소개</a>
 <ul>
-<li><a href="intro.html#audience" id="toc-audience"><span class="toc-section-number">1.1</span> Audience</a></li>
-<li><a href="intro.html#platform-and-compiler" id="toc-platform-and-compiler"><span class="toc-section-number">1.2</span> Platform and Compiler</a></li>
-<li><a href="intro.html#official-homepage-and-books-for-sale" id="toc-official-homepage-and-books-for-sale"><span class="toc-section-number">1.3</span> Official Homepage and Books For Sale</a></li>
-<li><a href="intro.html#solaris" id="toc-solaris"><span class="toc-section-number">1.4</span> Note for Solaris/SunOS/illumos Programmers</a></li>
-<li><a href="intro.html#windows" id="toc-windows"><span class="toc-section-number">1.5</span> Note for Windows Programmers</a></li>
-<li><a href="intro.html#email-policy" id="toc-email-policy"><span class="toc-section-number">1.6</span> Email Policy</a></li>
-<li><a href="intro.html#mirroring" id="toc-mirroring"><span class="toc-section-number">1.7</span> Mirroring</a></li>
-<li><a href="intro.html#note-for-translators" id="toc-note-for-translators"><span class="toc-section-number">1.8</span> Note for Translators</a></li>
-<li><a href="intro.html#legal" id="toc-legal"><span class="toc-section-number">1.9</span> Copyright, Distribution, and Legal</a></li>
-<li><a href="intro.html#dedication" id="toc-dedication"><span class="toc-section-number">1.10</span> Dedication</a></li>
-<li><a href="intro.html#publishing-information" id="toc-publishing-information"><span class="toc-section-number">1.11</span> Publishing Information</a></li>
+<li><a href="intro.html#audience" id="toc-audience"><span class="toc-section-number">1.1</span> 대상 독자</a></li>
+<li><a href="intro.html#platform-and-compiler" id="toc-platform-and-compiler"><span class="toc-section-number">1.2</span> 플랫폼과 컴파일러</a></li>
+<li><a href="intro.html#official-homepage-and-books-for-sale" id="toc-official-homepage-and-books-for-sale"><span class="toc-section-number">1.3</span> 공식 홈페이지와 판매 중인 책</a></li>
+<li><a href="intro.html#solaris" id="toc-solaris"><span class="toc-section-number">1.4</span> Solaris/SunOS/illumos 프로그래머를 위한 참고 사항</a></li>
+<li><a href="intro.html#windows" id="toc-windows"><span class="toc-section-number">1.5</span> Windows 프로그래머를 위한 참고 사항</a></li>
+<li><a href="intro.html#email-policy" id="toc-email-policy"><span class="toc-section-number">1.6</span> 이메일 정책</a></li>
+<li><a href="intro.html#mirroring" id="toc-mirroring"><span class="toc-section-number">1.7</span> 미러링</a></li>
+<li><a href="intro.html#note-for-translators" id="toc-note-for-translators"><span class="toc-section-number">1.8</span> 번역자를 위한 참고 사항</a></li>
+<li><a href="intro.html#legal" id="toc-legal"><span class="toc-section-number">1.9</span> 저작권, 배포 및 법적 고지</a></li>
+<li><a href="intro.html#dedication" id="toc-dedication"><span class="toc-section-number">1.10</span> 헌사</a></li>
+<li><a href="intro.html#publishing-information" id="toc-publishing-information"><span class="toc-section-number">1.11</span> 출판 정보</a></li>
 </ul></li>
-<li><a href="what-is-a-socket.html#what-is-a-socket" id="toc-what-is-a-socket"><span class="toc-section-number">2</span> What is a socket?</a>
+<li><a href="what-is-a-socket.html#what-is-a-socket" id="toc-what-is-a-socket"><span class="toc-section-number">2</span> 소켓이란 무엇인가?</a>
 <ul>
-<li><a href="what-is-a-socket.html#two-types-of-internet-sockets" id="toc-two-types-of-internet-sockets"><span class="toc-section-number">2.1</span> Two Types of Internet Sockets</a></li>
-<li><a href="what-is-a-socket.html#lowlevel" id="toc-lowlevel"><span class="toc-section-number">2.2</span> Low level Nonsense and Network Theory</a></li>
+<li><a href="what-is-a-socket.html#two-types-of-internet-sockets" id="toc-two-types-of-internet-sockets"><span class="toc-section-number">2.1</span> 인터넷 소켓의 두 가지 유형</a></li>
+<li><a href="what-is-a-socket.html#lowlevel" id="toc-lowlevel"><span class="toc-section-number">2.2</span> 저수준 이야기와 네트워크 이론</a></li>
 </ul></li>
-<li><a href="ip-addresses-structs-and-data-munging.html#ip-addresses-structs-and-data-munging" id="toc-ip-addresses-structs-and-data-munging"><span class="toc-section-number">3</span> IP Addresses, <code>struct</code>s, and Data Munging</a>
+<li><a href="ip-addresses-structs-and-data-munging.html#ip-addresses-structs-and-data-munging" id="toc-ip-addresses-structs-and-data-munging"><span class="toc-section-number">3</span> IP 주소, <code>struct</code>, 그리고 데이터 다루기</a>
 <ul>
-<li><a href="ip-addresses-structs-and-data-munging.html#ip-addresses-versions-4-and-6" id="toc-ip-addresses-versions-4-and-6"><span class="toc-section-number">3.1</span> IP Addresses, versions 4 and 6</a>
+<li><a href="ip-addresses-structs-and-data-munging.html#ip-addresses-versions-4-and-6" id="toc-ip-addresses-versions-4-and-6"><span class="toc-section-number">3.1</span> IP 주소, 버전 4와 6</a>
 <ul>
-<li><a href="ip-addresses-structs-and-data-munging.html#subnets" id="toc-subnets"><span class="toc-section-number">3.1.1</span> Subnets</a></li>
-<li><a href="ip-addresses-structs-and-data-munging.html#port-numbers" id="toc-port-numbers"><span class="toc-section-number">3.1.2</span> Port Numbers</a></li>
+<li><a href="ip-addresses-structs-and-data-munging.html#subnets" id="toc-subnets"><span class="toc-section-number">3.1.1</span> 서브넷</a></li>
+<li><a href="ip-addresses-structs-and-data-munging.html#port-numbers" id="toc-port-numbers"><span class="toc-section-number">3.1.2</span> 포트 번호</a></li>
 </ul></li>
-<li><a href="ip-addresses-structs-and-data-munging.html#byte-order" id="toc-byte-order"><span class="toc-section-number">3.2</span> Byte Order</a></li>
-<li><a href="ip-addresses-structs-and-data-munging.html#structs" id="toc-structs"><span class="toc-section-number">3.3</span> <code>struct</code>s</a></li>
-<li><a href="ip-addresses-structs-and-data-munging.html#ip-addresses-part-deux" id="toc-ip-addresses-part-deux"><span class="toc-section-number">3.4</span> IP Addresses, Part Deux</a>
+<li><a href="ip-addresses-structs-and-data-munging.html#byte-order" id="toc-byte-order"><span class="toc-section-number">3.2</span> 바이트 순서</a></li>
+<li><a href="ip-addresses-structs-and-data-munging.html#structs" id="toc-structs"><span class="toc-section-number">3.3</span> <code>struct</code></a></li>
+<li><a href="ip-addresses-structs-and-data-munging.html#ip-addresses-part-deux" id="toc-ip-addresses-part-deux"><span class="toc-section-number">3.4</span> IP 주소, 두 번째 이야기</a>
 <ul>
-<li><a href="ip-addresses-structs-and-data-munging.html#private-or-disconnected-networks" id="toc-private-or-disconnected-networks"><span class="toc-section-number">3.4.1</span> Private (Or Disconnected) Networks</a></li>
+<li><a href="ip-addresses-structs-and-data-munging.html#private-or-disconnected-networks" id="toc-private-or-disconnected-networks"><span class="toc-section-number">3.4.1</span> 사설(또는 분리된) 네트워크</a></li>
 </ul></li>
 </ul></li>
-<li><a href="jumping-from-ipv4-to-ipv6.html#jumping-from-ipv4-to-ipv6" id="toc-jumping-from-ipv4-to-ipv6"><span class="toc-section-number">4</span> Jumping from IPv4 to IPv6</a></li>
-<li><a href="system-calls-or-bust.html#system-calls-or-bust" id="toc-system-calls-or-bust"><span class="toc-section-number">5</span> System Calls or Bust</a>
+<li><a href="jumping-from-ipv4-to-ipv6.html#jumping-from-ipv4-to-ipv6" id="toc-jumping-from-ipv4-to-ipv6"><span class="toc-section-number">4</span> IPv4에서 IPv6로 넘어가기</a></li>
+<li><a href="system-calls-or-bust.html#system-calls-or-bust" id="toc-system-calls-or-bust"><span class="toc-section-number">5</span> 시스템 호출로 승부하기</a>
 <ul>
-<li><a href="system-calls-or-bust.html#getaddrinfoprepare-to-launch" id="toc-getaddrinfoprepare-to-launch"><span class="toc-section-number">5.1</span> <code>getaddrinfo()</code>—Prepare to launch!</a></li>
-<li><a href="system-calls-or-bust.html#socket" id="toc-socket"><span class="toc-section-number">5.2</span> <code>socket()</code>—Get the File Descriptor!</a></li>
-<li><a href="system-calls-or-bust.html#bind" id="toc-bind"><span class="toc-section-number">5.3</span> <code>bind()</code>—What port am I on?</a></li>
-<li><a href="system-calls-or-bust.html#connect" id="toc-connect"><span class="toc-section-number">5.4</span> <code>connect()</code>—Hey, you!</a></li>
-<li><a href="system-calls-or-bust.html#listen" id="toc-listen"><span class="toc-section-number">5.5</span> <code>listen()</code>—Will somebody please call me?</a></li>
-<li><a href="system-calls-or-bust.html#acceptthank-you-for-calling-port-3490." id="toc-acceptthank-you-for-calling-port-3490."><span class="toc-section-number">5.6</span> <code>accept()</code>—“Thank you for calling port 3490.”</a></li>
-<li><a href="system-calls-or-bust.html#sendrecv" id="toc-sendrecv"><span class="toc-section-number">5.7</span> <code>send()</code> and <code>recv()</code>—Talk to me, baby!</a></li>
-<li><a href="system-calls-or-bust.html#sendtorecv" id="toc-sendtorecv"><span class="toc-section-number">5.8</span> <code>sendto()</code> and <code>recvfrom()</code>—Talk to me, DGRAM-style</a></li>
-<li><a href="system-calls-or-bust.html#close-and-shutdownget-outta-my-face" id="toc-close-and-shutdownget-outta-my-face"><span class="toc-section-number">5.9</span> <code>close()</code> and <code>shutdown()</code>—Get outta my face!</a></li>
-<li><a href="system-calls-or-bust.html#getpeernamewho-are-you" id="toc-getpeernamewho-are-you"><span class="toc-section-number">5.10</span> <code>getpeername()</code>—Who are you?</a></li>
-<li><a href="system-calls-or-bust.html#gethostnamewho-am-i" id="toc-gethostnamewho-am-i"><span class="toc-section-number">5.11</span> <code>gethostname()</code>—Who am I?</a></li>
+<li><a href="system-calls-or-bust.html#getaddrinfoprepare-to-launch" id="toc-getaddrinfoprepare-to-launch"><span class="toc-section-number">5.1</span> <code>getaddrinfo()</code>—출발 준비!</a></li>
+<li><a href="system-calls-or-bust.html#socket" id="toc-socket"><span class="toc-section-number">5.2</span> <code>socket()</code>—파일 디스크립터를 얻자!</a></li>
+<li><a href="system-calls-or-bust.html#bind" id="toc-bind"><span class="toc-section-number">5.3</span> <code>bind()</code>—나는 어떤 포트에 있나?</a></li>
+<li><a href="system-calls-or-bust.html#connect" id="toc-connect"><span class="toc-section-number">5.4</span> <code>connect()</code>—거기, 너!</a></li>
+<li><a href="system-calls-or-bust.html#listen" id="toc-listen"><span class="toc-section-number">5.5</span> <code>listen()</code>—누가 좀 호출해 주세요!</a></li>
+<li><a href="system-calls-or-bust.html#acceptthank-you-for-calling-port-3490." id="toc-acceptthank-you-for-calling-port-3490."><span class="toc-section-number">5.6</span> <code>accept()</code>—“포트 3490으로 전화 주셔서 감사합니다.”</a></li>
+<li><a href="system-calls-or-bust.html#sendrecv" id="toc-sendrecv"><span class="toc-section-number">5.7</span> <code>send()</code>와 <code>recv()</code>—내게 말을 걸어 봐!</a></li>
+<li><a href="system-calls-or-bust.html#sendtorecv" id="toc-sendtorecv"><span class="toc-section-number">5.8</span> <code>sendto()</code>와 <code>recvfrom()</code>—DGRAM 방식으로 대화하기</a></li>
+<li><a href="system-calls-or-bust.html#close-and-shutdownget-outta-my-face" id="toc-close-and-shutdownget-outta-my-face"><span class="toc-section-number">5.9</span> <code>close()</code>와 <code>shutdown()</code>—이제 그만 가 줘!</a></li>
+<li><a href="system-calls-or-bust.html#getpeernamewho-are-you" id="toc-getpeernamewho-are-you"><span class="toc-section-number">5.10</span> <code>getpeername()</code>—당신은 누구?</a></li>
+<li><a href="system-calls-or-bust.html#gethostnamewho-am-i" id="toc-gethostnamewho-am-i"><span class="toc-section-number">5.11</span> <code>gethostname()</code>—나는 누구?</a></li>
 </ul></li>
-<li><a href="client-server-background.html#client-server-background" id="toc-client-server-background"><span class="toc-section-number">6</span> Client-Server Background</a>
+<li><a href="client-server-background.html#client-server-background" id="toc-client-server-background"><span class="toc-section-number">6</span> 클라이언트-서버 배경지식</a>
 <ul>
-<li><a href="client-server-background.html#a-simple-stream-server" id="toc-a-simple-stream-server"><span class="toc-section-number">6.1</span> A Simple Stream Server</a></li>
-<li><a href="client-server-background.html#a-simple-stream-client" id="toc-a-simple-stream-client"><span class="toc-section-number">6.2</span> A Simple Stream Client</a></li>
-<li><a href="client-server-background.html#datagram" id="toc-datagram"><span class="toc-section-number">6.3</span> Datagram Sockets</a></li>
+<li><a href="client-server-background.html#a-simple-stream-server" id="toc-a-simple-stream-server"><span class="toc-section-number">6.1</span> 간단한 스트림 서버</a></li>
+<li><a href="client-server-background.html#a-simple-stream-client" id="toc-a-simple-stream-client"><span class="toc-section-number">6.2</span> 간단한 스트림 클라이언트</a></li>
+<li><a href="client-server-background.html#datagram" id="toc-datagram"><span class="toc-section-number">6.3</span> 데이터그램 소켓</a></li>
 </ul></li>
-<li><a href="slightly-advanced-techniques.html#slightly-advanced-techniques" id="toc-slightly-advanced-techniques"><span class="toc-section-number">7</span> Slightly Advanced Techniques</a>
+<li><a href="slightly-advanced-techniques.html#slightly-advanced-techniques" id="toc-slightly-advanced-techniques"><span class="toc-section-number">7</span> 조금 더 고급 기법</a>
 <ul>
-<li><a href="slightly-advanced-techniques.html#blocking" id="toc-blocking"><span class="toc-section-number">7.1</span> Blocking</a></li>
-<li><a href="slightly-advanced-techniques.html#poll" id="toc-poll"><span class="toc-section-number">7.2</span> <code>poll()</code>—Synchronous I/O Multiplexing</a></li>
-<li><a href="slightly-advanced-techniques.html#select" id="toc-select"><span class="toc-section-number">7.3</span> <code>select()</code>—Synchronous I/O Multiplexing, Old School</a></li>
-<li><a href="slightly-advanced-techniques.html#sendall" id="toc-sendall"><span class="toc-section-number">7.4</span> Handling Partial <code>send()</code>s</a></li>
-<li><a href="slightly-advanced-techniques.html#serialization" id="toc-serialization"><span class="toc-section-number">7.5</span> Serialization—How to Pack Data</a></li>
-<li><a href="slightly-advanced-techniques.html#sonofdataencap" id="toc-sonofdataencap"><span class="toc-section-number">7.6</span> Son of Data Encapsulation</a></li>
-<li><a href="slightly-advanced-techniques.html#broadcast-packetshello-world" id="toc-broadcast-packetshello-world"><span class="toc-section-number">7.7</span> Broadcast Packets—Hello, World!</a></li>
+<li><a href="slightly-advanced-techniques.html#blocking" id="toc-blocking"><span class="toc-section-number">7.1</span> 블로킹</a></li>
+<li><a href="slightly-advanced-techniques.html#poll" id="toc-poll"><span class="toc-section-number">7.2</span> <code>poll()</code>—동기 I/O 멀티플렉싱</a></li>
+<li><a href="slightly-advanced-techniques.html#select" id="toc-select"><span class="toc-section-number">7.3</span> <code>select()</code>—전통적인 동기 I/O 멀티플렉싱</a></li>
+<li><a href="slightly-advanced-techniques.html#sendall" id="toc-sendall"><span class="toc-section-number">7.4</span> 부분적인 <code>send()</code> 처리</a></li>
+<li><a href="slightly-advanced-techniques.html#serialization" id="toc-serialization"><span class="toc-section-number">7.5</span> 직렬화—데이터를 포장하는 법</a></li>
+<li><a href="slightly-advanced-techniques.html#sonofdataencap" id="toc-sonofdataencap"><span class="toc-section-number">7.6</span> 데이터 캡슐화의 후속편</a></li>
+<li><a href="slightly-advanced-techniques.html#broadcast-packetshello-world" id="toc-broadcast-packetshello-world"><span class="toc-section-number">7.7</span> 브로드캐스트 패킷—안녕, 세상아!</a></li>
 </ul></li>
-<li><a href="common-questions.html#common-questions" id="toc-common-questions"><span class="toc-section-number">8</span> Common Questions</a></li>
-<li><a href="man-pages.html#man-pages" id="toc-man-pages"><span class="toc-section-number">9</span> Man Pages</a>
+<li><a href="common-questions.html#common-questions" id="toc-common-questions"><span class="toc-section-number">8</span> 자주 묻는 질문</a></li>
+<li><a href="man-pages.html#man-pages" id="toc-man-pages"><span class="toc-section-number">9</span> 매뉴얼 페이지</a>
 <ul>
 <li><a href="man-pages.html#acceptman" id="toc-acceptman"><span class="toc-section-number">9.1</span> <code>accept()</code></a></li>
 <li><a href="man-pages.html#bindman" id="toc-bindman"><span class="toc-section-number">9.2</span> <code>bind()</code></a></li>
@@ -1087,16 +1087,16 @@
 <li><a href="man-pages.html#sendman" id="toc-sendman"><span class="toc-section-number">9.21</span> <code>send()</code>, <code>sendto()</code></a></li>
 <li><a href="man-pages.html#shutdownman" id="toc-shutdownman"><span class="toc-section-number">9.22</span> <code>shutdown()</code></a></li>
 <li><a href="man-pages.html#socketman" id="toc-socketman"><span class="toc-section-number">9.23</span> <code>socket()</code></a></li>
-<li><a href="man-pages.html#structsockaddrman" id="toc-structsockaddrman"><span class="toc-section-number">9.24</span> <code>struct sockaddr</code> and pals</a></li>
+<li><a href="man-pages.html#structsockaddrman" id="toc-structsockaddrman"><span class="toc-section-number">9.24</span> <code>struct sockaddr</code>와 친구들</a></li>
 </ul></li>
-<li><a href="more-references.html#more-references" id="toc-more-references"><span class="toc-section-number">10</span> More References</a>
+<li><a href="more-references.html#more-references" id="toc-more-references"><span class="toc-section-number">10</span> 추가 참고 자료</a>
 <ul>
-<li><a href="more-references.html#books" id="toc-books"><span class="toc-section-number">10.1</span> Books</a></li>
-<li><a href="more-references.html#web-references" id="toc-web-references"><span class="toc-section-number">10.2</span> Web References</a></li>
-<li><a href="more-references.html#rfcs" id="toc-rfcs"><span class="toc-section-number">10.3</span> RFCs</a></li>
+<li><a href="more-references.html#books" id="toc-books"><span class="toc-section-number">10.1</span> 책</a></li>
+<li><a href="more-references.html#web-references" id="toc-web-references"><span class="toc-section-number">10.2</span> 웹 참고 자료</a></li>
+<li><a href="more-references.html#rfcs" id="toc-rfcs"><span class="toc-section-number">10.3</span> RFC</a></li>
 </ul></li>
 </ul>
 </nav>
 <!-- BG_NEW_CHAPTER -->
-<hr><div style="text-align:center"><span style="visibility: hidden"><a href="" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="intro.html" rel="next">Next</a></span></div></body>
+<hr><div style="text-align:center"><span style="visibility: hidden"><a href="" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="intro.html" rel="next">다음</a></span></div></body>
 </html>
