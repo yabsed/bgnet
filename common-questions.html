@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Beej's Guide to Network Programming</title>
+  <title>Beej의 네트워크 프로그래밍 가이드</title>
   <style>
     html {
       color: #1a1a1a;
@@ -988,41 +988,41 @@
   </style>
 </head>
 <body>
-<div style="text-align:center"><span><a href="slightly-advanced-techniques.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="man-pages.html" rel="next">Next</a></span></div><hr>
-<h1 data-number="8" id="common-questions"><span class="header-section-number">8</span> Common Questions</h1>
-<p><strong>Where can I get those header files?</strong></p>
-<p> If you don’t have them on your system already, you probably don’t need them. Check the manual for your particular platform. If you’re building for Windows, you only need to <code>#include &lt;winsock.h&gt;</code>.</p>
-<p><strong>What do I do when <code>bind()</code> reports “Address already in use”?</strong></p>
-<p>You have to use <code>setsockopt()</code> with the <code>SO_REUSEADDR</code> option on the listening socket. Check out the <a href="system-calls-or-bust.html#bind">section on <code>bind()</code></a> and the <a href="slightly-advanced-techniques.html#select">section on <code>select()</code></a> for an example.</p>
-<p><strong>How do I get a list of open sockets on the system?</strong></p>
-<p>Use the <code>netstat</code>. Check the <code>man</code> page for full details, but you should get some good output just typing:</p>
+<div style="text-align:center"><span><a href="slightly-advanced-techniques.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="man-pages.html" rel="next">다음</a></span></div><hr>
+<h1 data-number="8" id="common-questions"><span class="header-section-number">8</span> 자주 묻는 질문</h1>
+<p><strong>저 헤더 파일들은 어디서 구하나요?</strong></p>
+<p>시스템에 이미 없다면 아마 필요하지 않은 것일 가능성이 큽니다. 사용 중인 플랫폼의 매뉴얼을 확인하세요. Windows용으로 빌드한다면 <code>#include &lt;winsock.h&gt;</code>만 있으면 됩니다.</p>
+<p><strong><code>bind()</code>가 “Address already in use”를 보고하면 어떻게 해야 하나요?</strong></p>
+<p>리스닝 소켓에 <code>SO_REUSEADDR</code> 옵션과 함께 <code>setsockopt()</code>를 사용해야 합니다. 예제는 <a href="system-calls-or-bust.html#bind"><code>bind()</code> 절</a>과 <a href="slightly-advanced-techniques.html#select"><code>select()</code> 절</a>을 참고하세요.</p>
+<p><strong>시스템에서 열려 있는 소켓 목록은 어떻게 보나요?</strong></p>
+<p><code>netstat</code>를 사용하세요. 자세한 내용은 <code>man</code> 페이지를 보면 되지만, 일단 다음처럼 입력해도 꽤 괜찮은 출력이 나옵니다.</p>
 <pre><code>$ netstat</code></pre>
-<p>The only trick is determining which socket is associated with which program. <code>:-)</code></p>
-<p><strong>How can I view the routing table?</strong></p>
-<p>Run the <code>route</code> command (in <code>/sbin</code> on most Linuxes) or the command <code>netstat -r</code>. Or the command <code>ip route</code>.</p>
-<p><strong>How can I run the client and server programs if I only have one computer? Don’t I need a network to write network programs?</strong></p>
-<p>Fortunately for you, virtually all machines implement a loopback network “device” that sits in the kernel and pretends to be a network card. (This is the interface listed as “<code>lo</code>” in the routing table.)</p>
-<p>Pretend you’re logged into a machine named “<code>goat</code>”. Run the client in one window and the server in another. Or start the server in the background (“<code>server &amp;</code>”) and run the client in the same window. The upshot of the loopback device is that you can either <code>client goat</code> or <code>client localhost</code> (since “<code>localhost</code>” is likely defined in your <code>/etc/hosts</code> file) and you’ll have the client talking to the server without a network!</p>
-<p>In short, no changes are necessary to any of the code to make it run on a single non-networked machine! Huzzah!</p>
-<p><strong>How can I tell if the remote side has closed connection?</strong></p>
-<p>You can tell because <code>recv()</code> will return <code>0</code>.</p>
-<p><strong>How do I implement a “ping” utility? What is ICMP? Where can I find out more about raw sockets and <code>SOCK_RAW</code>?</strong></p>
+<p>유일한 문제는 어떤 소켓이 어떤 프로그램과 연결되어 있는지 알아내는 일입니다. <code>:-)</code></p>
+<p><strong>라우팅 테이블은 어떻게 보나요?</strong></p>
+<p><code>route</code> 명령(대부분의 Linux에서는 <code>/sbin</code> 아래에 있습니다), <code>netstat -r</code>, 또는 <code>ip route</code>를 실행하면 됩니다.</p>
+<p><strong>컴퓨터가 한 대뿐이면 클라이언트와 서버 프로그램은 어떻게 실행하나요? 네트워크 프로그램을 작성하려면 네트워크가 꼭 필요한 것 아닌가요?</strong></p>
+<p>다행히 거의 모든 머신은 커널 안에서 동작하며 네트워크 카드인 척하는 루프백 네트워크 “장치”를 구현하고 있습니다. (라우팅 테이블에 “<code>lo</code>”로 나타나는 인터페이스가 바로 그것입니다.)</p>
+<p>여러분이 “<code>goat</code>”라는 이름의 머신에 로그인했다고 가정해 봅시다. 한 창에서는 클라이언트를 실행하고 다른 창에서는 서버를 실행하면 됩니다. 또는 서버를 백그라운드로 띄운 뒤 (“<code>server &amp;</code>”) 같은 창에서 클라이언트를 실행해도 됩니다. 루프백 장치의 핵심은 <code>client goat</code>나 <code>client localhost</code>를 사용할 수 있다는 점입니다. (“<code>localhost</code>”는 보통 <code>/etc/hosts</code> 파일에 정의되어 있습니다.) 즉, 실제 네트워크가 없어도 클라이언트와 서버가 통신할 수 있습니다!</p>
+<p>요컨대, 네트워크가 없는 단일 머신에서 실행하기 위해 기존 코드에 어떤 수정도 할 필요가 없습니다. 만세!</p>
+<p><strong>원격 측이 연결을 닫았는지는 어떻게 알 수 있나요?</strong></p>
+<p><code>recv()</code>가 <code>0</code>을 반환하면 알 수 있습니다.</p>
+<p><strong>“ping” 유틸리티는 어떻게 구현하나요? ICMP는 무엇인가요? raw socket과 <code>SOCK_RAW</code>에 대한 더 자세한 내용은 어디서 볼 수 있나요?</strong></p>
 <p></p>
-<p>All your raw sockets questions will be answered in <a href="more-references.html#books">W. Richard Stevens’ UNIX Network Programming books</a>. Also, look in the <code>ping/</code> subdirectory in Stevens’ UNIX Network Programming source code, <a href="http://www.unpbook.com/src.html">available online</a><a href="more-references.html#fn44" class="footnote-ref" id="fnref44" role="doc-noteref"><sup>44</sup></a>.</p>
-<p><strong>How do I change or shorten the timeout on a call to <code>connect()</code>?</strong></p>
-<p>Instead of giving you exactly the same answer that W. Richard Stevens would give you, I’ll just refer you to <a href="http://www.unpbook.com/src.html"><code>lib/connect_nonb.c</code> in the UNIX Network Programming source code</a><a href="more-references.html#fn45" class="footnote-ref" id="fnref45" role="doc-noteref"><sup>45</sup></a>.</p>
-<p>The gist of it is that you make a socket descriptor with <code>socket()</code>, <a href="slightly-advanced-techniques.html#blocking">set it to non-blocking</a>, call <code>connect()</code>, and if all goes well <code>connect()</code> will return <code>-1</code> immediately and <code>errno</code> will be set to <code>EINPROGRESS</code>. Then you call <a href="slightly-advanced-techniques.html#select"><code>select()</code></a> with whatever timeout you want, passing the socket descriptor in both the read and write sets. If it doesn’t timeout, it means the <code>connect()</code> call completed. At this point, you’ll have to use <code>getsockopt()</code> with the <code>SO_ERROR</code> option to get the return value from the <code>connect()</code> call, which should be zero if there was no error.</p>
-<p>Finally, you’ll probably want to set the socket back to be blocking again before you start transferring data over it.</p>
-<p>Notice that this has the added benefit of allowing your program to do something else while it’s connecting, too. You could, for example, set the timeout to something low, like 500 ms, and update an indicator onscreen each timeout, then call <code>select()</code> again. When you’ve called <code>select()</code> and timed-out, say, 20 times, you’ll know it’s time to give up on the connection.</p>
-<p>Like I said, check out Stevens’ source for a perfectly excellent example.</p>
-<p><strong>How do I build for Windows?</strong></p>
-<p>First, delete Windows and install Linux or BSD. <code>};-)</code>. No, actually, just see the <a href="intro.html#windows">section on building for Windows</a> in the introduction.</p>
-<p><strong>How do I build for Solaris/SunOS? I keep getting linker errors when I try to compile!</strong></p>
-<p>The linker errors happen because Sun boxes don’t automatically compile in the socket libraries. See the <a href="intro.html#solaris">section on building for Solaris/SunOS</a> in the introduction for an example of how to do this.</p>
-<p><strong>Why does <code>select()</code> keep falling out on a signal?</strong></p>
-<p>Signals tend to cause blocked system calls to return <code>-1</code> with <code>errno</code> set to <code>EINTR</code>. When you set up a signal handler with <code>sigaction()</code>, you can set the flag <code>SA_RESTART</code>, which is supposed to restart the system call after it was interrupted.</p>
-<p>Naturally, this doesn’t always work.</p>
-<p>My favorite solution to this involves a <code>goto</code> statement. You know this irritates your professors to no end, so go for it!</p>
+<p>raw socket에 관한 질문은 <a href="more-references.html#books">W. Richard Stevens의 UNIX Network Programming 책</a>에서 답을 찾을 수 있습니다. 또한 Stevens의 UNIX Network Programming 소스 코드 안의 <code>ping/</code> 하위 디렉터리도 보세요. <a href="http://www.unpbook.com/src.html">온라인에서 구할 수 있습니다</a><a href="more-references.html#fn44" class="footnote-ref" id="fnref44" role="doc-noteref"><sup>44</sup></a>.</p>
+<p><strong><code>connect()</code> 호출의 타임아웃을 변경하거나 줄이려면 어떻게 하나요?</strong></p>
+<p>W. Richard Stevens가 해 줄 답을 그대로 반복하는 대신, <a href="http://www.unpbook.com/src.html">UNIX Network Programming 소스 코드의 <code>lib/connect_nonb.c</code></a><a href="more-references.html#fn45" class="footnote-ref" id="fnref45" role="doc-noteref"><sup>45</sup></a>를 참고하라고 말씀드리겠습니다.</p>
+<p>요점은 이렇습니다. 먼저 <code>socket()</code>으로 소켓 디스크립터를 만들고, <a href="slightly-advanced-techniques.html#blocking">논블로킹으로 설정한 뒤</a> <code>connect()</code>를 호출합니다. 모든 것이 잘 되면 <code>connect()</code>는 즉시 <code>-1</code>을 반환하고 <code>errno</code>는 <code>EINPROGRESS</code>로 설정됩니다. 그다음 원하는 타임아웃을 넣어 <a href="slightly-advanced-techniques.html#select"><code>select()</code></a>를 호출하고, 그 소켓 디스크립터를 읽기 집합과 쓰기 집합 양쪽 모두에 넣습니다. 타임아웃되지 않았다면 <code>connect()</code> 호출이 완료되었다는 뜻입니다. 이 시점에서는 <code>getsockopt()</code>와 <code>SO_ERROR</code> 옵션을 사용해서 <code>connect()</code> 호출의 반환 값을 확인해야 하며, 오류가 없었다면 그 값은 0이어야 합니다.</p>
+<p>마지막으로, 실제 데이터 전송을 시작하기 전에 소켓을 다시 블로킹 모드로 되돌리고 싶을 가능성이 큽니다.</p>
+<p>이 방식에는 연결이 진행되는 동안 프로그램이 다른 일을 할 수 있다는 추가 장점도 있습니다. 예를 들어 타임아웃을 500ms처럼 짧게 두고, 타임아웃될 때마다 화면의 상태 표시를 갱신한 뒤 다시 <code>select()</code>를 호출할 수 있습니다. 그렇게 20번쯤 타임아웃이 반복되면, 이제 연결을 포기할 때가 되었다고 판단할 수 있겠죠.</p>
+<p>말했듯이, 아주 훌륭한 예제가 들어 있으니 Stevens의 소스를 직접 보세요.</p>
+<p><strong>Windows용으로 빌드하려면 어떻게 하나요?</strong></p>
+<p>우선 Windows를 지우고 Linux나 BSD를 설치하세요. <code>};-)</code> 농담이고, 사실은 소개 부분의 <a href="intro.html#windows">Windows 빌드 절</a>을 보면 됩니다.</p>
+<p><strong>Solaris/SunOS용으로 빌드하려면 어떻게 하나요? 컴파일할 때 계속 링커 에러가 납니다!</strong></p>
+<p>Sun 계열 시스템은 소켓 라이브러리를 자동으로 링크하지 않기 때문에 그런 링커 에러가 납니다. 어떻게 해야 하는지는 소개 부분의 <a href="intro.html#solaris">Solaris/SunOS 빌드 절</a> 예제를 참고하세요.</p>
+<p><strong>왜 <code>select()</code>는 시그널이 오면 계속 빠져나오나요?</strong></p>
+<p>시그널은 블록된 시스템 호출이 <code>-1</code>을 반환하게 만들고, <code>errno</code>를 <code>EINTR</code>로 설정하는 경향이 있습니다. <code>sigaction()</code>으로 시그널 핸들러를 설정할 때 <code>SA_RESTART</code> 플래그를 줄 수 있는데, 이 플래그는 시스템 호출이 인터럽트된 뒤 다시 시작되도록 의도된 것입니다.</p>
+<p>물론 이것이 항상 잘 동작하는 것은 아닙니다.</p>
+<p>제가 가장 좋아하는 해결책은 <code>goto</code>를 쓰는 것입니다. 교수님들이 이런 걸 정말 싫어한다는 걸 알고 있죠? 그러니 과감히 써 보세요!</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb78-1"><a href="common-questions.html#cb78-1"></a>select_restart<span class="op">:</span></span>
 <span id="cb78-2"><a href="common-questions.html#cb78-2"></a><span class="cf">if</span> <span class="op">((</span>err <span class="op">=</span> select<span class="op">(</span>fdmax<span class="op">+</span><span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>readfds<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">))</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb78-3"><a href="common-questions.html#cb78-3"></a>    <span class="cf">if</span> <span class="op">(</span>errno <span class="op">==</span> EINTR<span class="op">)</span> <span class="op">{</span></span>
@@ -1032,9 +1032,9 @@
 <span id="cb78-7"><a href="common-questions.html#cb78-7"></a>    <span class="co">// handle the real error here:</span></span>
 <span id="cb78-8"><a href="common-questions.html#cb78-8"></a>    perror<span class="op">(</span><span class="st">&quot;select&quot;</span><span class="op">);</span></span>
 <span id="cb78-9"><a href="common-questions.html#cb78-9"></a><span class="op">}</span> </span></code></pre></div>
-<p>Sure, you don’t <em>need</em> to use <code>goto</code> in this case; you can use other structures to control it. But I think the <code>goto</code> statement is actually cleaner.</p>
-<p><strong>How can I implement a timeout on a call to <code>recv()</code>?</strong></p>
-<p> Use <a href="slightly-advanced-techniques.html#select"><code>select()</code></a>! It allows you to specify a timeout parameter for socket descriptors that you’re looking to read from. Or, you could wrap the entire functionality in a single function, like this:</p>
+<p>물론 이 경우 꼭 <code>goto</code>를 써야 하는 것은 아닙니다. 다른 제어 구조를 써도 됩니다. 하지만 저는 이 상황에서는 <code>goto</code>가 오히려 더 깔끔하다고 생각합니다.</p>
+<p><strong><code>recv()</code> 호출에 타임아웃을 구현하려면 어떻게 하나요?</strong></p>
+<p><a href="slightly-advanced-techniques.html#select"><code>select()</code></a>를 사용하세요! 읽으려는 소켓 디스크립터에 대해 타임아웃 값을 지정할 수 있습니다. 또는 전체 기능을 아래처럼 하나의 함수로 감쌀 수도 있습니다.</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb79-1"><a href="common-questions.html#cb79-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
 <span id="cb79-2"><a href="common-questions.html#cb79-2"></a><span class="pp">#include </span><span class="im">&lt;sys/time.h&gt;</span></span>
 <span id="cb79-3"><a href="common-questions.html#cb79-3"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
@@ -1080,75 +1080,75 @@
 <span id="cb79-43"><a href="common-questions.html#cb79-43"></a><span class="op">.</span></span>
 <span id="cb79-44"><a href="common-questions.html#cb79-44"></a><span class="op">.</span></span>
 <span id="cb79-45"><a href="common-questions.html#cb79-45"></a><span class="op">.</span> </span></code></pre></div>
-<p>Notice that <code>recvtimeout()</code> returns <code>-2</code> in case of a timeout. Why not return <code>0</code>? Well, if you recall, a return value of <code>0</code> on a call to <code>recv()</code> means that the remote side closed the connection. So that return value is already spoken for, and <code>-1</code> means “error”, so I chose <code>-2</code> as my timeout indicator.</p>
-<p><strong>How do I encrypt or compress the data before sending it through the socket?</strong></p>
-<p>One easy way to do encryption is to use SSL (secure sockets layer), but that’s beyond the scope of this guide. (Check out the <a href="https://www.openssl.org/">OpenSSL project</a><a href="more-references.html#fn46" class="footnote-ref" id="fnref46" role="doc-noteref"><sup>46</sup></a> for more info.)</p>
-<p>But assuming you want to plug in or implement your own compressor or encryption system, it’s just a matter of thinking of your data as running through a sequence of steps between both ends. Each step changes the data in some way.</p>
+<p><code>recvtimeout()</code>는 타임아웃이 발생하면 <code>-2</code>를 반환한다는 점을 보세요. 왜 <code>0</code>을 반환하지 않을까요? 기억하시겠지만, <code>recv()</code>가 <code>0</code>을 반환하는 것은 원격 측이 연결을 닫았다는 의미입니다. 그러니 그 반환값은 이미 다른 뜻으로 사용 중이고, <code>-1</code>은 “오류”를 뜻하므로, 저는 타임아웃 표시로 <code>-2</code>를 택했습니다.</p>
+<p><strong>소켓으로 보내기 전에 데이터를 암호화하거나 압축하려면 어떻게 하나요?</strong></p>
+<p>암호화를 위한 쉬운 방법 하나는 SSL(secure sockets layer)을 쓰는 것이지만, 그것은 이 가이드의 범위를 벗어납니다. (자세한 내용은 <a href="https://www.openssl.org/">OpenSSL 프로젝트</a><a href="more-references.html#fn46" class="footnote-ref" id="fnref46" role="doc-noteref"><sup>46</sup></a>를 참고하세요.)</p>
+<p>하지만 여러분이 직접 압축기나 암호화 시스템을 끼워 넣거나 구현하고 싶다면, 데이터를 양 끝단 사이에서 여러 단계를 거쳐 흐르는 것으로 생각하면 됩니다. 각 단계는 데이터를 어떤 식으로든 바꿉니다.</p>
 <ol type="1">
-<li>server reads data from file (or wherever)</li>
-<li>server encrypts/compresses data (you add this part)</li>
-<li>server <code>send()</code>s encrypted data</li>
+<li>서버가 파일(또는 다른 곳)에서 데이터를 읽는다</li>
+<li>서버가 데이터를 암호화/압축한다 (이 부분은 여러분이 추가한다)</li>
+<li>서버가 암호화된 데이터를 <code>send()</code>한다</li>
 </ol>
-<p>Now the other way around:</p>
+<p>반대로 수신 측은 이렇습니다.</p>
 <ol type="1">
-<li>client <code>recv()</code>s encrypted data</li>
-<li>client decrypts/decompresses data (you add this part)</li>
-<li>client writes data to file (or wherever)</li>
+<li>클라이언트가 암호화된 데이터를 <code>recv()</code>한다</li>
+<li>클라이언트가 데이터를 복호화/압축 해제한다 (이 부분은 여러분이 추가한다)</li>
+<li>클라이언트가 데이터를 파일(또는 다른 곳)에 쓴다</li>
 </ol>
-<p>If you’re going to compress and encrypt, just remember to compress first. <code>:-)</code></p>
-<p>Just as long as the client properly undoes what the server does, the data will be fine in the end no matter how many intermediate steps you add.</p>
-<p>So all you need to do to use my code is to find the place between where the data is read and the data is sent (using <code>send()</code>) over the network, and stick some code in there that does the encryption.</p>
-<p><strong>What is this “<code>PF_INET</code>” I keep seeing? Is it related to <code>AF_INET</code>?</strong></p>
+<p>압축과 암호화를 함께 할 거라면, 압축을 먼저 한다는 것만 기억하세요. <code>:-)</code></p>
+<p>클라이언트가 서버가 한 일을 제대로 되돌리기만 하면, 중간 단계가 몇 개가 더 들어가든 최종적으로 데이터는 문제없이 복원됩니다.</p>
+<p>그러니 제 코드를 이용하려면, 데이터가 읽힌 뒤 네트워크로 <code>send()</code>되기 전 사이 지점을 찾아 그곳에 암호화 코드를 끼워 넣기만 하면 됩니다.</p>
+<p><strong>자꾸 보이는 “<code>PF_INET</code>”은 무엇인가요? <code>AF_INET</code>과 관련이 있나요?</strong></p>
 <p> </p>
-<p>Yes, yes it is. See <a href="system-calls-or-bust.html#socket">the section on <code>socket()</code></a> for details.</p>
-<p><strong>How can I write a server that accepts shell commands from a client and executes them?</strong></p>
-<p>For simplicity, lets say the client <code>connect()</code>s, <code>send()</code>s, and <code>close()</code>s the connection (that is, there are no subsequent system calls without the client connecting again).</p>
-<p>The process the client follows is this:</p>
+<p>네, 맞습니다. 자세한 내용은 <a href="system-calls-or-bust.html#socket"><code>socket()</code> 절</a>을 보세요.</p>
+<p><strong>클라이언트가 보낸 셸 명령을 받아 실행하는 서버는 어떻게 작성하나요?</strong></p>
+<p>단순화를 위해 클라이언트가 <code>connect()</code>한 뒤, <code>send()</code>하고, 곧바로 연결을 <code>close()</code>한다고 가정합시다. (즉, 다시 연결하기 전에는 추가 시스템 호출이 없는 상황입니다.)</p>
+<p>클라이언트 쪽 절차는 이렇습니다.</p>
 <ol type="1">
-<li><code>connect()</code> to server</li>
+<li>서버에 <code>connect()</code>한다</li>
 <li><code>send("/sbin/ls &gt; /tmp/client.out")</code></li>
-<li><code>close()</code> the connection</li>
+<li>연결을 <code>close()</code>한다</li>
 </ol>
-<p>Meanwhile, the server is handling the data and executing it:</p>
+<p>한편 서버는 데이터를 받아 처리하고 실행합니다.</p>
 <ol type="1">
-<li><code>accept()</code> the connection from the client</li>
-<li><code>recv(str)</code> the command string</li>
-<li><code>close()</code> the connection</li>
-<li><code>system(str)</code> to run the command</li>
+<li>클라이언트의 연결을 <code>accept()</code>한다</li>
+<li>명령 문자열을 <code>recv(str)</code>로 받는다</li>
+<li>연결을 <code>close()</code>한다</li>
+<li><code>system(str)</code>로 명령을 실행한다</li>
 </ol>
-<p> <em>Beware!</em> Having the server execute what the client says is like giving remote shell access and people can do things to your account when they connect to the server. For instance, in the above example, what if the client sends “<code>rm -rf ~</code>”? It deletes everything in your account, that’s what!</p>
-<p>So you get wise, and you prevent the client from using any except for a couple utilities that you know are safe, like the <code>foobar</code> utility:</p>
+<p><em>주의하세요!</em> 서버가 클라이언트가 시키는 대로 실행하게 두는 것은 원격 셸 접근 권한을 주는 것과 비슷해서, 누군가 서버에 연결했을 때 여러분 계정에 대해 온갖 일을 할 수 있습니다. 예를 들어 위 상황에서 클라이언트가 “<code>rm -rf ~</code>”를 보내면 어떻게 될까요? 여러분 계정의 모든 것이 지워집니다.</p>
+<p>그래서 정신을 차리고, <code>foobar</code> 같은 안전하다고 확신하는 몇몇 유틸리티 외에는 클라이언트가 사용할 수 없도록 막는다고 해 봅시다.</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb80-1"><a href="common-questions.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(!</span>strncmp<span class="op">(</span>str<span class="op">,</span> <span class="st">&quot;foobar&quot;</span><span class="op">,</span> <span class="dv">6</span><span class="op">))</span> <span class="op">{</span></span>
 <span id="cb80-2"><a href="common-questions.html#cb80-2" aria-hidden="true" tabindex="-1"></a>    sprintf<span class="op">(</span>sysstr<span class="op">,</span> <span class="st">&quot;</span><span class="sc">%s</span><span class="st"> &gt; /tmp/server.out&quot;</span><span class="op">,</span> str<span class="op">);</span></span>
 <span id="cb80-3"><a href="common-questions.html#cb80-3" aria-hidden="true" tabindex="-1"></a>    system<span class="op">(</span>sysstr<span class="op">);</span></span>
 <span id="cb80-4"><a href="common-questions.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre></div>
-<p>But you’re still unsafe, unfortunately: what if the client enters “<code>foobar; rm -rf ~</code>”? The safest thing to do is to write a little routine that puts an escape (“<code>\</code>”) character in front of all non-alphanumeric characters (including spaces, if appropriate) in the arguments for the command.</p>
-<p>As you can see, security is a pretty big issue when the server starts executing things the client sends.</p>
-<p><strong>I’m sending a slew of data, but when I <code>recv()</code>, it only receives 536 bytes or 1460 bytes at a time. But if I run it on my local machine, it receives all the data at the same time. What’s going on?</strong></p>
-<p>You’re hitting the MTU—the maximum size the physical medium can handle. On the local machine, you’re using the loopback device which can handle 8K or more no problem. But on Ethernet, which can only handle 1500 bytes with a header, you hit that limit. Over a modem, with 576 MTU (again, with header), you hit the even lower limit.</p>
-<p>You have to make sure all the data is being sent, first of all. (See the <a href="slightly-advanced-techniques.html#sendall"><code>sendall()</code></a> function implementation for details.) Once you’re sure of that, then you need to call <code>recv()</code> in a loop until all your data is read.</p>
-<p>Read the section <a href="slightly-advanced-techniques.html#sonofdataencap">Son of Data Encapsulation</a> for details on receiving complete packets of data using multiple calls to <code>recv()</code>.</p>
-<p><strong>I’m on a Windows box and I don’t have the <code>fork()</code> system call or any kind of <code>struct sigaction</code>. What to do?</strong></p>
-<p> If they’re anywhere, they’ll be in POSIX libraries that may have shipped with your compiler. Since I don’t have a Windows box, I really can’t tell you the answer, but I seem to remember that Microsoft has a POSIX compatibility layer and that’s where <code>fork()</code> would be. (And maybe even <code>sigaction</code>.)</p>
-<p>Search the help that came with VC++ for “fork” or “POSIX” and see if it gives you any clues.</p>
-<p>If that doesn’t work at all, ditch the <code>fork()</code>/<code>sigaction</code> stuff and replace it with the Win32 equivalent: <code>CreateProcess()</code>. I don’t know how to use <code>CreateProcess()</code>—it takes a bazillion arguments, but it should be covered in the docs that came with VC++.</p>
-<p><strong> I’m behind a firewall—how do I let people outside the firewall know my IP address so they can connect to my machine?</strong></p>
-<p>Unfortunately, the purpose of a firewall is to prevent people outside the firewall from connecting to machines inside the firewall, so allowing them to do so is basically considered a breach of security.</p>
-<p>This isn’t to say that all is lost. For one thing, you can still often <code>connect()</code> through the firewall if it’s doing some kind of masquerading or NAT or something like that. Just design your programs so that you’re always the one initiating the connection, and you’ll be fine.</p>
-<p> If that’s not satisfactory, you can ask your sysadmins to poke a hole in the firewall so that people can connect to you. The firewall can forward to you either through it’s NAT software, or through a proxy or something like that.</p>
-<p>Be aware that a hole in the firewall is nothing to be taken lightly. You have to make sure you don’t give bad people access to the internal network; if you’re a beginner, it’s a lot harder to make software secure than you might imagine.</p>
-<p>Don’t make your sysadmin mad at me. <code>;-)</code></p>
-<p><strong> How do I write a packet sniffer? How do I put my Ethernet interface into promiscuous mode?</strong></p>
-<p>For those not in the know, when a network card is in “promiscuous mode”, it will forward ALL packets to the operating system, not just those that were addressed to this particular machine. (We’re talking Ethernet-layer addresses here, not IP addresses–but since ethernet is lower-layer than IP, all IP addresses are effectively forwarded as well. See the section <a href="what-is-a-socket.html#lowlevel">Low Level Nonsense and Network Theory</a> for more info.)</p>
-<p>This is the basis for how a packet sniffer works. It puts the interface into promiscuous mode, then the OS gets every single packet that goes by on the wire. You’ll have a socket of some type that you can read this data from.</p>
-<p>Unfortunately, the answer to the question varies depending on the platform, but if you Google for, for instance, “windows promiscuous ioctl” you’ll probably get somewhere. For Linux, there’s what looks like a <a href="https://stackoverflow.com/questions/21323023/">useful Stack Overflow thread</a><a href="more-references.html#fn47" class="footnote-ref" id="fnref47" role="doc-noteref"><sup>47</sup></a>, as well.</p>
-<p><strong>How can I set a custom timeout value for a TCP or UDP socket?</strong></p>
-<p>It depends on your system. You might search the net for <code>SO_RCVTIMEO</code> and <code>SO_SNDTIMEO</code> (for use with <code>setsockopt()</code>) to see if your system supports such functionality.</p>
-<p>The Linux man page suggests using <code>alarm()</code> or <code>setitimer()</code> as a substitute.</p>
-<p><strong>How can I tell which ports are available to use? Is there a list of “official” port numbers?</strong></p>
-<p>Usually this isn’t an issue. If you’re writing, say, a web server, then it’s a good idea to use the well-known port 80 for your software. If you’re writing just your own specialized server, then choose a port at random (but greater than 1023) and give it a try.</p>
-<p>If the port is already in use, you’ll get an “Address already in use” error when you try to <code>bind()</code>. Choose another port. (It’s a good idea to allow the user of your software to specify an alternate port either with a config file or a command line switch.)</p>
-<p>There is a <a href="https://www.iana.org/assignments/port-numbers">list of official port numbers</a><a href="more-references.html#fn48" class="footnote-ref" id="fnref48" role="doc-noteref"><sup>48</sup></a> maintained by the Internet Assigned Numbers Authority (IANA). Just because something (over 1023) is in that list doesn’t mean you can’t use the port. For instance, Id Software’s DOOM uses the same port as “mdqs”, whatever that is. All that matters is that no one else <em>on the same machine</em> is using that port when you want to use it.</p>
+<p>하지만 안타깝게도 아직도 안전하지 않습니다. 클라이언트가 “<code>foobar; rm -rf ~</code>”를 입력하면 어떻게 될까요? 가장 안전한 방법은 명령 인수 안의 모든 영숫자가 아닌 문자 앞에(상황에 따라 공백도 포함해서) 이스케이프 문자 “<code>\</code>”를 붙여 주는 작은 루틴을 작성하는 것입니다.</p>
+<p>보시다시피, 서버가 클라이언트가 보낸 것을 실행하기 시작하면 보안은 매우 큰 문제가 됩니다.</p>
+<p><strong>많은 데이터를 보내고 있는데 <code>recv()</code>를 하면 한 번에 536바이트나 1460바이트씩만 받습니다. 그런데 로컬 머신에서 실행하면 데이터를 한꺼번에 다 받습니다. 왜 그런가요?</strong></p>
+<p>여러분은 MTU, 즉 물리 매체가 처리할 수 있는 최대 크기에 걸리고 있는 것입니다. 로컬 머신에서는 루프백 장치를 쓰므로 8K 이상도 문제없이 다룰 수 있습니다. 하지만 Ethernet은 헤더를 포함해도 1500바이트까지만 처리할 수 있으니 그 한계에 걸립니다. 모뎀 환경에서는 MTU가 576이므로 (마찬가지로 헤더 포함) 더 낮은 한계에 걸립니다.</p>
+<p>우선 모든 데이터가 실제로 전송되고 있는지부터 확인해야 합니다. (자세한 내용은 <a href="slightly-advanced-techniques.html#sendall"><code>sendall()</code></a> 함수 구현을 보세요.) 그게 확인되면, 모든 데이터가 읽힐 때까지 <code>recv()</code>를 반복 호출해야 합니다.</p>
+<p>여러 번의 <code>recv()</code> 호출로 완전한 패킷을 받는 방법은 <a href="slightly-advanced-techniques.html#sonofdataencap">데이터 캡슐화의 후속편</a> 절을 참고하세요.</p>
+<p><strong>Windows 환경인데 <code>fork()</code> 시스템 호출도 없고 <code>struct sigaction</code> 같은 것도 없습니다. 어떻게 해야 하나요?</strong></p>
+<p>만약 있다면, 아마 여러분 컴파일러와 함께 제공된 POSIX 라이브러리 안에 있을 것입니다. 제가 Windows 머신이 없어서 정확한 답은 드리기 어렵지만, Microsoft에 POSIX 호환 계층이 있었고 그 안에 <code>fork()</code>가 있었던 것으로 기억합니다. (<code>sigaction</code>도 어쩌면 있을 수 있습니다.)</p>
+<p>VC++에 포함된 도움말에서 “fork”나 “POSIX”를 검색해서 단서를 찾아보세요.</p>
+<p>그마저도 전혀 안 된다면 <code>fork()</code>/<code>sigaction</code> 관련 부분은 버리고, Win32 쪽 대응물인 <code>CreateProcess()</code>로 바꾸세요. 저는 <code>CreateProcess()</code>를 어떻게 쓰는지 모릅니다. 인자가 엄청나게 많거든요. 하지만 VC++ 문서에 설명이 있을 것입니다.</p>
+<p><strong>방화벽 뒤에 있는데, 외부 사람이 제 IP 주소를 알고 제 머신에 접속할 수 있게 하려면 어떻게 하나요?</strong></p>
+<p>안타깝지만 방화벽의 목적 자체가 외부 사람이 방화벽 내부 머신에 접속하는 것을 막는 것이므로, 그런 접속을 허용하는 행위는 기본적으로 보안 위반으로 간주됩니다.</p>
+<p>그렇다고 모든 방법이 막힌 것은 아닙니다. 예를 들어 방화벽이 어떤 형태의 masquerading이나 NAT 같은 것을 하고 있다면, 여전히 바깥으로 <code>connect()</code>하는 경우가 많습니다. 항상 여러분 쪽에서 연결을 먼저 시작하도록 프로그램을 설계하면 괜찮을 것입니다.</p>
+<p>그것으로 만족할 수 없다면, 시스템 관리자에게 방화벽에 구멍을 하나 내서 외부 사람이 여러분에게 접속할 수 있도록 요청할 수 있습니다. 방화벽은 NAT 소프트웨어를 통해서든, 프록시 같은 것을 통해서든 여러분에게 트래픽을 전달할 수 있습니다.</p>
+<p>다만 방화벽에 구멍을 뚫는 일은 가볍게 볼 일이 아닙니다. 악의적인 사람이 내부 네트워크에 접근하지 못하도록 확실히 해야 합니다. 초보자라면 소프트웨어를 안전하게 만드는 일이 생각보다 훨씬 어렵다는 점을 꼭 알아 두세요.</p>
+<p>시스템 관리자가 저 때문에 화내게 만들진 마세요. <code>;-)</code></p>
+<p><strong>패킷 스니퍼는 어떻게 만들죠? 이더넷 인터페이스를 promiscuous mode로 두려면 어떻게 하나요?</strong></p>
+<p>잘 모르시는 분들을 위해 설명하자면, 네트워크 카드가 “promiscuous mode”에 있으면 이 특정 머신 앞으로 온 패킷만이 아니라 모든 패킷을 운영체제로 넘기게 됩니다. (여기서 말하는 것은 IP 주소가 아니라 Ethernet 계층 주소입니다. 다만 Ethernet이 IP보다 하위 계층이므로 결과적으로 모든 IP 패킷도 함께 전달됩니다. 더 자세한 내용은 <a href="what-is-a-socket.html#lowlevel">하위 수준의 난센스와 네트워크 이론</a> 절을 보세요.)</p>
+<p>이것이 바로 패킷 스니퍼가 동작하는 기본 원리입니다. 인터페이스를 promiscuous mode로 바꾸면, 운영체제가 선로를 지나가는 모든 패킷을 받게 됩니다. 그러면 여러분은 그 데이터를 읽을 수 있는 어떤 종류의 소켓을 하나 가지게 됩니다.</p>
+<p>안타깝게도 이 질문의 답은 플랫폼에 따라 달라집니다. 하지만 예를 들어 “windows promiscuous ioctl” 같은 키워드로 검색해 보면 뭔가 실마리를 찾을 가능성이 큽니다. Linux 쪽으로는 <a href="https://stackoverflow.com/questions/21323023/">유용해 보이는 Stack Overflow 스레드</a><a href="more-references.html#fn47" class="footnote-ref" id="fnref47" role="doc-noteref"><sup>47</sup></a>도 있습니다.</p>
+<p><strong>TCP나 UDP 소켓에 사용자 지정 타임아웃 값을 설정하려면 어떻게 하나요?</strong></p>
+<p>시스템에 따라 다릅니다. 여러분 시스템이 그런 기능을 지원하는지 보려면 <code>setsockopt()</code>와 함께 사용하는 <code>SO_RCVTIMEO</code>, <code>SO_SNDTIMEO</code>를 검색해 보세요.</p>
+<p>Linux 매뉴얼 페이지에서는 대안으로 <code>alarm()</code>이나 <code>setitimer()</code>를 사용하라고 제안합니다.</p>
+<p><strong>사용 가능한 포트는 어떻게 알 수 있나요? “공식” 포트 번호 목록이 있나요?</strong></p>
+<p>보통은 큰 문제가 되지 않습니다. 예를 들어 웹 서버를 작성한다면 잘 알려진 포트 80을 쓰는 것이 좋습니다. 그냥 여러분만의 특수한 서버를 만들고 있다면, 임의의 포트를 하나 골라(단, 1023보다 큰 값으로) 시도해 보면 됩니다.</p>
+<p>이미 사용 중인 포트라면 <code>bind()</code>를 시도할 때 “Address already in use” 오류가 날 것입니다. 다른 포트를 고르세요. (설정 파일이나 명령행 옵션으로 사용자가 대체 포트를 지정할 수 있게 해 두는 것도 좋은 생각입니다.)</p>
+<p>Internet Assigned Numbers Authority(IANA)가 관리하는 <a href="https://www.iana.org/assignments/port-numbers">공식 포트 번호 목록</a><a href="more-references.html#fn48" class="footnote-ref" id="fnref48" role="doc-noteref"><sup>48</sup></a>도 있습니다. 다만 그 목록에 어떤 포트(1023 초과)가 있다고 해서 여러분이 그 포트를 못 쓰는 것은 아닙니다. 예를 들어 Id Software의 DOOM은 “mdqs”와 같은 포트를 사용합니다. 그게 뭔지는 모르겠지만요. 중요한 것은 여러분이 그 포트를 쓰고 싶을 때, <em>같은 머신에서</em> 다른 누군가가 그 포트를 사용하고 있지 않아야 한다는 점뿐입니다.</p>
 <!-- BG_NEW_CHAPTER -->
-<hr><div style="text-align:center"><span><a href="slightly-advanced-techniques.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="man-pages.html" rel="next">Next</a></span></div></body>
+<hr><div style="text-align:center"><span><a href="slightly-advanced-techniques.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="man-pages.html" rel="next">다음</a></span></div></body>
 </html>
