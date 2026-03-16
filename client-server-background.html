@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Beej's Guide to Network Programming</title>
+  <title>Beej의 네트워크 프로그래밍 가이드</title>
   <style>
     html {
       color: #1a1a1a;
@@ -988,23 +988,23 @@
   </style>
 </head>
 <body>
-<div style="text-align:center"><span><a href="system-calls-or-bust.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="slightly-advanced-techniques.html" rel="next">Next</a></span></div><hr>
-<h1 data-number="6" id="client-server-background"><span class="header-section-number">6</span> Client-Server Background</h1>
+<div style="text-align:center"><span><a href="system-calls-or-bust.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="slightly-advanced-techniques.html" rel="next">다음</a></span></div><hr>
+<h1 data-number="6" id="client-server-background"><span class="header-section-number">6</span> 클라이언트-서버 배경지식</h1>
 <p></p>
-<p>It’s a client-server world, baby. Just about everything on the network deals with client processes talking to server processes and vice-versa. Take <code>telnet</code>, for instance. When you connect to a remote host on port 23 with telnet (the client), a program on that host (called <code>telnetd</code>, the server) springs to life. It handles the incoming telnet connection, sets you up with a login prompt, etc.</p>
+<p>세상은 클라이언트-서버로 돌아갑니다. 네트워크에서 일어나는 거의 모든 일은 클라이언트 프로세스와 서버 프로세스가 서로 통신하는 방식으로 이루어집니다. 예를 들어 <code>telnet</code>을 생각해 봅시다. 클라이언트인 telnet으로 원격 호스트의 23번 포트에 접속하면, 그 호스트에서 <code>telnetd</code>라는 프로그램, 즉 서버가 동작을 시작합니다. 이 프로그램은 들어오는 telnet 연결을 처리하고 로그인 프롬프트를 보여주는 등의 일을 합니다.</p>
 <figure>
-<embed src="cs.svg" title="[Client-Server Interaction Diagram]" />
-<figcaption aria-hidden="true">Client-Server Interaction.</figcaption>
+<embed src="cs.svg" title="[클라이언트-서버 상호작용 다이어그램]" />
+<figcaption aria-hidden="true">클라이언트-서버 상호작용.</figcaption>
 </figure>
-<p>The exchange of information between client and server is summarized in the above diagram.</p>
-<p>Note that the client-server pair can speak <code>SOCK_STREAM</code>, <code>SOCK_DGRAM</code>, or anything else (as long as they’re speaking the same thing). Some good examples of client-server pairs are <code>telnet</code>/<code>telnetd</code>, <code>ftp</code>/<code>ftpd</code>, or <code>Firefox</code>/<code>Apache</code>. Every time you use <code>ftp</code>, there’s a remote program, <code>ftpd</code>, that serves you.</p>
-<p>Often, there will only be one server on a machine, and that server will handle multiple clients using <code>fork()</code>. The basic routine is: server will wait for a connection, <code>accept()</code> it, and <code>fork()</code> a child process to handle it. This is what our sample server does in the next section.</p>
-<h2 data-number="6.1" id="a-simple-stream-server"><span class="header-section-number">6.1</span> A Simple Stream Server</h2>
+<p>클라이언트와 서버 사이의 정보 교환은 위 그림에 요약되어 있습니다.</p>
+<p>클라이언트-서버 쌍은 <code>SOCK_STREAM</code>, <code>SOCK_DGRAM</code>, 혹은 다른 어떤 방식으로도 통신할 수 있습니다. 중요한 것은 양쪽이 같은 방식으로 통신해야 한다는 점입니다. 대표적인 예로는 <code>telnet</code>/<code>telnetd</code>, <code>ftp</code>/<code>ftpd</code>, <code>Firefox</code>/<code>Apache</code> 같은 조합이 있습니다. 여러분이 <code>ftp</code>를 사용할 때마다 원격지에는 여러분을 위해 응답하는 <code>ftpd</code>라는 프로그램이 존재합니다.</p>
+<p>대개 한 머신에는 서버가 하나만 떠 있고, 그 서버가 <code>fork()</code>를 사용해 여러 클라이언트를 처리합니다. 기본 흐름은 이렇습니다. 서버는 연결을 기다렸다가, <code>accept()</code>로 연결을 받아들이고, 그 연결을 처리할 자식 프로세스를 <code>fork()</code>로 생성합니다. 다음 절의 예제 서버가 바로 이 방식을 사용합니다.</p>
+<h2 data-number="6.1" id="a-simple-stream-server"><span class="header-section-number">6.1</span> 간단한 스트림 서버</h2>
 <p></p>
-<p>All this server does is send the string “<code>Hello, world!</code>” out over a stream connection. All you need to do to test this server is run it in one window, and telnet to it from another with:</p>
+<p>이 서버가 하는 일은 스트림 연결을 통해 문자열 “<code>Hello, world!</code>”를 보내는 것뿐입니다. 이 서버를 시험하려면 한 창에서 서버를 실행하고, 다른 창에서 다음과 같이 telnet으로 접속하면 됩니다.</p>
 <pre><code>$ telnet remotehostname 3490</code></pre>
-<p>where <code>remotehostname</code> is the name of the machine you’re running it on.</p>
-<p><a href="https://beej.us/guide/bgnet/source/examples/server.c">The server code</a><a href="more-references.html#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>:</p>
+<p>여기서 <code>remotehostname</code>은 서버를 실행 중인 머신의 이름입니다.</p>
+<p><a href="https://beej.us/guide/bgnet/source/examples/server.c">서버 코드</a><a href="more-references.html#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a>:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb47-1"><a href="client-server-background.html#cb47-1"></a><span class="co">/*</span></span>
 <span id="cb47-2"><a href="client-server-background.html#cb47-2"></a><span class="co">** server.c -- a stream socket server demo</span></span>
 <span id="cb47-3"><a href="client-server-background.html#cb47-3"></a><span class="co">*/</span></span>
@@ -1142,14 +1142,14 @@
 <span id="cb47-135"><a href="client-server-background.html#cb47-135"></a></span>
 <span id="cb47-136"><a href="client-server-background.html#cb47-136"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb47-137"><a href="client-server-background.html#cb47-137"></a><span class="op">}</span></span></code></pre></div>
-<p>In case you’re curious, I have the code in one big <code>main()</code> function for (I feel) syntactic clarity. Feel free to split it into smaller functions if it makes you feel better.</p>
-<p>(Also, this whole <code>sigaction()</code> thing might be new to you—that’s OK. The code that’s there is responsible for reaping zombie processes that appear as the <code>fork()</code>ed child processes exit. If you make lots of zombies and don’t reap them, your system administrator will become agitated.)</p>
-<p>You can get the data from this server by using the client listed in the next section.</p>
+<p>궁금할 수도 있으니 덧붙이면, 문법적으로 한눈에 보이게 하려고 이 코드를 큰 <code>main()</code> 함수 하나에 넣어 두었습니다. 더 편하다면 작은 함수들로 나눠도 좋습니다.</p>
+<p>(또한 <code>sigaction()</code> 부분이 처음 보는 내용일 수도 있는데, 괜찮습니다. 여기 들어 있는 코드는 <code>fork()</code>로 만든 자식 프로세스가 종료될 때 생기는 좀비 프로세스를 회수하는 역할을 합니다. 좀비를 잔뜩 만들고 회수하지 않으면 시스템 관리자가 꽤 예민해질 것입니다.)</p>
+<p>이 서버가 보내는 데이터는 다음 절에 나오는 클라이언트를 사용해서 받아볼 수 있습니다.</p>
 <p></p>
-<h2 data-number="6.2" id="a-simple-stream-client"><span class="header-section-number">6.2</span> A Simple Stream Client</h2>
+<h2 data-number="6.2" id="a-simple-stream-client"><span class="header-section-number">6.2</span> 간단한 스트림 클라이언트</h2>
 <p></p>
-<p>This guy’s even easier than the server. All this client does is connect to the host you specify on the command line, port 3490. It gets the string that the server sends.</p>
-<p><a href="https://beej.us/guide/bgnet/source/examples/client.c">The client source</a><a href="more-references.html#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a>:</p>
+<p>이쪽은 서버보다 훨씬 더 간단합니다. 이 클라이언트가 하는 일은 명령행에서 지정한 호스트의 3490번 포트에 연결해서 서버가 보내는 문자열을 받아오는 것뿐입니다.</p>
+<p><a href="https://beej.us/guide/bgnet/source/examples/client.c">클라이언트 코드</a><a href="more-references.html#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a>:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb48-1"><a href="client-server-background.html#cb48-1"></a><span class="co">/*</span></span>
 <span id="cb48-2"><a href="client-server-background.html#cb48-2"></a><span class="co">** client.c -- a stream socket client demo</span></span>
 <span id="cb48-3"><a href="client-server-background.html#cb48-3"></a><span class="co">*/</span></span>
@@ -1249,14 +1249,14 @@
 <span id="cb48-97"><a href="client-server-background.html#cb48-97"></a></span>
 <span id="cb48-98"><a href="client-server-background.html#cb48-98"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb48-99"><a href="client-server-background.html#cb48-99"></a><span class="op">}</span></span></code></pre></div>
-<p>Notice that if you don’t run the server before you run the client, <code>connect()</code> returns “Connection refused”. Very useful.</p>
+<p>클라이언트를 실행하기 전에 서버를 띄우지 않으면 <code>connect()</code>가 “Connection refused”를 반환한다는 점을 눈여겨보세요. 꽤 유용한 정보입니다.</p>
 <p></p>
-<h2 data-number="6.3" id="datagram"><span class="header-section-number">6.3</span> Datagram Sockets</h2>
+<h2 data-number="6.3" id="datagram"><span class="header-section-number">6.3</span> 데이터그램 소켓</h2>
 <p></p>
-<p>We’ve already covered the basics of UDP datagram sockets with our discussion of <code>sendto()</code> and <code>recvfrom()</code>, above, so I’ll just present a couple of sample programs: <code>talker.c</code> and <code>listener.c</code>.</p>
-<p><code>listener</code> sits on a machine waiting for an incoming packet on port 4950. <code>talker</code> sends a packet to that port, on the specified machine, that contains whatever the user enters on the command line.</p>
-<p>Because datagram sockets are connectionless and just fire packets off into the ether with callous disregard for success, we are going to tell the client and server to use specifically IPv6. This way we avoid the situation where the server is listening on IPv6 and the client sends on IPv4; the data simply would not be received. (In our connected TCP stream sockets world, we might still have the mismatch, but the error on <code>connect()</code> for one address family would cause us to retry for the other.)</p>
-<p>Here is the <a href="https://beej.us/guide/bgnet/source/examples/listener.c">source for <code>listener.c</code></a><a href="more-references.html#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a>:</p>
+<p>앞에서 <code>sendto()</code>와 <code>recvfrom()</code>를 설명하면서 UDP 데이터그램 소켓의 기본은 이미 다루었으니, 여기서는 예제 프로그램 두 개만 소개하겠습니다. 바로 <code>talker.c</code>와 <code>listener.c</code>입니다.</p>
+<p><code>listener</code>는 어떤 머신에서 실행되며 4950번 포트로 들어오는 패킷을 기다립니다. <code>talker</code>는 지정한 머신의 그 포트로, 사용자가 명령행에 입력한 내용을 담은 패킷을 보냅니다.</p>
+<p>데이터그램 소켓은 연결이 없고 성공 여부와 무관하게 패킷을 네트워크로 그냥 쏘아 보내기 때문에, 여기서는 클라이언트와 서버 모두 IPv6만 사용하도록 하겠습니다. 이렇게 하면 서버는 IPv6로 듣고 있는데 클라이언트는 IPv4로 보내는 상황을 피할 수 있습니다. 그런 경우 데이터는 그냥 도착하지 않습니다. (연결형 TCP 스트림 소켓 세계에서는 이런 불일치가 있더라도 한 주소 계열에서 <code>connect()</code>가 실패하면 다른 쪽으로 다시 시도하게 되는 경우가 있습니다.)</p>
+<p>다음은 <a href="https://beej.us/guide/bgnet/source/examples/listener.c"><code>listener.c</code> 소스</a><a href="more-references.html#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a>입니다:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb49-1"><a href="client-server-background.html#cb49-1"></a><span class="co">/*</span></span>
 <span id="cb49-2"><a href="client-server-background.html#cb49-2"></a><span class="co">** listener.c -- a datagram sockets &quot;server&quot; demo</span></span>
 <span id="cb49-3"><a href="client-server-background.html#cb49-3"></a><span class="co">*/</span></span>
@@ -1352,10 +1352,10 @@
 <span id="cb49-93"><a href="client-server-background.html#cb49-93"></a></span>
 <span id="cb49-94"><a href="client-server-background.html#cb49-94"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb49-95"><a href="client-server-background.html#cb49-95"></a><span class="op">}</span></span></code></pre></div>
-<p>Notice that in our call to <code>getaddrinfo()</code> we’re finally using <code>SOCK_DGRAM</code>. Also, note that there’s no need to <code>listen()</code> or <code>accept()</code>. This is one of the perks of using unconnected datagram sockets!</p>
+<p>이제 드디어 <code>getaddrinfo()</code> 호출에서 <code>SOCK_DGRAM</code>을 사용하고 있다는 점을 보세요. 그리고 <code>listen()</code>이나 <code>accept()</code>가 전혀 필요 없다는 점도 주목하세요. 이것이 바로 비연결 데이터그램 소켓의 장점 중 하나입니다.</p>
 <p></p>
 <p></p>
-<p>Next comes the <a href="https://beej.us/guide/bgnet/source/examples/talker.c">source for <code>talker.c</code></a><a href="more-references.html#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a>:</p>
+<p>다음은 <a href="https://beej.us/guide/bgnet/source/examples/talker.c"><code>talker.c</code> 소스</a><a href="more-references.html#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a>입니다:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb50-1"><a href="client-server-background.html#cb50-1"></a><span class="co">/*</span></span>
 <span id="cb50-2"><a href="client-server-background.html#cb50-2"></a><span class="co">** talker.c -- a datagram &quot;client&quot; demo</span></span>
 <span id="cb50-3"><a href="client-server-background.html#cb50-3"></a><span class="co">*/</span></span>
@@ -1424,11 +1424,11 @@
 <span id="cb50-66"><a href="client-server-background.html#cb50-66"></a></span>
 <span id="cb50-67"><a href="client-server-background.html#cb50-67"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb50-68"><a href="client-server-background.html#cb50-68"></a><span class="op">}</span></span></code></pre></div>
-<p>And that’s all there is to it! Run <code>listener</code> on some machine, then run <code>talker</code> on another. Watch them communicate! Fun G-rated excitement for the entire nuclear family!</p>
-<p>You don’t even have to run the server this time! You can run <code>talker</code> by itself, and it just happily fires packets off into the ether where they disappear if no one is ready with a <code>recvfrom()</code> on the other side. Remember: data sent using UDP datagram sockets isn’t guaranteed to arrive!</p>
+<p>이걸로 전부입니다! 한 머신에서 <code>listener</code>를 실행한 뒤, 다른 머신에서 <code>talker</code>를 실행해 보세요. 둘이 서로 통신하는 모습을 볼 수 있습니다.</p>
+<p>이번에는 서버를 꼭 실행할 필요조차 없습니다. <code>talker</code>만 단독으로 실행해도 패킷을 네트워크로 그냥 쏘아 보냅니다. 반대편에서 <code>recvfrom()</code>으로 받을 준비가 된 쪽이 없다면 그 패킷은 그대로 사라집니다. 기억하세요. UDP 데이터그램 소켓으로 보낸 데이터는 도착이 보장되지 않습니다.</p>
 <p></p>
-<p>Except for one more tiny detail that I’ve mentioned many times in the past: connected datagram sockets. I need to talk about this here, since we’re in the datagram section of the document. Let’s say that <code>talker</code> calls <code>connect()</code> and specifies the <code>listener</code>’s address. From that point on, <code>talker</code> may only send to and receive from the address specified by <code>connect()</code>. For this reason, you don’t have to use <code>sendto()</code> and <code>recvfrom()</code>; you can simply use <code>send()</code> and <code>recv()</code>.</p>
+<p>단 하나, 이전에도 여러 번 언급했던 작은 디테일이 더 있습니다. 바로 연결된 데이터그램 소켓입니다. 지금이 데이터그램 절이니 여기서 짚고 넘어가겠습니다. 예를 들어 <code>talker</code>가 <code>connect()</code>를 호출해서 <code>listener</code>의 주소를 지정했다고 합시다. 그러면 그 시점부터 <code>talker</code>는 <code>connect()</code>에서 지정한 주소로만 보내고 그 주소로부터만 받을 수 있습니다. 그래서 <code>sendto()</code>와 <code>recvfrom()</code>를 쓸 필요 없이, 단순히 <code>send()</code>와 <code>recv()</code>를 사용하면 됩니다.</p>
 <p></p>
 <!-- BG_NEW_CHAPTER -->
-<hr><div style="text-align:center"><span><a href="system-calls-or-bust.html" rel="prev">Prev</a> | </span><a href="index.html">Contents</a><span> | <a href="slightly-advanced-techniques.html" rel="next">Next</a></span></div></body>
+<hr><div style="text-align:center"><span><a href="system-calls-or-bust.html" rel="prev">이전</a> | </span><a href="index.html">목차</a><span> | <a href="slightly-advanced-techniques.html" rel="next">다음</a></span></div></body>
 </html>
