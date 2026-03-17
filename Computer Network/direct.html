@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 2: Direct Links &mdash; Computer Networks: A Systems Approach Version 6.2-dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_theme_mods.css?v=e131ea5f" />
+
+  
+    <link rel="shortcut icon" href="_static/bridge.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=18195669"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-8NK2HCPFQ5"></script>
+      <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8NK2HCPFQ5');
+</script>
+      <script async="async" data-site-id="581" src="https://app.rybbit.io/api/script.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Problem: Connecting to a Network" href="direct/problem.html" />
+    <link rel="prev" title="Perspective: Feature Velocity" href="foundation/trend.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Computer Networks: A Systems Approach
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="foreword.html">Foreword</a></li>
+<li class="toctree-l1"><a class="reference internal" href="foreword_1e.html">Foreword to the First Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="foundation.html">Chapter 1:  Foundation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Chapter 2:  Direct Links</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="direct/problem.html">Problem: Connecting to a Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/perspective.html">2.1 Technology Landscape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/encoding.html">2.2 Encoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/framing.html">2.3 Framing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/error.html">2.4 Error Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/reliable.html">2.5 Reliable Transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/ethernet.html">2.6 Multi-Access Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/wireless.html">2.7 Wireless Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/access.html">2.8 Access Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/trend.html">Perspective: Race to the Edge</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="internetworking.html">Chapter 3:  Internetworking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scaling.html">Chapter 4:  Advanced Internetworking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2e.html">Chapter 5:  End-to-End Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="congestion.html">Chapter 6:  Congestion Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Chapter 7: End-to-End Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Chapter 8: Network Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Chapter 9: Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">About This Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="latest.html"><span class="pop">Read the Latest!</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="print.html"><span class="pop">Print Copies</span></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Computer Networks: A Systems Approach</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Chapter 2:  Direct Links</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/direct.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="foundation/trend.html" class="btn btn-neutral float-left" title="Perspective: Feature Velocity" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="direct/problem.html" class="btn btn-neutral float-right" title="Problem: Connecting to a Network" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="chapter-2-direct-links">
+<h1>Chapter 2:  Direct Links<a class="headerlink" href="#chapter-2-direct-links" title="Link to this heading"></a></h1>
+<blockquote>
+<div><p>It is a mistake to look too far ahead. Only one link in the chain
+of destiny can be handled at a time.</p>
+<p><em>—Winston Churchill</em></p>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="direct/problem.html">Problem: Connecting to a Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="direct/perspective.html">2.1 Technology Landscape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="direct/encoding.html">2.2 Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="direct/framing.html">2.3 Framing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="direct/framing.html#byte-oriented-protocols-ppp">2.3.1 Byte-Oriented Protocols (PPP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/framing.html#bit-oriented-protocols-hdlc">2.3.2 Bit-Oriented Protocols (HDLC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/framing.html#clock-based-framing-sonet">2.3.3 Clock-Based Framing (SONET)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="direct/error.html">2.4 Error Detection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="direct/error.html#internet-checksum-algorithm">2.4.1 Internet Checksum Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/error.html#cyclic-redundancy-check">2.4.2 Cyclic Redundancy Check</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="direct/reliable.html">2.5 Reliable Transmission</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="direct/reliable.html#stop-and-wait">2.5.1 Stop-and-Wait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/reliable.html#sliding-window">2.5.2 Sliding Window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/reliable.html#concurrent-logical-channels">2.5.3 Concurrent Logical Channels</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="direct/ethernet.html">2.6 Multi-Access Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="direct/ethernet.html#physical-properties">2.6.1 Physical Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/ethernet.html#access-protocol">2.6.2 Access Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/ethernet.html#longevity-of-ethernet">2.6.3 Longevity of Ethernet</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="direct/wireless.html">2.7 Wireless Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="direct/wireless.html#basic-issues">2.7.1 Basic Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/wireless.html#wi-fi-802-11">2.7.2 Wi-Fi (802.11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/wireless.html#bluetooth-802-15-1">2.7.3 Bluetooth (802.15.1)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="direct/access.html">2.8 Access Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="direct/access.html#passive-optical-network">2.8.1 Passive Optical Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct/access.html#cellular-network">2.8.2 Cellular Network</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="direct/trend.html">Perspective: Race to the Edge</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="foundation/trend.html" class="btn btn-neutral float-left" title="Perspective: Feature Velocity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="direct/problem.html" class="btn btn-neutral float-right" title="Problem: Connecting to a Network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

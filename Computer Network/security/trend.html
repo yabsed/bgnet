@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perspective: Is Security Getting Worse or Better? &mdash; Computer Networks: A Systems Approach Version 6.2-dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/rtd_theme_mods.css?v=e131ea5f" />
+
+  
+    <link rel="shortcut icon" href="../_static/bridge.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=18195669"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-8NK2HCPFQ5"></script>
+      <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8NK2HCPFQ5');
+</script>
+      <script async="async" data-site-id="581" src="https://app.rybbit.io/api/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chapter 9: Applications" href="../applications.html" />
+    <link rel="prev" title="8.5 Example Systems" href="systems.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Computer Networks: A Systems Approach
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../foreword.html">Foreword</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreword_1e.html">Foreword to the First Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundation.html">Chapter 1:  Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../direct.html">Chapter 2:  Direct Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internetworking.html">Chapter 3:  Internetworking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scaling.html">Chapter 4:  Advanced Internetworking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../e2e.html">Chapter 5:  End-to-End Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../congestion.html">Chapter 6:  Congestion Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">Chapter 7: End-to-End Data</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../security.html">Chapter 8: Network Security</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="problem.html">Problem: Security Attacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trust.html">8.1 Trust and Threats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crypto.html">8.2 Cryptographic Building Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key-distro.html">8.3 Key Predistribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html">8.4 Authentication Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">8.5 Example Systems</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Perspective: Is Security Getting Worse or Better?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Chapter 9: Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">About This Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../latest.html"><span class="pop">Read the Latest!</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print.html"><span class="pop">Print Copies</span></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Computer Networks: A Systems Approach</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../security.html">Chapter 8: Network Security</a></li>
+      <li class="breadcrumb-item active">Perspective: Is Security Getting Worse or Better?</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/security/trend.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="systems.html" class="btn btn-neutral float-left" title="8.5 Example Systems" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../applications.html" class="btn btn-neutral float-right" title="Chapter 9: Applications" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="perspective-is-security-getting-worse-or-better">
+<h1>Perspective: Is Security Getting Worse or Better?<a class="headerlink" href="#perspective-is-security-getting-worse-or-better" title="Link to this heading"></a></h1>
+<p>Security breaches are now a standard risk of connecting any system to
+the Internet, and it is rare for a week to go by without news of some
+new attack. Verizon, a large telco, conducts an annual review of the state of
+cyber-attacks; in 2024 they reached a milestone with over 10,000
+incidents, such as ransomware and phishing attacks, covered in the
+report. Measured by number of attacks then, it seems that things are
+getting worse. By contrast, an analysis of the economic impact of
+cyber-attacks performed by <em>The Economist</em> argued that the
+peak days of cyber-attacks might be behind us. The worst era for
+attacks in their economic analysis was 2003–2004 by a large margin.</p>
+<p>There are certainly some respects in which security is improving. This
+can be attributed both to greater awareness of the need for strong
+security whenever important information is being handled, and the
+development of new techniques that enable better security practices.</p>
+<p>One example of a technology development that improved security
+implementations is SDN (software-defined networking). SDN has enabled
+a relatively new approach to providing isolation among systems known
+as <em>microsegmentation</em>.</p>
+<p>Microsegmentation stands in contrast to traditional approaches to
+segmenting networks, in which large sets of machines
+connect to a “zone” and firewalls are used to filter traffic
+passing between zones. While this makes for relatively simple network
+configuration, it means that lots of machines are in the same
+zone even if there was no need for them to communicate. Furthermore,
+the complexity of firewall rules grows over time as more and more
+rules need to be added to describe the traffic allowed to pass
+from one zone to another.</p>
+<p>By contrast, SDN allows for the creation of precisely defined virtual
+networks—microsegments—that determine both which machines can communicate with each
+other and how they can do so. For example, a three-tier application
+can have its own microsegmentation policy which states:  machines
+in the web-facing tier of the application can talk to the machines in
+the application tier on some set of specified ports, but
+web-facing machines may not talk to each other. This is a policy that
+was difficult to implement in the past;instead all the web-facing
+machines would sit on the same network segment, free to communicate
+with each other.</p>
+<p>The complexity of configuring segments was the reason that machines
+from many applications would likely sit on the same segment, creating
+opportunities for an attack to spread from one application to
+another. The lateral movement of attacks within datacenters has been
+well documented as a key strategy of successful cyberattacks over many
+years.</p>
+<p>Consider the arrangement of VMs and the firewall in <a class="reference internal" href="#fig-standard-firewall"><span class="std std-numref">Figure 214</span></a>. Suppose that we wanted to put VM A and VM B in different segments
+and apply a firewall rule for traffic going from VM A to VM B. We have
+to prevent VM A from sending traffic directly to VM B. To do this, we
+could configure two VLANs in the physical network, connect A
+to one of them, and B to the other, and then configure the routing
+such that the path from the first VLAN to the second passes through
+the firewall. If at some point VM A was moved to another server, we’d then
+have to make sure the appropriate VLAN reached <em>that</em> server, connect VM
+A to it, and ensure that the routing configuration still forces
+traffic through the firewall. This situation may seem a little
+contrived, but it demonstrates why microsegmentation was challenging
+to implement before the arrival of SDN. By contrast, SDN allows the
+firewall function to be implemented in each virtual switch (vS in the
+figure). Thus, traffic from VM A to VM B passes through the
+firewall without any special routing configuration. It is the job of
+the SDN controller to create the appropriate firewall rule to enforce
+the desired isolation between VM A and VM B (and deal with movements
+of VM A and VM B if they occur). There is no magic, but SDN gives us a
+new tool to make a finer degree of isolation much easier to manage.</p>
+<figure class="align-center" id="id1">
+<span id="fig-standard-firewall"></span><a class="reference internal image-reference" href="../_images/firewall-std.png"><img alt="../_images/firewall-std.png" src="../_images/firewall-std.png" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Figure 214. </span><span class="caption-text">A set of virtual machines communicate through a firewall</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The development of microsegmentation over the last decade was one of
+the major drivers of SDN adoption in the enterprise. It became the
+basis for a best practice in security known as “zero-trust”
+networking. Zero trust means that, as much as possible, every system in
+the network is assumed to be untrusted, and hence should be isolated
+from all other systems aside from precisely those systems it needs
+access to in order to do its assigned job.</p>
+<p>The importance of the Internet in the running of
+critical systems and as the underpinning for
+much of the world’s commerce has made it an attractive target for
+hackers. At the same time it drives home the need to develop and adopt
+best practices such as zero-trust networking. When we read of breaches
+today, it is often the case that some best practice has not been
+followed. The Verizon cybersecurity report, by documenting what has
+gone wrong in thousands of attacks, provides useful information about
+how many of those attacks could be prevented through using established
+cyber-hygiene techniques.</p>
+<div class="admonition-broader-perspective admonition">
+<p class="admonition-title">Broader Perspective</p>
+<p>Verizon’s data breach report can be obtained from
+<a class="reference external" href="https://www.verizon.com/business/resources/reports/dbir/">Data Breach Investigations Report</a>.</p>
+<p>The economic impact of cyber-attacks is analyzed by <em>The Economist</em>
+in this article: <a class="reference external" href="https://www.economist.com/graphic-detail/2024/05/17/unexpectedly-the-cost-of-big-cyber-attacks-is-falling">Unexpectedly, the cost of big cyber-attacks is
+falling</a>,
+May 2024.</p>
+<p>A deeper discussion on the use of SDN techniques to improve
+security is provided in Chapter 8 of our book <a class="reference external" href="https://sdn.systemsapproach.org/">Software-Defined
+Networking: A Systems Approach</a>.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="systems.html" class="btn btn-neutral float-left" title="8.5 Example Systems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../applications.html" class="btn btn-neutral float-right" title="Chapter 9: Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
