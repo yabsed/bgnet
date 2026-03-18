@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ko" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2.4 Error Detection &mdash; Computer Networks: A Systems Approach Version 6.2-dev documentation</title>
+  <title>2.4 오류 검출 &mdash; 컴퓨터 네트워크: 시스템적 접근 버전 6.2-dev 문서</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_theme_mods.css?v=e131ea5f" />
@@ -29,9 +29,9 @@
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       <script async="async" data-site-id="581" src="https://app.rybbit.io/api/script.js"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.5 Reliable Transmission" href="reliable.html" />
-    <link rel="prev" title="2.3 Framing" href="framing.html" /> 
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="2.5 신뢰성 있는 전송" href="reliable.html" />
+    <link rel="prev" title="2.3 프레이밍" href="framing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,73 +43,73 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            Computer Networks: A Systems Approach
+            컴퓨터 네트워크: 시스템적 접근
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="문서 검색" aria-label="문서 검색" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="탐색 메뉴">
+              <p class="caption" role="heading"><span class="caption-text">목차</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../foreword.html">Foreword</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../foreword_1e.html">Foreword to the First Edition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../preface.html">Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../foundation.html">Chapter 1:  Foundation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../direct.html">Chapter 2:  Direct Links</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="problem.html">Problem: Connecting to a Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perspective.html">2.1 Technology Landscape</a></li>
-<li class="toctree-l2"><a class="reference internal" href="encoding.html">2.2 Encoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="framing.html">2.3 Framing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">2.4 Error Detection</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#internet-checksum-algorithm">2.4.1 Internet Checksum Algorithm</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cyclic-redundancy-check">2.4.2 Cyclic Redundancy Check</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreword.html">머리말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreword_1e.html">초판 머리말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">서문</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundation.html">1장: 기초</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../direct.html">2장: 직접 링크</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="problem.html">문제: 네트워크 연결</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perspective.html">2.1 기술 지형</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoding.html">2.2 인코딩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="framing.html">2.3 프레이밍</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.4 오류 검출</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#internet-checksum-algorithm">2.4.1 인터넷 체크섬 알고리즘</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cyclic-redundancy-check">2.4.2 순환 중복 검사</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="reliable.html">2.5 Reliable Transmission</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ethernet.html">2.6 Multi-Access Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="wireless.html">2.7 Wireless Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="access.html">2.8 Access Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trend.html">Perspective: Race to the Edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reliable.html">2.5 신뢰성 있는 전송</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ethernet.html">2.6 다중 접속 네트워크</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wireless.html">2.7 무선 네트워크</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">2.8 접속 네트워크</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trend.html">관점: 엣지를 향한 경쟁</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../internetworking.html">Chapter 3:  Internetworking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scaling.html">Chapter 4:  Advanced Internetworking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../e2e.html">Chapter 5:  End-to-End Protocols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../congestion.html">Chapter 6:  Congestion Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../data.html">Chapter 7: End-to-End Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../security.html">Chapter 8: Network Security</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../applications.html">Chapter 9: Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../README.html">About This Book</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../latest.html"><span class="pop">Read the Latest!</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../print.html"><span class="pop">Print Copies</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internetworking.html">3장: 인터네트워킹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scaling.html">4장: 고급 인터네트워킹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../e2e.html">5장: 종단 간 프로토콜</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../congestion.html">6장: 혼잡 제어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">7장: 종단 간 데이터</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">8장: 네트워크 보안</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">9장: 응용</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">이 책에 대하여</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../latest.html"><span class="pop">최신판 읽기!</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print.html"><span class="pop">인쇄본</span></a></li>
 </ul>
 
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="모바일 탐색 메뉴" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Computer Networks: A Systems Approach</a>
+          <a href="../index.html">컴퓨터 네트워크: 시스템적 접근</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+          <div role="navigation" aria-label="페이지 탐색">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../direct.html">Chapter 2:  Direct Links</a></li>
-      <li class="breadcrumb-item active">2.4 Error Detection</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="홈"></a></li>
+          <li class="breadcrumb-item"><a href="../direct.html">2장: 직접 링크</a></li>
+      <li class="breadcrumb-item active">2.4 오류 검출</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/direct/error.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/direct/error.rst.txt" rel="nofollow"> 페이지 소스 보기</a>
       </li>
-  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="framing.html" class="btn btn-neutral float-left" title="2.3 Framing" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reliable.html" class="btn btn-neutral float-right" title="2.5 Reliable Transmission" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="순차 페이지 탐색">
+        <a href="framing.html" class="btn btn-neutral float-left" title="2.3 프레이밍" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 이전</a>
+        <a href="reliable.html" class="btn btn-neutral float-right" title="2.5 신뢰성 있는 전송" accesskey="n">다음 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
@@ -117,114 +117,88 @@
            <div itemprop="articleBody">
              
   <section id="error-detection">
-<h1>2.4 Error Detection<a class="headerlink" href="#error-detection" title="Link to this heading"></a></h1>
-<p>As discussed in Chapter 1, bit errors are sometimes introduced into
-frames. This happens, for example, because of electrical interference or
-thermal noise. Although errors are rare, especially on optical links,
-some mechanism is needed to detect these errors so that corrective
-action can be taken. Otherwise, the end user is left wondering why the C
-program that successfully compiled just a moment ago now suddenly has a
-syntax error in it, when all that happened in the interim is that it was
-copied across a network file system.</p>
-<p>There is a long history of techniques for dealing with bit errors in
-computer systems, dating back to at least the 1940s. Hamming and
-Reed-Solomon codes are two notable examples that were developed for use
-in punch card readers, when storing data on magnetic disks, and in early
-core memories. This section describes some of the error detection
-techniques most commonly used in networking.</p>
-<p>Detecting errors is only one part of the problem. The other part is
-correcting errors once detected. Two basic approaches can be taken when
-the recipient of a message detects an error. One is to notify the sender
-that the message was corrupted so that the sender can retransmit a copy
-of the message. If bit errors are rare, then in all probability the
-retransmitted copy will be error free. Alternatively, some types of
-error detection algorithms allow the recipient to reconstruct the
-correct message even after it has been corrupted; such algorithms rely
-on <em>error-correcting codes</em>, discussed below.</p>
-<p>One of the most common techniques for detecting transmission errors is a
-technique known as the <em>cyclic redundancy check</em> (CRC). It is used in
-nearly all the link-level protocols discussed in this chapter. This
-section outlines the basic CRC algorithm, but before discussing that
-approach, we first describe the simpler <em>checksum</em> scheme used by
-several Internet protocols.</p>
-<p>The basic idea behind any error detection scheme is to add redundant
-information to a frame that can be used to determine if errors have been
-introduced. In the extreme, we could imagine transmitting two complete
-copies of the data. If the two copies are identical at the receiver,
-then it is probably the case that both are correct. If they differ, then
-an error was introduced into one (or both) of them, and they must be
-discarded. This is a rather poor error detection scheme for two reasons.
-First, it sends <span class="math notranslate nohighlight">\(n\)</span> redundant bits for an <span class="math notranslate nohighlight">\(n\)</span>-bit message. Second, many
-errors will go undetected—any error that happens to corrupt the same bit
-positions in the first and second copies of the message. In general, the
-goal of error detecting codes is to provide a high probability of
-detecting errors combined with a relatively low number of redundant
-bits.</p>
-<p>Fortunately, we can do a lot better than this simple scheme. In
-general, we can provide quite strong error detection capability while
-sending only <span class="math notranslate nohighlight">\(k\)</span> redundant bits for an <span class="math notranslate nohighlight">\(n\)</span>-bit message,
-where <span class="math notranslate nohighlight">\(k\)</span> is much smaller than <span class="math notranslate nohighlight">\(n\)</span>. On an Ethernet, for
-example, a frame carrying up to 12,000 bits (1500 bytes) of data
-requires only a 32-bit CRC code, or as it is commonly expressed, uses
-CRC-32. Such a code will catch the overwhelming majority of errors, as
-we will see below.</p>
-<p>We say that the extra bits we send are redundant because they add no new
-information to the message. Instead, they are derived directly from the
-original message using some well-defined algorithm. Both the sender and
-the receiver know exactly what that algorithm is. The sender applies the
-algorithm to the message to generate the redundant bits. It then
-transmits both the message and those few extra bits. When the receiver
-applies the same algorithm to the received message, it should (in the
-absence of errors) come up with the same result as the sender. It
-compares the result with the one sent to it by the sender. If they
-match, it can conclude (with high likelihood) that no errors were
-introduced in the message during transmission. If they do not match, it
-can be sure that either the message or the redundant bits were
-corrupted, and it must take appropriate action—that is, discarding the
-message or correcting it if that is possible.</p>
-<p>One note on the terminology for these extra bits. In general, they are
-referred to as <em>error-detecting codes</em>. In specific cases, when the
-algorithm to create the code is based on addition, they may be called a
-<em>checksum</em>. We will see that the Internet checksum is appropriately
-named: It is an error check that uses a summing algorithm.
-Unfortunately, the word <em>checksum</em> is often used imprecisely to mean any
-form of error-detecting code, including CRCs. This can be confusing, so
-we urge you to use the word <em>checksum</em> only to apply to codes that
-actually do use addition and to use <em>error-detecting code</em> to refer to
-the general class of codes described in this section.</p>
+<h1>2.4 오류 검출<a class="headerlink" href="#error-detection" title="이 제목에 대한 링크"></a></h1>
+<p>1장에서 설명했듯이 프레임에는 때때로 비트 오류가 섞여 들어간다.
+이는 예를 들어 전기적 간섭이나 열 잡음 때문에 발생한다. 특히 광
+링크에서는 오류가 드물지만, 이런 오류를 검출하여 적절한 조치를
+취할 수 있는 메커니즘이 여전히 필요하다. 그렇지 않으면 사용자는
+방금 전까지는 문제없이 컴파일되던 C 프로그램이, 그 사이에 네트워크
+파일 시스템을 통해 복사되었다는 사실 말고는 달라진 것이 없는데도,
+왜 갑자기 구문 오류를 일으키는지 의아해하게 된다.</p>
+<p>컴퓨터 시스템에서 비트 오류를 다루는 기법의 역사는 적어도 1940년대까지
+거슬러 올라간다. 해밍 코드와 리드-솔로몬 코드는 천공 카드 판독기,
+자기 디스크 저장 장치, 초기 코어 메모리 등에 쓰이도록 개발된 대표적인
+예다. 이 절에서는 네트워킹에서 가장 흔히 사용되는 오류 검출 기법 몇 가지를
+설명한다.</p>
+<p>오류를 검출하는 것은 문제의 한 부분일 뿐이다. 다른 한 부분은 검출된
+오류를 바로잡는 것이다. 메시지 수신자가 오류를 발견했을 때 취할 수 있는
+기본적인 접근은 두 가지다. 하나는 메시지가 손상되었음을 송신자에게 알려,
+송신자가 그 메시지의 사본을 다시 전송하도록 하는 방법이다. 비트 오류가
+드물다면 재전송된 사본은 높은 확률로 오류가 없을 것이다. 다른 방법으로는,
+어떤 오류 검출 알고리즘은 메시지가 손상된 뒤에도 수신자가 올바른 메시지를
+복원할 수 있게 해 주는데, 이런 알고리즘은 아래에서 다룰 <em>오류 수정 코드</em>에
+의존한다.</p>
+<p>전송 오류를 검출하는 가장 흔한 기법 중 하나는 <em>순환 중복 검사</em>(CRC)라
+불리는 기법이다. 이는 이 장에서 다루는 거의 모든 링크 계층 프로토콜에서
+사용된다. 이 절에서는 CRC의 기본 알고리즘을 개괄하지만, 그에 앞서 여러
+인터넷 프로토콜에서 사용하는 더 단순한 <em>체크섬</em> 방식부터 설명한다.</p>
+<p>모든 오류 검출 방식의 기본 아이디어는 오류가 들어갔는지 판단할 수 있도록
+프레임에 중복 정보를 덧붙이는 것이다. 극단적으로는 데이터 전체를 두 벌
+전송한다고 상상할 수 있다. 수신 측에서 두 사본이 동일하다면 둘 다 올바를
+가능성이 크다. 반대로 둘이 다르면 둘 중 하나 또는 둘 다에 오류가 생긴 것이므로
+폐기해야 한다. 하지만 이것은 두 가지 이유에서 좋지 않은 오류 검출 방식이다.
+첫째, <span class="math notranslate nohighlight">\(n\)</span>비트 메시지에 대해 <span class="math notranslate nohighlight">\(n\)</span>개의 중복 비트를 보낸다. 둘째, 많은
+오류를 놓칠 수 있다. 예를 들어 첫 번째 사본과 두 번째 사본의 같은 비트 위치가
+우연히 똑같이 손상되면 검출되지 않는다. 일반적으로 오류 검출 코드의 목표는
+상대적으로 적은 수의 중복 비트로 높은 오류 검출 확률을 제공하는 것이다.</p>
+<p>다행히 우리는 이 단순한 방식보다 훨씬 더 잘할 수 있다. 일반적으로
+<span class="math notranslate nohighlight">\(n\)</span>비트 메시지에 대해 <span class="math notranslate nohighlight">\(k\)</span>개의 중복 비트만 보내면서도, 여기서
+<span class="math notranslate nohighlight">\(k\)</span>는 <span class="math notranslate nohighlight">\(n\)</span>보다 훨씬 작으면서도, 꽤 강력한 오류 검출 능력을 제공할 수 있다.
+예를 들어 이더넷에서는 최대 12,000비트(1500바이트)의 데이터를 담는 프레임에
+32비트 CRC 코드만 필요하며, 보통 CRC-32라고 부른다. 이런 코드는 아래에서 보듯
+대부분의 오류를 잡아낸다.</p>
+<p>우리가 보내는 추가 비트를 중복이라고 부르는 이유는, 그것이 메시지에 새로운
+정보를 더하지 않기 때문이다. 대신 이 비트들은 잘 정의된 알고리즘을 사용해 원래
+메시지로부터 직접 계산된다. 송신자와 수신자는 그 알고리즘이 무엇인지 정확히
+알고 있다. 송신자는 메시지에 알고리즘을 적용해 중복 비트를 생성한 뒤, 메시지와
+그 몇 개의 추가 비트를 함께 전송한다. 수신자가 받은 메시지에 같은 알고리즘을
+적용하면, 오류가 없다면 송신자와 같은 결과가 나와야 한다. 수신자는 이 결과를
+송신자가 보낸 값과 비교한다. 둘이 일치하면 전송 중 메시지에 오류가 생기지
+않았다고 높은 확률로 결론 내릴 수 있다. 일치하지 않으면 메시지나 중복 비트
+중 하나가 손상되었음을 확실히 알 수 있고, 적절한 조치, 즉 메시지를 폐기하거나
+가능하다면 수정해야 한다.</p>
+<p>이 추가 비트를 부르는 용어에 대해 한 가지 덧붙이자. 일반적으로 이것들은
+<em>오류 검출 코드</em>라고 부른다. 구체적으로 코드 생성 알고리즘이 덧셈에 기반할
+때는 <em>체크섬</em>이라고 부르기도 한다. 인터넷 체크섬이라는 이름은 적절한데,
+실제로 덧셈 알고리즘을 사용하는 오류 검사이기 때문이다. 불행하게도
+<em>체크섬</em>이라는 말은 CRC를 포함한 모든 형태의 오류 검출 코드를 뜻하는 말로
+부정확하게 쓰이는 경우가 많다. 이는 혼동을 줄 수 있으므로, 실제로 덧셈을
+사용하는 코드에만 <em>체크섬</em>이라는 말을 쓰고, 이 절에서 설명하는 일반적인
+부류의 코드를 가리킬 때는 <em>오류 검출 코드</em>라는 표현을 쓰기를 권한다.</p>
 <section id="internet-checksum-algorithm">
-<h2>2.4.1 Internet Checksum Algorithm<a class="headerlink" href="#internet-checksum-algorithm" title="Link to this heading"></a></h2>
-<p>Our first approach to error detection is exemplified by the Internet
-checksum. Although it is not used at the link level, it nevertheless
-provides the same sort of functionality as CRCs, so we discuss it here.</p>
-<p>The idea behind the Internet checksum is very simple—you add up all the
-words that are transmitted and then transmit the result of that sum. The
-result is the checksum. The receiver performs the same calculation on
-the received data and compares the result with the received checksum. If
-any transmitted data, including the checksum itself, is corrupted, then
-the results will not match, so the receiver knows that an error
-occurred.</p>
-<p>You can imagine many different variations on the basic idea of a
-checksum. The exact scheme used by the Internet protocols works as
-follows. Consider the data being checksummed as a sequence of 16-bit
-integers. Add them together using 16-bit ones’ complement arithmetic
-(explained below) and then take the ones’ complement of the result. That
-16-bit number is the checksum.</p>
-<p>In ones’ complement arithmetic, a negative integer (-x) is represented
-as the complement of x; that is, each bit of x is inverted. When adding
-numbers in ones’ complement arithmetic, a carryout from the most
-significant bit needs to be added to the result. Consider, for example,
-the addition of -5 and -2 in ones’ complement arithmetic on 4-bit
-integers: +5 is 0101, so -5 is 1010; +2 is 0010, so -2 is 1101. If we
-add 1010 and 1101, ignoring the carry, we get 0111. In ones’ complement
-arithmetic, the fact that this operation caused a carry from the most
-significant bit causes us to increment the result, giving 1000, which is
-the ones’ complement representation of -7 (obtained by inverting the
-bits in 0111), as we would expect.</p>
-<p>The following routine gives a straightforward implementation of the
-Internet’s checksum algorithm. The <code class="docutils literal notranslate"><span class="pre">count</span></code> argument gives the length
-of <code class="docutils literal notranslate"><span class="pre">buf</span></code> measured in 16-bit units. The routine assumes that <code class="docutils literal notranslate"><span class="pre">buf</span></code>
-has already been padded with 0s to a 16-bit boundary.</p>
+<h2>2.4.1 인터넷 체크섬 알고리즘<a class="headerlink" href="#internet-checksum-algorithm" title="이 제목에 대한 링크"></a></h2>
+<p>오류 검출의 첫 번째 접근으로는 인터넷 체크섬을 들 수 있다. 이것은 링크
+계층에서 사용되지는 않지만, CRC와 같은 종류의 기능을 제공하므로 여기서 함께
+살펴본다.</p>
+<p>인터넷 체크섬의 아이디어는 매우 단순하다. 전송되는 모든 워드를 더한 뒤 그
+합을 전송하면 된다. 이 결과가 체크섬이다. 수신자는 수신한 데이터에 대해 같은
+계산을 수행하고, 그 결과를 전달받은 체크섬과 비교한다. 체크섬 자체를 포함한
+전송 데이터 가운데 어느 하나라도 손상되었다면 결과가 일치하지 않으므로,
+수신자는 오류가 발생했음을 알 수 있다.</p>
+<p>체크섬의 기본 아이디어에는 다양한 변형이 있을 수 있다. 인터넷 프로토콜에서
+실제로 사용하는 방식은 다음과 같다. 체크섬을 계산할 데이터를 16비트 정수들의
+열로 간주하고, 16비트 1의 보수 산술(아래에서 설명한다)을 사용해 모두 더한 뒤,
+그 결과의 1의 보수를 취한다. 이렇게 얻은 16비트 수가 체크섬이다.</p>
+<p>1의 보수 산술에서는 음의 정수(-x)를 x의 보수로 표현한다. 즉 x의 각 비트를
+반전시킨다. 1의 보수 산술에서 수를 더할 때는 최상위 비트에서 나온 캐리를
+결과에 다시 더해야 한다. 예를 들어 4비트 정수에서 -5와 -2를 1의 보수 산술로
+더해 보자. +5는 0101이므로 -5는 1010이고, +2는 0010이므로 -2는 1101이다.
+캐리를 무시하고 1010과 1101을 더하면 0111이 된다. 하지만 1의 보수 산술에서는
+이 연산에서 최상위 비트의 캐리가 발생했으므로 결과를 1 증가시켜 1000을 얻는다.
+이는 0111의 비트를 반전해 얻는 -7의 1의 보수 표현과 일치한다.</p>
+<p>다음 루틴은 인터넷 체크섬 알고리즘을 직관적으로 구현한 예를 보여 준다.
+<code class="docutils literal notranslate"><span class="pre">count</span></code> 인자는 <code class="docutils literal notranslate"><span class="pre">buf</span></code>의 길이를 16비트 단위로 나타낸다. 이 루틴은
+<code class="docutils literal notranslate"><span class="pre">buf</span></code>가 이미 16비트 경계에 맞도록 0으로 패딩되어 있다고 가정한다.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">u_short</span>
 <span class="nf">cksum</span><span class="p">(</span><span class="n">u_short</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
 <span class="p">{</span>
@@ -235,7 +209,7 @@ has already been padded with 0s to a 16-bit boundary.</p>
 <span class="w">        </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="o">++</span><span class="p">;</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sum</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF0000</span><span class="p">)</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="cm">/* carry occurred, so wrap around */</span>
+<span class="w">            </span><span class="cm">/* 캐리가 발생했으므로 하위 비트로 되감는다 */</span>
 <span class="w">            </span><span class="n">sum</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">;</span>
 <span class="w">            </span><span class="n">sum</span><span class="o">++</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
@@ -244,232 +218,184 @@ has already been padded with 0s to a 16-bit boundary.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This code ensures that the calculation uses ones’ complement arithmetic
-rather than the twos’ complement that is used in most machines. Note the
-<code class="docutils literal notranslate"><span class="pre">if</span></code> statement inside the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop. If there is a carry into the
-top 16 bits of <code class="docutils literal notranslate"><span class="pre">sum</span></code>, then we increment <code class="docutils literal notranslate"><span class="pre">sum</span></code> just as in the
-previous example.</p>
-<p>Compared to our repetition code, this algorithm scores well for using a
-small number of redundant bits—only 16 for a message of any length—but
-it does not score extremely well for strength of error detection. For
-example, a pair of single-bit errors, one of which increments a word and
-one of which decrements another word by the same amount, will go
-undetected. The reason for using an algorithm like this in spite of its
-relatively weak protection against errors (compared to a CRC, for
-example) is simple: This algorithm is much easier to implement in
-software. Experience has suggested that a checksum of this form was
-adequate, but one reason it is adequate is that this checksum is the
-last line of defense in an end-to-end protocol. The majority of errors
-are picked up by stronger error detection algorithms, such as CRCs, at
-the link level.</p>
+<p>이 코드는 대부분의 기계가 사용하는 2의 보수 대신 1의 보수 산술로 계산이
+이뤄지도록 보장한다. <code class="docutils literal notranslate"><span class="pre">while</span></code> 루프 안에 있는 <code class="docutils literal notranslate"><span class="pre">if</span></code> 문에 주목하자.
+<code class="docutils literal notranslate"><span class="pre">sum</span></code>의 상위 16비트로 캐리가 넘어가면, 앞의 예와 마찬가지로 <code class="docutils literal notranslate"><span class="pre">sum</span></code>을
+1 증가시킨다.</p>
+<p>반복 코드와 비교하면, 이 알고리즘은 메시지 길이와 무관하게 16비트만 추가하면
+된다는 점에서 적은 수의 중복 비트를 사용한다는 장점이 있다. 하지만 오류 검출
+강도는 아주 뛰어나지는 않다. 예를 들어 하나는 어떤 워드의 값을 증가시키고,
+다른 하나는 다른 워드의 값을 같은 양만큼 감소시키는 두 개의 단일 비트 오류는
+검출되지 않을 수 있다. CRC 같은 방식에 비해 오류 보호 능력이 약한데도 이런
+알고리즘을 사용하는 이유는 단순하다. 소프트웨어로 구현하기가 훨씬 쉽기 때문이다.
+경험적으로 이런 형태의 체크섬은 충분히 유용한 것으로 여겨졌는데, 그 이유 중
+하나는 이것이 종단 간 프로토콜에서 마지막 방어선 역할을 하기 때문이다. 대부분의
+오류는 링크 계층에서 CRC 같은 더 강한 오류 검출 알고리즘이 먼저 잡아낸다.</p>
 </section>
 <section id="cyclic-redundancy-check">
-<h2>2.4.2 Cyclic Redundancy Check<a class="headerlink" href="#cyclic-redundancy-check" title="Link to this heading"></a></h2>
-<p>It should be clear by now that a major goal in designing error detection
-algorithms is to maximize the probability of detecting errors using only
-a small number of redundant bits. Cyclic redundancy checks use some
-fairly powerful mathematics to achieve this goal. For example, a 32-bit
-CRC gives strong protection against common bit errors in messages that
-are thousands of bytes long. The theoretical foundation of the cyclic
-redundancy check is rooted in a branch of mathematics called <em>finite
-fields</em>. While this may sound daunting, the basic ideas can be easily
-understood.</p>
-<p>To start, think of an (n+1)-bit message as being represented by an <span class="math notranslate nohighlight">\(n\)</span>
-degree polynomial, that is, a polynomial whose highest-order term is
-<span class="math notranslate nohighlight">\(x^{n}\)</span>. The message is represented by a polynomial by using the
-value of each bit in the message as the coefficient for each term in
-the polynomial, starting with the most significant bit to represent
-the highest-order term. For example, an 8-bit message consisting of
-the bits 10011010 corresponds to the polynomial</p>
+<h2>2.4.2 순환 중복 검사<a class="headerlink" href="#cyclic-redundancy-check" title="이 제목에 대한 링크"></a></h2>
+<p>이제는 오류 검출 알고리즘을 설계할 때의 중요한 목표가, 적은 수의 중복
+비트만으로 오류를 검출할 확률을 최대화하는 것임을 알 수 있을 것이다.
+순환 중복 검사는 이 목표를 달성하기 위해 꽤 강력한 수학을 사용한다. 예를 들어
+32비트 CRC는 수천 바이트 길이의 메시지에서 흔히 일어나는 비트 오류에 대해
+강한 보호를 제공한다. CRC의 이론적 토대는 <em>유한체</em>라고 불리는 수학의 한
+분야에 뿌리를 두고 있다. 다소 어렵게 들릴 수 있지만, 기본 아이디어는 쉽게
+이해할 수 있다.</p>
+<p>우선, (n+1)비트 메시지를 <span class="math notranslate nohighlight">\(n\)</span>차 다항식으로 표현한다고 생각해 보자.
+즉 최고차항이 <span class="math notranslate nohighlight">\(x^{n}\)</span>인 다항식이다. 메시지의 각 비트 값을 다항식 각 항의
+계수로 사용해 메시지를 다항식으로 나타내며, 최상위 비트가 가장 높은 차수의 항을
+나타낸다. 예를 들어 10011010이라는 8비트 메시지는 다음 다항식에 대응한다.</p>
 <div class="math notranslate nohighlight">
 \[M(x) = (1 \times x^7) + (0 \times x^6) + (0 \times x^5) + (1 \times
 x^4 )+ (1 \times x^3) + (0 \times x^2) + (1 \times x^1) + (0 \times x^0)\]</div>
 <div class="math notranslate nohighlight">
 \[M(x) = x^7 + x^4 + x^3 + x^1\]</div>
-<p>We can thus think of a sender and a receiver as exchanging polynomials
-with each other.</p>
-<p>For the purposes of calculating a CRC, a sender and receiver have to
-agree on a <em>divisor</em> polynomial, <span class="math notranslate nohighlight">\(C(x)\)</span>. <span class="math notranslate nohighlight">\(C(x)\)</span> is a polynomial of
-degree <span class="math notranslate nohighlight">\(k\)</span>. For example, suppose <span class="math notranslate nohighlight">\(C(x) = x^3 + x^2 + 1\)</span>.
-In this case, <span class="math notranslate nohighlight">\(k=3\)</span>. The answer to the question “Where did <span class="math notranslate nohighlight">\(C(x)\)</span>
-come from?” is, in most
-practical cases, “You look it up in a book.” In fact, the choice of
-<span class="math notranslate nohighlight">\(C(x)\)</span> has a significant impact on what types of errors can be reliably
-detected, as we discuss below. There are a handful of divisor
-polynomials that are very good choices for various environments, and the
-exact choice is normally made as part of the protocol design. For
-example, the Ethernet standard uses a well-known polynomial of
-degree 32.</p>
-<p>When a sender wishes to transmit a message <span class="math notranslate nohighlight">\(M(x)\)</span>
-that is n+1 bits long, what is actually sent is the (n+1)-bit message
-plus <span class="math notranslate nohighlight">\(k\)</span> bits. We call the complete transmitted message, including the
-redundant bits, <span class="math notranslate nohighlight">\(P(x)\)</span>. What we are going to do is contrive to make the
-polynomial representing <span class="math notranslate nohighlight">\(P(x)\)</span> exactly divisible by <span class="math notranslate nohighlight">\(C(x)\)</span>; we explain
-how this is achieved below. If <span class="math notranslate nohighlight">\(P(x)\)</span> is transmitted over a link and
-there are no errors introduced during transmission, then the receiver
-should be able to divide <span class="math notranslate nohighlight">\(P(x)\)</span> by <span class="math notranslate nohighlight">\(C(x)\)</span> exactly, leaving a remainder
-of zero. On the other hand, if some error is introduced into <span class="math notranslate nohighlight">\(P(x)\)</span>
-during transmission, then in all likelihood the received polynomial will
-no longer be exactly divisible by <span class="math notranslate nohighlight">\(C(x)\)</span>, and thus the receiver will
-obtain a nonzero remainder implying that an error has occurred.</p>
-<p>It will help to understand the following if you know a little about
-polynomial arithmetic; it is just slightly different from normal integer
-arithmetic. We are dealing with a special class of polynomial arithmetic
-here, where coefficients may be only one or zero, and operations on the
-coefficients are performed using modulo 2 arithmetic. This is referred
-to as “polynomial arithmetic modulo 2.” Since this is a networking book,
-not a mathematics text, let’s focus on the key properties of this type
-of arithmetic for our purposes (which we ask you to accept on faith):</p>
+<p>따라서 송신자와 수신자가 서로 다항식을 주고받는다고 생각할 수 있다.</p>
+<p>CRC를 계산하려면 송신자와 수신자가 <em>제수</em> 다항식 <span class="math notranslate nohighlight">\(C(x)\)</span>에 대해
+합의해야 한다. <span class="math notranslate nohighlight">\(C(x)\)</span>는 차수가 <span class="math notranslate nohighlight">\(k\)</span>인 다항식이다. 예를 들어
+<span class="math notranslate nohighlight">\(C(x) = x^3 + x^2 + 1\)</span>이라고 하자. 이 경우 <span class="math notranslate nohighlight">\(k=3\)</span>이다.
+그렇다면 “<span class="math notranslate nohighlight">\(C(x)\)</span>는 어디서 왔는가?”라는 질문에 대한 답은 대부분의 실제
+경우 “책에서 찾아본다”이다. 실제로 <span class="math notranslate nohighlight">\(C(x)\)</span>의 선택은 어떤 유형의 오류를
+신뢰성 있게 검출할 수 있는지에 큰 영향을 미치며, 이에 대해서는 아래에서
+설명한다. 다양한 환경에 매우 적합한 제수 다항식이 몇 가지 알려져 있고,
+정확한 선택은 보통 프로토콜 설계의 일부로 결정된다. 예를 들어 이더넷 표준은
+차수 32의 잘 알려진 다항식을 사용한다.</p>
+<p>송신자가 <span class="math notranslate nohighlight">\(M(x)\)</span>라는 메시지를 전송하려고 할 때, 이 메시지의 길이가
+n+1비트라면 실제로 전송되는 것은 그 (n+1)비트 메시지에 <span class="math notranslate nohighlight">\(k\)</span>비트를 더한
+것이다. 우리는 중복 비트를 포함한 완전한 전송 메시지를 <span class="math notranslate nohighlight">\(P(x)\)</span>라고 부른다.
+우리가 하려는 일은 <span class="math notranslate nohighlight">\(P(x)\)</span>를 나타내는 다항식이 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어지게
+만드는 것이며, 그 방법은 아래에서 설명한다. <span class="math notranslate nohighlight">\(P(x)\)</span>가 링크를 통해 전송되는
+동안 오류가 없다면, 수신자는 <span class="math notranslate nohighlight">\(P(x)\)</span>를 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나눌 수 있어야 하며,
+나머지는 0이 된다. 반대로 전송 도중 <span class="math notranslate nohighlight">\(P(x)\)</span>에 어떤 오류가 들어가면, 수신된
+다항식은 높은 확률로 더 이상 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어지지 않으므로,
+수신자는 0이 아닌 나머지를 얻게 되고 이를 통해 오류가 발생했음을 알 수 있다.</p>
+<p>다음 내용을 이해하려면 다항식 산술을 조금 알고 있으면 도움이 된다. 일반적인
+정수 산술과 아주 약간 다를 뿐이다. 여기서는 계수가 0 또는 1만 될 수 있고,
+계수에 대한 연산이 모듈로 2 산술로 수행되는 특별한 종류의 다항식 산술을 다룬다.
+이를 “모듈로 2 다항식 산술”이라고 부른다. 이 책은 수학책이 아니라 네트워킹
+책이므로, 여기서는 이 산술의 핵심 성질만 목적에 맞게 정리하자. 다음 성질은
+일단 받아들이고 넘어가길 바란다.</p>
 <ul class="simple">
-<li><p>Any polynomial <span class="math notranslate nohighlight">\(B(x)\)</span> can be divided by a divisor polynomial
-<span class="math notranslate nohighlight">\(C(x)\)</span> if <span class="math notranslate nohighlight">\(B(x)\)</span> is of higher degree than <span class="math notranslate nohighlight">\(C(x)\)</span>.</p></li>
-<li><p>Any polynomial <span class="math notranslate nohighlight">\(B(x)\)</span> can be divided once by a divisor
-polynomial <span class="math notranslate nohighlight">\(C(x)\)</span> if <span class="math notranslate nohighlight">\(B(x)\)</span> is of the same degree as <span class="math notranslate nohighlight">\(C(x)\)</span>.</p></li>
-<li><p>The remainder obtained when <span class="math notranslate nohighlight">\(B(x)\)</span> is divided by <span class="math notranslate nohighlight">\(C(x)\)</span> is
-obtained by performing the exclusive OR (XOR) operation on each pair
-of matching coefficients.</p></li>
+<li><p><span class="math notranslate nohighlight">\(B(x)\)</span>의 차수가 <span class="math notranslate nohighlight">\(C(x)\)</span>보다 크면, 어떤 다항식 <span class="math notranslate nohighlight">\(B(x)\)</span>도 제수 다항식
+<span class="math notranslate nohighlight">\(C(x)\)</span>로 나눌 수 있다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(B(x)\)</span>와 <span class="math notranslate nohighlight">\(C(x)\)</span>의 차수가 같으면, <span class="math notranslate nohighlight">\(B(x)\)</span>는 제수 다항식
+<span class="math notranslate nohighlight">\(C(x)\)</span>로 한 번 나눌 수 있다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(B(x)\)</span>를 <span class="math notranslate nohighlight">\(C(x)\)</span>로 나눌 때 얻는 나머지는, 대응하는 각 계수 쌍에 대해
+배타적 논리합(XOR) 연산을 수행해 얻는다.</p></li>
 </ul>
-<p>For example, the polynomial <span class="math notranslate nohighlight">\(x^3 + 1\)</span> can be divided by <span class="math notranslate nohighlight">\(x^3 + x^2 + 1\)</span>
-(because they are both of degree 3) and the remainder would be
-<span class="math notranslate nohighlight">\(0 \times x^3 + 1 \times x^2 + 0 \times x^1 + 0 \times x^0 = x^2\)</span>
-(obtained by XORing the coefficients of each term). In terms of
-messages, we could say that 1001 can be divided by 1101 and leaves a
-remainder of 0100. You should be able to see that the remainder is just
-the bitwise exclusive OR of the two messages.</p>
-<p>Now that we know the basic rules for dividing polynomials, we are able
-to do long division, which is necessary to deal with longer messages. An
-example appears below.</p>
-<p>Recall that we wanted to create a polynomial for transmission that is
-derived from the original message <span class="math notranslate nohighlight">\(M(x)\)</span>, is <span class="math notranslate nohighlight">\(k\)</span> bits longer than
-<span class="math notranslate nohighlight">\(M(x)\)</span>, and is exactly divisible by <span class="math notranslate nohighlight">\(C(x)\)</span>. We can do this in the
-following way:</p>
+<p>예를 들어 다항식 <span class="math notranslate nohighlight">\(x^3 + 1\)</span>은 <span class="math notranslate nohighlight">\(x^3 + x^2 + 1\)</span>로 나눌 수 있는데,
+두 다항식 모두 차수가 3이기 때문이다. 이때 나머지는
+<span class="math notranslate nohighlight">\(0 \times x^3 + 1 \times x^2 + 0 \times x^1 + 0 \times x^0 = x^2\)</span>가 된다.
+이는 각 항의 계수를 XOR해서 얻는다. 메시지 관점에서 보면 1001을 1101로
+나누었을 때 나머지가 0100이 된다고 말할 수 있다. 이 나머지가 두 메시지의
+비트 단위 XOR 결과와 같다는 것을 볼 수 있을 것이다.</p>
+<p>이제 다항식을 나누는 기본 규칙을 알았으므로, 더 긴 메시지를 다루는 데 필요한
+긴 나눗셈도 할 수 있다. 아래에 예가 나온다.</p>
+<p>우리가 만들고자 하는 것은 원래 메시지 <span class="math notranslate nohighlight">\(M(x)\)</span>에서 유도되며,
+<span class="math notranslate nohighlight">\(M(x)\)</span>보다 <span class="math notranslate nohighlight">\(k\)</span>비트 더 길고, 동시에 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어지는
+전송용 다항식이었다는 점을 떠올려 보자. 이는 다음과 같은 방식으로 만들 수 있다.</p>
 <ol class="arabic simple">
-<li><p>Multiply <span class="math notranslate nohighlight">\(M(x)\)</span> by <span class="math notranslate nohighlight">\(x^{k}\)</span>;
-that is, add <span class="math notranslate nohighlight">\(k\)</span> zeros at the end of the message. Call this zero-extended message <span class="math notranslate nohighlight">\(T(x)\)</span>.</p></li>
-<li><p>Divide <span class="math notranslate nohighlight">\(T(x)\)</span> by <span class="math notranslate nohighlight">\(C(x)\)</span> and find the remainder.</p></li>
-<li><p>Subtract the remainder from <span class="math notranslate nohighlight">\(T(x)\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(M(x)\)</span>에 <span class="math notranslate nohighlight">\(x^{k}\)</span>를 곱한다. 즉 메시지 끝에 <span class="math notranslate nohighlight">\(k\)</span>개의 0을 붙인다.
+이 0-확장 메시지를 <span class="math notranslate nohighlight">\(T(x)\)</span>라고 하자.</p></li>
+<li><p><span class="math notranslate nohighlight">\(T(x)\)</span>를 <span class="math notranslate nohighlight">\(C(x)\)</span>로 나누고 나머지를 구한다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(T(x)\)</span>에서 그 나머지를 뺀다.</p></li>
 </ol>
-<p>It should be obvious that what is left at this point is a message that
-is exactly divisible by <span class="math notranslate nohighlight">\(C(x)\)</span>. We may also note that the
-resulting message consists of <span class="math notranslate nohighlight">\(M(x)\)</span> followed by the remainder
-obtained in step 2, because when we subtracted the remainder (which
-can be no more than <span class="math notranslate nohighlight">\(k\)</span> bits long), we were just XORing it with
-the <span class="math notranslate nohighlight">\(k\)</span> zeros added in step 1. This part will become clearer
-with an example.</p>
-<p>Consider the message <span class="math notranslate nohighlight">\(x^7 + x^4 + x^3 + x^1\)</span>, or 10011010.  We
-begin by multiplying by <span class="math notranslate nohighlight">\(x^3\)</span>, since our divisor polynomial is
-of degree 3. This gives 10011010000.  We divide this by <span class="math notranslate nohighlight">\(C(x)\)</span>,
-which corresponds to 1101 in this case.  <a class="reference internal" href="#fig-crcalc"><span class="std std-numref">Figure 32</span></a> shows the polynomial long-division operation.  Given the
-rules of polynomial arithmetic described above, the long-division
-operation proceeds much as it would if we were dividing
-integers. Thus, in the first step of our example, we see that the
-divisor 1101 divides once into the first four bits of the message
-(1001), since they are of the same degree, and leaves a remainder of
-100 (1101 XOR 1001). The next step is to bring down a digit from the
-message polynomial until we get another polynomial with the same
-degree as <span class="math notranslate nohighlight">\(C(x)\)</span>, in this case 1001. We calculate the remainder
-again (100) and continue until the calculation is complete. Note that
-the “result” of the long division, which appears at the top of the
-calculation, is not really of much interest—it is the remainder at the
-end that matters.</p>
-<p>You can see from the very bottom of <a class="reference internal" href="#fig-crcalc"><span class="std std-numref">Figure 32</span></a> that the
-remainder of the example calculation is 101. So we know that 10011010000
-minus 101 would be exactly divisible by <span class="math notranslate nohighlight">\(C(x)\)</span>, and this is what we
-send. The minus operation in polynomial arithmetic is the logical XOR
-operation, so we actually send 10011010101. As noted above, this turns
-out to be just the original message with the remainder from the long
-division calculation appended to it. The recipient divides the received
-polynomial by <span class="math notranslate nohighlight">\(C(x)\)</span> and, if the result is 0, concludes that there were
-no errors. If the result is nonzero, it may be necessary to discard the
-corrupted message; with some codes, it may be possible to <em>correct</em> a
-small error (e.g., if the error affected only one bit). A code that
-enables error correction is called an <em>error-correcting code</em> (ECC).</p>
+<p>이 시점에 남는 것이 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어지는 메시지라는 것은 자명하다.
+또한 결과 메시지는 <span class="math notranslate nohighlight">\(M(x)\)</span> 뒤에 2단계에서 얻은 나머지를 붙인 형태라는 점도
+알 수 있다. 나머지는 길이가 최대 <span class="math notranslate nohighlight">\(k\)</span>비트이므로, 3단계에서 그것을 뺀다는 것은
+실제로 1단계에서 덧붙인 <span class="math notranslate nohighlight">\(k\)</span>개의 0과 XOR하는 것과 같기 때문이다. 예를 보면
+더 분명해질 것이다.</p>
+<p><span class="math notranslate nohighlight">\(x^7 + x^4 + x^3 + x^1\)</span>, 즉 10011010이라는 메시지를 생각해 보자.
+제수 다항식의 차수가 3이므로 먼저 <span class="math notranslate nohighlight">\(x^3\)</span>을 곱한다. 그러면 10011010000이 된다.
+이를 이 경우 1101에 해당하는 <span class="math notranslate nohighlight">\(C(x)\)</span>로 나눈다. <a class="reference internal" href="#fig-crcalc"><span class="std std-numref">그림 32</span></a>는 이
+다항식 긴 나눗셈 과정을 보여 준다. 앞에서 설명한 다항식 산술 규칙을 적용하면,
+긴 나눗셈은 정수를 나눌 때와 거의 같은 방식으로 진행된다. 따라서 예의 첫 단계에서
+제수 1101은 메시지의 처음 네 비트(1001)에 한 번 들어가는데, 둘의 차수가 같기
+때문이다. 그리고 나머지 100(1101 XOR 1001)을 남긴다. 다음 단계에서는 메시지
+다항식에서 자릿수를 하나씩 내려, 다시 <span class="math notranslate nohighlight">\(C(x)\)</span>와 같은 차수를 갖는 다항식,
+이 경우 1001이 될 때까지 진행한다. 다시 나머지 100을 계산하고, 계산이 끝날 때까지
+이를 반복한다. 계산의 맨 위에 보이는 긴 나눗셈의 “결과” 자체는 사실 그다지
+중요하지 않다. 중요한 것은 마지막에 남는 나머지다.</p>
+<p><a class="reference internal" href="#fig-crcalc"><span class="std std-numref">그림 32</span></a>의 맨 아래를 보면, 이 예의 계산에서 나머지가 101임을 알 수 있다.
+따라서 10011010000에서 101을 뺀 값은 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어지며, 이것이
+우리가 보내는 값이다. 다항식 산술에서 뺄셈은 논리적 XOR 연산이므로 실제로 보내는
+값은 10011010101이다. 앞에서 말했듯이, 이는 결국 원래 메시지 뒤에 긴 나눗셈에서
+구한 나머지를 덧붙인 것과 같다. 수신자는 수신한 다항식을 <span class="math notranslate nohighlight">\(C(x)\)</span>로 나누고,
+결과가 0이면 오류가 없었다고 결론 내린다. 결과가 0이 아니면 손상된 메시지를
+폐기해야 할 수도 있고, 어떤 코드에서는 작은 오류를 <em>수정</em>할 수도 있다
+(예를 들어 오류가 한 비트에만 영향을 준 경우). 오류 수정을 가능하게 하는 코드를
+<em>오류 수정 코드</em>(ECC)라고 한다.</p>
 <figure class="align-center" id="id1">
 <span id="fig-crcalc"></span><a class="reference internal image-reference" href="../_images/f02-15-9780123850591.png"><img alt="../_images/f02-15-9780123850591.png" src="../_images/f02-15-9780123850591.png" style="width: 400px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 32. </span><span class="caption-text">CRC calculation using polynomial long division.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 32. </span><span class="caption-text">다항식 긴 나눗셈을 이용한 CRC 계산.</span><a class="headerlink" href="#id1" title="이 그림에 대한 링크"></a></p>
 </figcaption>
 </figure>
-<p>Now we will consider the question of where the polynomial <span class="math notranslate nohighlight">\(C(x)\)</span>
-comes from. Intuitively, the idea is to select this polynomial so that
-it is very unlikely to divide evenly into a message that has errors
-introduced into it. If the transmitted message is <span class="math notranslate nohighlight">\(P(x)\)</span>, we may
-think of the introduction of errors as the addition of another
-polynomial <span class="math notranslate nohighlight">\(E(x)\)</span>, so the recipient sees <span class="math notranslate nohighlight">\(P(x) +
-E(x)\)</span>. The only way that an error could slip by undetected would be if
-the received message could be evenly divided by <span class="math notranslate nohighlight">\(C(x)\)</span>, and
-since we know that <span class="math notranslate nohighlight">\(P(x)\)</span> can be evenly divided by <span class="math notranslate nohighlight">\(C(x)\)</span>,
-this could only happen if <span class="math notranslate nohighlight">\(E(x)\)</span> can be divided evenly by
-<span class="math notranslate nohighlight">\(C(x)\)</span>. The trick is to pick <span class="math notranslate nohighlight">\(C(x)\)</span> so that this is very
-unlikely for common types of errors.</p>
-<p>One common type of error is a single-bit error, which can be expressed
-as <span class="math notranslate nohighlight">\(E(x) = x^i\)</span> when it affects bit position <em>i</em>. If we select
-<span class="math notranslate nohighlight">\(C(x)\)</span> such that the first and the last term (that is, the <span class="math notranslate nohighlight">\(x^k\)</span>
-and <span class="math notranslate nohighlight">\(x^0\)</span> terms) are nonzero, then we already have a two-term
-polynomial that
-cannot divide evenly into the one term <span class="math notranslate nohighlight">\(E(x)\)</span>. Such a <span class="math notranslate nohighlight">\(C(x)\)</span> can,
-therefore, detect all single-bit errors. In general, it is possible to
-prove that the following types of errors can be detected by a <span class="math notranslate nohighlight">\(C(x)\)</span>
-with the stated properties:</p>
+<p>이제 다항식 <span class="math notranslate nohighlight">\(C(x)\)</span>가 어디서 오는지 생각해 보자. 직관적으로 말하면,
+오류가 들어간 메시지를 이 다항식이 정확히 나눌 가능성이 매우 낮도록
+<span class="math notranslate nohighlight">\(C(x)\)</span>를 고르는 것이 핵심이다. 전송된 메시지가 <span class="math notranslate nohighlight">\(P(x)\)</span>라면, 오류가
+도입되는 것을 또 다른 다항식 <span class="math notranslate nohighlight">\(E(x)\)</span>가 더해지는 것으로 볼 수 있으므로,
+수신자는 <span class="math notranslate nohighlight">\(P(x) + E(x)\)</span>를 보게 된다. 오류가 검출되지 않고 지나가려면 수신
+메시지가 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어져야 한다. 그런데 <span class="math notranslate nohighlight">\(P(x)\)</span>는 이미
+<span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어진다는 것을 알고 있으므로, 이것이 가능하려면
+<span class="math notranslate nohighlight">\(E(x)\)</span> 역시 <span class="math notranslate nohighlight">\(C(x)\)</span>로 정확히 나누어떨어져야만 한다. 요령은 흔한 오류
+유형들에 대해 이런 일이 거의 일어나지 않도록 <span class="math notranslate nohighlight">\(C(x)\)</span>를 고르는 데 있다.</p>
+<p>흔한 오류 유형 중 하나는 단일 비트 오류이며, 이것이 비트 위치 <em>i</em>에 영향을
+미칠 때는 <span class="math notranslate nohighlight">\(E(x) = x^i\)</span>로 표현할 수 있다. 만약 <span class="math notranslate nohighlight">\(C(x)\)</span>의 첫 번째 항과
+마지막 항, 즉 <span class="math notranslate nohighlight">\(x^k\)</span>와 <span class="math notranslate nohighlight">\(x^0\)</span>의 계수가 모두 0이 아니도록 선택하면,
+이미 두 항으로 이루어진 다항식이 되므로 한 항만 있는 <span class="math notranslate nohighlight">\(E(x)\)</span>를 정확히
+나눌 수 없다. 따라서 이런 <span class="math notranslate nohighlight">\(C(x)\)</span>는 모든 단일 비트 오류를 검출할 수 있다.
+일반적으로, 다음과 같은 성질을 가진 <span class="math notranslate nohighlight">\(C(x)\)</span>는 아래 유형의 오류를 검출할 수
+있음을 증명할 수 있다.</p>
 <ul class="simple">
-<li><p>All single-bit errors, as long as the <span class="math notranslate nohighlight">\(x^{k}\)</span> and <span class="math notranslate nohighlight">\(x^{0}\)</span> terms have nonzero coefficients</p></li>
-<li><p>All double-bit errors, as long as <span class="math notranslate nohighlight">\(C(x)\)</span> has a factor with at least three terms</p></li>
-<li><p>Any odd number of errors, as long as <span class="math notranslate nohighlight">\(C(x)\)</span> contains the factor <span class="math notranslate nohighlight">\((x + 1)\)</span></p></li>
-<li><p>Any “burst” error (i.e., sequence of consecutive errored bits) for
-which the length of the burst is less than <span class="math notranslate nohighlight">\(k\)</span> bits (Most burst
-errors of length greater than <span class="math notranslate nohighlight">\(k\)</span> bits can also be detected.)</p></li>
+<li><p><span class="math notranslate nohighlight">\(x^{k}\)</span> 항과 <span class="math notranslate nohighlight">\(x^{0}\)</span> 항의 계수가 0이 아니면 모든 단일 비트 오류</p></li>
+<li><p><span class="math notranslate nohighlight">\(C(x)\)</span>가 적어도 세 항을 갖는 인수를 가지면 모든 이중 비트 오류</p></li>
+<li><p><span class="math notranslate nohighlight">\(C(x)\)</span>가 <span class="math notranslate nohighlight">\((x + 1)\)</span> 인수를 포함하면 임의의 홀수 개 오류</p></li>
+<li><p>버스트 길이가 <span class="math notranslate nohighlight">\(k\)</span>비트보다 짧은 모든 “버스트” 오류
+(즉 연속된 오류 비트의 열). 길이가 <span class="math notranslate nohighlight">\(k\)</span>보다 긴 많은 버스트 오류도 검출 가능하다.</p></li>
 </ul>
-<p>Six versions of <span class="math notranslate nohighlight">\(C(x)\)</span> are widely used in link-level protocols. For
-example, Ethernet uses CRC-32, which is defined as follows:</p>
+<p><span class="math notranslate nohighlight">\(C(x)\)</span>의 여섯 가지 버전이 링크 계층 프로토콜에서 널리 사용된다.
+예를 들어 이더넷은 다음과 같이 정의되는 CRC-32를 사용한다.</p>
 <ul class="simple">
 <li><p>CRC-32 = <span class="math notranslate nohighlight">\(x^{32} + x^{26} + x^{23} + x^{22} + x^{16} +
 x^{12} + x^{11} + x^{10} + x^8 + x^7 + x^5 + x^4 + x^2 + x + 1\)</span></p></li>
 </ul>
-<p>We have mentioned that it is possible to use codes that not only detect
-the presence of errors but also enable errors to be corrected. Since the
-details of such codes require yet more complex mathematics than that
-required to understand CRCs, we will not dwell on them here. However, it
-is worth considering the merits of correction versus detection.</p>
-<p>At first glance, it would seem that correction is always better, since
-with detection we are forced to throw away the message and, in general,
-ask for another copy to be transmitted. This uses up bandwidth and may
-introduce latency while waiting for the retransmission. However, there
-is a downside to correction, as it generally requires a greater number
-of redundant bits to send an error-correcting code that is as strong
-(that is, able to cope with the same range of errors) as a code that
-only detects errors. Thus, while error detection requires more bits to
-be sent when errors occur, error correction requires more bits to be
-sent <em>all the time</em>. As a result, error correction tends to be most
-useful when (1) errors are quite probable, as they may be, for example,
-in a wireless environment, or (2) the cost of retransmission is too
-high, for example, because of the latency involved retransmitting a
-packet over a satellite link.</p>
-<p>The use of error-correcting codes in networking is sometimes referred to
-as <em>forward error correction</em> (FEC) because the correction of errors is
-handled “in advance” by sending extra information, rather than waiting
-for errors to happen and dealing with them later by retransmission. FEC
-is commonly used in wireless networks such as 802.11.</p>
-<p>Finally, we note that the CRC algorithm, while seemingly complex, is
-easily implemented in hardware using a <span class="math notranslate nohighlight">\(k\)</span>-bit shift register
-and XOR gates. The number of bits in the shift register equals the
-degree of the generator polynomial (<span class="math notranslate nohighlight">\(k\)</span>). <a class="reference internal" href="#fig-crc-hard"><span class="std std-numref">Figure 33</span></a> shows the hardware that would be used for the
-generator <span class="math notranslate nohighlight">\(x^3 + x^2 + 1\)</span> from our previous example. The message
-is shifted in from the left, beginning with the most significant bit
-and ending with the string of <span class="math notranslate nohighlight">\(k\)</span> zeros that is attached to the
-message, just as in the long division example. When all the bits have
-been shifted in and appropriately XORed, the register contains the
-remainder—that is, the CRC (most significant bit on the right). The
-position of the XOR gates is determined as follows: If the bits in the
-shift register are labeled 0 through <span class="math notranslate nohighlight">\(k-1\)</span>, left to right, then
-put an XOR gate in front of bit <span class="math notranslate nohighlight">\(n\)</span> if there is a term
-<span class="math notranslate nohighlight">\(x^n\)</span> in the generator polynomial.  Thus, we see an XOR gate in
-front of positions 0 and 2 for the generator <span class="math notranslate nohighlight">\(x^3 + x^2 + x^0\)</span>.</p>
+<p>앞서 오류의 존재를 검출할 뿐 아니라 오류를 수정할 수 있게 하는 코드도
+사용할 수 있다고 언급했다. 이런 코드의 세부 사항은 CRC를 이해하는 데 필요한
+수학보다도 더 복잡하므로 여기서는 깊이 들어가지 않겠다. 다만 오류 수정과 오류
+검출의 장단점은 생각해 볼 만하다.</p>
+<p>언뜻 보기에는 수정이 언제나 더 좋아 보인다. 오류 검출만 사용하는 경우에는
+메시지를 버리고, 일반적으로는 다른 사본을 다시 전송해 달라고 요청해야 하기
+때문이다. 이는 대역폭을 소모하고 재전송을 기다리는 동안 지연도 늘릴 수 있다.
+하지만 수정에는 단점도 있다. 일반적으로 오류만 검출하는 코드와 같은 강도,
+즉 같은 범위의 오류를 다룰 수 있는 오류 수정 코드를 보내려면 더 많은 중복
+비트가 필요하기 때문이다. 따라서 오류 검출은 오류가 발생했을 때만 더 많은
+비트를 보내면 되지만, 오류 수정은 <em>항상</em> 더 많은 비트를 보내야 한다. 그 결과
+오류 수정은 (1) 무선 환경처럼 오류가 꽤 자주 발생할 수 있거나, (2) 위성 링크로
+패킷을 재전송할 때처럼 재전송 비용, 특히 지연 비용이 너무 큰 경우에 가장 유용한
+경향이 있다.</p>
+<p>네트워킹에서 오류 수정 코드를 사용하는 것을 <em>순방향 오류 정정</em>(FEC)이라고도
+부른다. 이는 오류가 발생한 뒤 재전송으로 처리하는 대신, 미리 추가 정보를 보내
+오류 수정을 “사전에” 처리하기 때문이다. FEC는 802.11 같은 무선 네트워크에서
+흔히 사용된다.</p>
+<p>마지막으로, CRC 알고리즘은 겉보기에는 복잡해 보이지만 <span class="math notranslate nohighlight">\(k\)</span>비트 시프트
+레지스터와 XOR 게이트를 사용하면 하드웨어로 쉽게 구현할 수 있다는 점을
+덧붙이자. 시프트 레지스터의 비트 수는 생성 다항식의 차수(<span class="math notranslate nohighlight">\(k\)</span>)와 같다.
+<a class="reference internal" href="#fig-crc-hard"><span class="std std-numref">그림 33</span></a>은 앞의 예에서 사용한 생성 다항식
+<span class="math notranslate nohighlight">\(x^3 + x^2 + 1\)</span>에 대해 필요한 하드웨어를 보여 준다. 메시지는 최상위 비트부터
+시작해 왼쪽에서부터 시프트되어 들어오며, 긴 나눗셈 예와 마찬가지로 메시지 뒤에
+붙인 <span class="math notranslate nohighlight">\(k\)</span>개의 0도 함께 들어간다. 모든 비트가 시프트되고 적절히 XOR되면,
+레지스터에는 나머지, 즉 CRC가 남는다(오른쪽이 최상위 비트). XOR 게이트의 위치는
+다음과 같이 정한다. 시프트 레지스터의 비트를 왼쪽에서 오른쪽으로 0부터
+<span class="math notranslate nohighlight">\(k-1\)</span>까지 번호를 붙였을 때, 생성 다항식에 <span class="math notranslate nohighlight">\(x^n\)</span> 항이 있으면 비트
+<span class="math notranslate nohighlight">\(n\)</span> 앞에 XOR 게이트를 둔다. 따라서 생성 다항식 <span class="math notranslate nohighlight">\(x^3 + x^2 + x^0\)</span>에
+대해서는 위치 0과 2 앞에 XOR 게이트가 놓이는 것을 볼 수 있다.</p>
 <figure class="align-center" id="id2">
 <span id="fig-crc-hard"></span><a class="reference internal image-reference" href="../_images/f02-16-9780123850591.png"><img alt="../_images/f02-16-9780123850591.png" src="../_images/f02-16-9780123850591.png" style="width: 350px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 33. </span><span class="caption-text">CRC calculation using shift register.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 33. </span><span class="caption-text">시프트 레지스터를 이용한 CRC 계산.</span><a class="headerlink" href="#id2" title="이 그림에 대한 링크"></a></p>
 </figcaption>
 </figure>
 </section>
@@ -478,20 +404,20 @@ front of positions 0 and 2 for the generator <span class="math notranslate nohig
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="framing.html" class="btn btn-neutral float-left" title="2.3 Framing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reliable.html" class="btn btn-neutral float-right" title="2.5 Reliable Transmission" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="바닥글">
+        <a href="framing.html" class="btn btn-neutral float-left" title="2.3 프레이밍" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 이전</a>
+        <a href="reliable.html" class="btn btn-neutral float-right" title="2.5 신뢰성 있는 전송" accesskey="n" rel="next">다음 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024.</p>
+    <p>&#169; 2024.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  <a href="https://www.sphinx-doc.org/">Sphinx</a>로 빌드되었으며
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">테마</a>는
+    <a href="https://readthedocs.org">Read the Docs</a>에서 제공합니다.
    
 
 </footer>

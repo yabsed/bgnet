@@ -1,17 +1,15 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ko" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2.3 Framing &mdash; Computer Networks: A Systems Approach Version 6.2-dev documentation</title>
+  <title>2.3 프레이밍 &mdash; Computer Networks: A Systems Approach 버전 6.2-dev 문서</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/css/rtd_theme_mods.css?v=e131ea5f" />
 
-  
+
     <link rel="shortcut icon" href="../_static/bridge.ico"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
@@ -29,414 +27,195 @@
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       <script async="async" data-site-id="581" src="https://app.rybbit.io/api/script.js"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.4 Error Detection" href="error.html" />
-    <link rel="prev" title="2.2 Encoding" href="encoding.html" /> 
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="2.4 오류 검출" href="error.html" />
+    <link rel="prev" title="2.2 인코딩" href="encoding.html" />
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-          
-          
+
+
           <a href="../index.html" class="icon icon-home">
             Computer Networks: A Systems Approach
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="문서 검색" aria-label="문서 검색" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="탐색 메뉴">
+              <p class="caption" role="heading"><span class="caption-text">목차</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../foreword.html">Foreword</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../foreword_1e.html">Foreword to the First Edition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../preface.html">Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../foundation.html">Chapter 1:  Foundation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../direct.html">Chapter 2:  Direct Links</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="problem.html">Problem: Connecting to a Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="perspective.html">2.1 Technology Landscape</a></li>
-<li class="toctree-l2"><a class="reference internal" href="encoding.html">2.2 Encoding</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">2.3 Framing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#byte-oriented-protocols-ppp">2.3.1 Byte-Oriented Protocols (PPP)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bit-oriented-protocols-hdlc">2.3.2 Bit-Oriented Protocols (HDLC)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#clock-based-framing-sonet">2.3.3 Clock-Based Framing (SONET)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreword.html">서문</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foreword_1e.html">초판 서문</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preface.html">머리말</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundation.html">1장: 기반</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../direct.html">2장: 직접 링크</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="problem.html">문제: 네트워크에 연결하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perspective.html">2.1 기술 환경</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoding.html">2.2 인코딩</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.3 프레이밍</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#byte-oriented-protocols-ppp">2.3.1 바이트 지향 프로토콜 (PPP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bit-oriented-protocols-hdlc">2.3.2 비트 지향 프로토콜 (HDLC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clock-based-framing-sonet">2.3.3 클록 기반 프레이밍 (SONET)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="error.html">2.4 Error Detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reliable.html">2.5 Reliable Transmission</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ethernet.html">2.6 Multi-Access Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="wireless.html">2.7 Wireless Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="access.html">2.8 Access Networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="trend.html">Perspective: Race to the Edge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error.html">2.4 오류 검출</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reliable.html">2.5 신뢰성 있는 전송</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ethernet.html">2.6 다중 접속 네트워크</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wireless.html">2.7 무선 네트워크</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access.html">2.8 접속 네트워크</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trend.html">관점: 에지로 향하는 경쟁</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../internetworking.html">Chapter 3:  Internetworking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scaling.html">Chapter 4:  Advanced Internetworking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../e2e.html">Chapter 5:  End-to-End Protocols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../congestion.html">Chapter 6:  Congestion Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../data.html">Chapter 7: End-to-End Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../security.html">Chapter 8: Network Security</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../applications.html">Chapter 9: Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../README.html">About This Book</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../latest.html"><span class="pop">Read the Latest!</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../print.html"><span class="pop">Print Copies</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internetworking.html">3장: 인터넷워킹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scaling.html">4장: 고급 인터넷워킹</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../e2e.html">5장: 종단 간 프로토콜</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../congestion.html">6장: 혼잡 제어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data.html">7장: 종단 간 데이터</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">8장: 네트워크 보안</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">9장: 응용</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">이 책에 대하여</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../latest.html"><span class="pop">최신판 읽기!</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../print.html"><span class="pop">인쇄본</span></a></li>
 </ul>
 
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="모바일 탐색 메뉴" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Computer Networks: A Systems Approach</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+          <div role="navigation" aria-label="페이지 탐색">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../direct.html">Chapter 2:  Direct Links</a></li>
-      <li class="breadcrumb-item active">2.3 Framing</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="홈"></a></li>
+          <li class="breadcrumb-item"><a href="../direct.html">2장: 직접 링크</a></li>
+      <li class="breadcrumb-item active">2.3 프레이밍</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/direct/framing.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/direct/framing.rst.txt" rel="nofollow">페이지 소스 보기</a>
       </li>
-  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="encoding.html" class="btn btn-neutral float-left" title="2.2 Encoding" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="error.html" class="btn btn-neutral float-right" title="2.4 Error Detection" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="순차 페이지 탐색">
+        <a href="encoding.html" class="btn btn-neutral float-left" title="2.2 인코딩" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 이전</a>
+        <a href="error.html" class="btn btn-neutral float-right" title="2.4 오류 검출" accesskey="n">다음 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+
   <section id="framing">
-<h1>2.3 Framing<a class="headerlink" href="#framing" title="Link to this heading"></a></h1>
-<p>Now that we have seen how to transmit a sequence of bits over a
-point-to-point link—from adaptor to adaptor—let’s consider the
-scenario in <a class="reference internal" href="#fig-host-link"><span class="std std-numref">Figure 26</span></a>. Recall from Chapter 1
-that we are focusing on packet-switched networks, which means that
-blocks of data (called <em>frames</em> at this level), not bit streams, are
-exchanged between nodes.  It is the network adaptor that enables the
-nodes to exchange frames.  When node A wishes to transmit a frame to
-node B, it tells its adaptor to transmit a frame from the node’s
-memory. This results in a sequence of bits being sent over the
-link. The adaptor on node B then collects together the sequence of
-bits arriving on the link and deposits the corresponding frame in B’s
-memory. Recognizing exactly what set of bits constitutes a frame—that
-is, determining where the frame begins and ends—is the central
-challenge faced by the adaptor.</p>
+<h1>2.3 프레이밍<a class="headerlink" href="#framing" title="이 제목에 대한 링크"></a></h1>
+<p>이제 어댑터에서 어댑터로 비트 시퀀스를 점대점 링크 위로 전송하는 방법을 살펴보았으니, <a class="reference internal" href="#fig-host-link"><span class="std std-numref">그림 26</span></a>의 상황을 생각해 보자. 1장에서 언급했듯이 우리는 패킷 교환 네트워크에 초점을 맞추고 있으며, 이는 이 계층에서 비트 스트림이 아니라 데이터 블록(이 수준에서는 <em>프레임</em>이라 부름)이 노드 사이에 교환됨을 뜻한다. 노드들이 프레임을 교환할 수 있게 해 주는 것은 네트워크 어댑터이다. 노드 A가 노드 B로 프레임을 전송하고자 하면, 자신의 메모리에 있는 프레임을 전송하라고 어댑터에 지시한다. 그러면 링크를 통해 비트 시퀀스가 전송된다. 이후 노드 B의 어댑터는 링크에 도착한 비트 시퀀스를 모아 그에 대응하는 프레임을 B의 메모리에 저장한다. 정확히 어떤 비트 집합이 하나의 프레임을 이루는지, 즉 프레임이 어디서 시작하고 어디서 끝나는지를 판단하는 것이 어댑터가 직면하는 핵심 과제다.</p>
 <figure class="align-center" id="id3">
 <span id="fig-host-link"></span><a class="reference internal image-reference" href="../_images/f02-06-9780123850591.png"><img alt="../_images/f02-06-9780123850591.png" src="../_images/f02-06-9780123850591.png" style="width: 500px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 26. </span><span class="caption-text">Bits flow between adaptors, frames between hosts.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 26. </span><span class="caption-text">비트는 어댑터 사이를 흐르고, 프레임은 호스트 사이를 흐른다.</span><a class="headerlink" href="#id3" title="이 이미지에 대한 링크"></a></p>
 </figcaption>
 </figure>
-<p>There are several ways to address the framing problem. This section uses
-three different protocols to illustrate the various points in the design
-space. Note that while we discuss framing in the context of
-point-to-point links, the problem is a fundamental one that must also be
-addressed in multiple-access networks like Ethernet and Wi-Fi.</p>
+<p>프레이밍 문제를 해결하는 방법은 여러 가지가 있다. 이 절에서는 설계 공간의 다양한 지점을 설명하기 위해 세 가지 서로 다른 프로토콜을 사용한다. 여기서는 점대점 링크의 맥락에서 프레이밍을 논의하지만, 이 문제는 Ethernet과 Wi-Fi 같은 다중 접속 네트워크에서도 반드시 해결해야 하는 근본적인 문제임을 기억하라.</p>
 <section id="byte-oriented-protocols-ppp">
-<h2>2.3.1 Byte-Oriented Protocols (PPP)<a class="headerlink" href="#byte-oriented-protocols-ppp" title="Link to this heading"></a></h2>
-<p>One of the oldest approaches to framing—it has its roots in connecting
-terminals to mainframes—is to view each frame as a collection of bytes
-(characters) rather than a collection of bits. Early examples of such
-<em>byte-oriented</em> protocols are the Binary Synchronous Communication
-(BISYNC) protocol developed by IBM in the late 1960s, and the Digital
-Data Communication Message Protocol (DDCMP) used in Digital Equipment
-Corporation’s DECNET. (Once upon a time, large computer companies like
-IBM and DEC also built private networks for their customers.) The widely
-used Point-to-Point Protocol (PPP) is a recent example of this approach.</p>
-<p>At a high level, there are two approaches to byte-oriented framing. The
-first is to use special characters known as <em>sentinel characters</em> to
-indicate where frames start and end. The idea is to denote the beginning
-of a frame by sending a special SYN (synchronization) character. The
-data portion of the frame is then sometimes contained between two more
-special characters: STX (start of text) and ETX (end of text). BISYNC
-used this approach. The problem with the sentinel approach, of course,
-is that one of the special characters might appear in the data portion
-of the frame. The standard way to overcome this problem by “escaping”
-the character by preceding it with a DLE (data-link-escape) character
-whenever it appears in the body of a frame; the DLE character is also
-escaped (by preceding it with an extra DLE) in the frame body. (C
-programmers may notice that this is analogous to the way a quotation
-mark is escaped by the backslash when it occurs inside a string.) This
-approach is often called <em>character stuffing</em> because extra characters
-are inserted in the data portion of the frame.</p>
-<p>The alternative to detecting the end of a frame with a sentinel value is
-to include the number of bytes in the frame at the beginning of the
-frame, in the frame header. DDCMP used this approach. One danger with
-this approach is that a transmission error could corrupt the count
-field, in which case the end of the frame would not be correctly
-detected. (A similar problem exists with the sentinel-based approach if
-the ETX field becomes corrupted.) Should this happen, the receiver will
-accumulate as many bytes as the bad count field indicates and then use
-the error detection field to determine that the frame is bad. This is
-sometimes called a <em>framing error</em>. The receiver will then wait until it
-sees the next SYN character to start collecting the bytes that make up
-the next frame. It is therefore possible that a framing error will cause
-back-to-back frames to be incorrectly received.</p>
-<p>The Point-to-Point Protocol (PPP), which is commonly used to carry
-Internet Protocol packets over various sorts of point-to-point links,
-uses sentinels and character stuffing. The format for a PPP frame is
-given in <a class="reference internal" href="#fig-ppp"><span class="std std-numref">Figure 27</span></a>.</p>
+<h2>2.3.1 바이트 지향 프로토콜 (PPP)<a class="headerlink" href="#byte-oriented-protocols-ppp" title="이 제목에 대한 링크"></a></h2>
+<p>프레이밍에 대한 가장 오래된 접근법 가운데 하나는, 터미널을 메인프레임에 연결하던 시절까지 거슬러 올라가며, 각 프레임을 비트의 집합이 아니라 바이트(문자)의 집합으로 보는 것이다. 이러한 <em>바이트 지향</em> 프로토콜의 초기 예로는 IBM이 1960년대 후반에 개발한 Binary Synchronous Communication(BISYNC) 프로토콜과, Digital Equipment Corporation의 DECNET에서 사용된 Digital Data Communication Message Protocol(DDCMP)이 있다. 널리 사용되는 Point-to-Point Protocol(PPP)은 이 접근법의 비교적 최근 사례다. (한때 IBM과 DEC 같은 대형 컴퓨터 회사들은 고객을 위해 사설 네트워크도 구축했다.)</p>
+<p>바이트 지향 프레이밍에는 큰 틀에서 두 가지 방식이 있다. 첫 번째는 프레임의 시작과 끝을 나타내기 위해 <em>센티널 문자</em>(sentinel characters)라고 하는 특수 문자를 사용하는 것이다. 기본 아이디어는 특별한 SYN(동기화) 문자를 보내 프레임의 시작을 표시하는 것이다. 그다음 프레임의 데이터 부분은 경우에 따라 또 다른 두 특수 문자 STX(start of text)와 ETX(end of text) 사이에 놓인다. BISYNC가 이 방식을 사용했다. 물론 센티널 방식의 문제는 특수 문자 중 하나가 프레임의 데이터 부분에도 나타날 수 있다는 점이다. 이 문제를 해결하는 표준적인 방법은 해당 문자가 프레임 본문에 나타날 때마다 앞에 DLE(data-link-escape) 문자를 붙여 그 문자를 &ldquo;이스케이프&rdquo;하는 것이다. DLE 문자 자체도 프레임 본문에서는 앞에 DLE를 하나 더 붙여 이스케이프한다. (C 프로그래머라면 이것이 문자열 안에서 따옴표를 백슬래시로 이스케이프하는 방식과 비슷하다는 점을 알아차릴 것이다.) 데이터 부분에 여분의 문자를 삽입하기 때문에 이 접근법을 흔히 <em>문자 스터핑</em>(character stuffing)이라 부른다.</p>
+<p>센티널 값으로 프레임의 끝을 검출하는 대신 사용할 수 있는 대안은 프레임 헤더의 앞부분에 프레임 안의 바이트 수를 넣는 것이다. DDCMP가 이 방식을 사용했다. 이 방식의 한 가지 위험은 전송 오류가 count 필드를 손상시켜 프레임 끝을 정확히 검출하지 못하게 만들 수 있다는 점이다. (ETX 필드가 손상되면 센티널 기반 접근법에서도 비슷한 문제가 생긴다.) 이런 일이 발생하면 수신기는 잘못된 count 필드가 가리키는 만큼 바이트를 모은 뒤 오류 검출 필드를 사용해 프레임이 잘못되었음을 판단한다. 이를 <em>프레이밍 오류</em>라고 부르기도 한다. 그러면 수신기는 다음 SYN 문자가 나타날 때까지 기다렸다가 다음 프레임을 구성하는 바이트를 다시 모으기 시작한다. 따라서 프레이밍 오류 때문에 연속된 두 프레임이 모두 잘못 수신될 가능성이 있다.</p>
+<p>여러 종류의 점대점 링크 위로 인터넷 프로토콜 패킷을 실어 나르는 데 널리 사용되는 Point-to-Point Protocol(PPP)은 센티널과 문자 스터핑을 사용한다. PPP 프레임 형식은 <a class="reference internal" href="#fig-ppp"><span class="std std-numref">그림 27</span></a>에 나와 있다.</p>
 <figure class="align-center" id="id4">
 <span id="fig-ppp"></span><a class="reference internal image-reference" href="../_images/f02-08-9780123850591.png"><img alt="../_images/f02-08-9780123850591.png" src="../_images/f02-08-9780123850591.png" style="width: 500px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 27. </span><span class="caption-text">PPP frame format.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 27. </span><span class="caption-text">PPP 프레임 형식.</span><a class="headerlink" href="#id4" title="이 이미지에 대한 링크"></a></p>
 </figcaption>
 </figure>
-<p>This figure is the first of many that you will see in this book that are
-used to illustrate frame or packet formats, so a few words of
-explanation are in order. We show a packet as a sequence of labeled
-fields. Above each field is a number indicating the length of that field
-in bits. Note that the packets are transmitted beginning with the
-leftmost field.</p>
-<p>The special start-of-text character, denoted as the <code class="docutils literal notranslate"><span class="pre">Flag</span></code> field is
-<code class="docutils literal notranslate"><span class="pre">01111110</span></code>. The <code class="docutils literal notranslate"><span class="pre">Address</span></code> and <code class="docutils literal notranslate"><span class="pre">Control</span></code> fields usually contain
-default values and so are uninteresting. The (Protocol) field is used
-for demultiplexing; it identifies the high-level protocol, such as IP.
-The frame payload size can be negotiated, but it is 1500 bytes by
-default. The <code class="docutils literal notranslate"><span class="pre">Checksum</span></code> field is either 2 (by default) or 4 bytes
-long. Note that despite its common name, this field is actually a CRC
-and not a checksum (as described in the next section).</p>
-<p>The PPP frame format is unusual in that several of the field sizes are
-negotiated rather than fixed. This negotiation is conducted by a
-protocol called the Link Control Protocol (LCP). PPP and LCP work in
-tandem: LCP sends control messages encapsulated in PPP frames—such
-messages are denoted by an LCP identifier in the PPP (Protocol)
-field—and then turns around and changes PPP’s frame format based on the
-information contained in those control messages. LCP is also involved in
-establishing a link between two peers when both sides detect that
-communication over the link is possible (e.g., when each optical
-receiver detects an incoming signal from the fiber to which it
-connects).</p>
+<p>이 그림은 이 책에서 프레임 또는 패킷 형식을 설명하기 위해 앞으로 여러 번 보게 될 첫 번째 그림이므로, 간단한 설명이 필요하다. 우리는 패킷을 이름이 붙은 필드들의 연속으로 나타낸다. 각 필드 위의 숫자는 그 필드 길이를 비트 단위로 나타낸다. 패킷은 가장 왼쪽 필드부터 전송된다는 점에 주의하라.</p>
+<p>특수한 시작 문자이며 <code class="docutils literal notranslate"><span class="pre">Flag</span></code> 필드로 표시되는 값은 <code class="docutils literal notranslate"><span class="pre">01111110</span></code>이다. <code class="docutils literal notranslate"><span class="pre">Address</span></code> 필드와 <code class="docutils literal notranslate"><span class="pre">Control</span></code> 필드는 대개 기본값을 담기 때문에 크게 흥미롭지 않다. <code class="docutils literal notranslate"><span class="pre">Protocol</span></code> 필드는 디멀티플렉싱에 사용되며, IP 같은 상위 수준 프로토콜을 식별한다. 프레임 페이로드 크기는 협상할 수 있지만 기본값은 1500바이트다. <code class="docutils literal notranslate"><span class="pre">Checksum</span></code> 필드는 2바이트(기본값) 또는 4바이트 길이를 갖는다. 흔히 쓰이는 이름과 달리, 이 필드는 실제로는 체크섬이 아니라 CRC라는 점에 유의하라(다음 절에서 설명한다).</p>
+<p>PPP 프레임 형식은 여러 필드 크기가 고정되어 있지 않고 협상된다는 점에서 특이하다. 이 협상은 Link Control Protocol(LCP)이라는 프로토콜이 담당한다. PPP와 LCP는 함께 동작한다. LCP는 PPP 프레임에 캡슐화된 제어 메시지를 전송한다. 이런 메시지는 PPP의 <code class="docutils literal notranslate"><span class="pre">Protocol</span></code> 필드에 있는 LCP 식별자로 표시된다. 그리고 이어서 그 제어 메시지에 담긴 정보를 바탕으로 PPP의 프레임 형식을 바꾼다. 또한 링크의 양쪽이 링크를 통한 통신이 가능하다고 감지했을 때(예를 들어 각 광 수신기가 자신이 연결된 광섬유로부터 들어오는 신호를 감지했을 때), 두 피어 사이의 링크를 설정하는 일에도 LCP가 관여한다.</p>
 </section>
 <section id="bit-oriented-protocols-hdlc">
-<h2>2.3.2 Bit-Oriented Protocols (HDLC)<a class="headerlink" href="#bit-oriented-protocols-hdlc" title="Link to this heading"></a></h2>
-<p>Unlike byte-oriented protocols, a bit-oriented protocol is not concerned
-with byte boundaries—it simply views the frame as a collection of bits.
-These bits might come from some character set, such as ASCII; they might
-be pixel values in an image; or they could be instructions and operands
-from an executable file. The Synchronous Data Link Control (SDLC)
-protocol developed by IBM is an example of a bit-oriented protocol; SDLC
-was later standardized by the ISO as the High-Level Data Link Control
-(HDLC) protocol. In the following discussion, we use HDLC as an example;
-its frame format is given in <a class="reference internal" href="#fig-hdlc"><span class="std std-numref">Figure 28</span></a>.</p>
-<p>HDLC denotes both the beginning and the end of a frame with the
-distinguished bit sequence <code class="docutils literal notranslate"><span class="pre">01111110</span></code>. This sequence is also
-transmitted during any times that the link is idle so that the sender
-and receiver can keep their clocks synchronized. In this way, both
-protocols essentially use the sentinel approach. Because this sequence
-might appear anywhere in the body of the frame—in fact, the bits
-<code class="docutils literal notranslate"><span class="pre">01111110</span></code> might cross byte boundaries—bit-oriented protocols use the
-analog of the DLE character, a technique known as <em>bit stuffing</em>.</p>
+<h2>2.3.2 비트 지향 프로토콜 (HDLC)<a class="headerlink" href="#bit-oriented-protocols-hdlc" title="이 제목에 대한 링크"></a></h2>
+<p>바이트 지향 프로토콜과 달리 비트 지향 프로토콜은 바이트 경계에 관심이 없다. 단지 프레임을 비트들의 집합으로 볼 뿐이다. 이 비트들은 ASCII 같은 문자 집합에서 온 것일 수도 있고, 이미지의 픽셀 값일 수도 있으며, 실행 파일의 명령어와 피연산자일 수도 있다. IBM이 개발한 Synchronous Data Link Control(SDLC) 프로토콜은 비트 지향 프로토콜의 한 예이며, 이후 ISO가 이를 High-Level Data Link Control(HDLC) 프로토콜로 표준화했다. 아래 설명에서는 HDLC를 예로 사용하며, 그 프레임 형식은 <a class="reference internal" href="#fig-hdlc"><span class="std std-numref">그림 28</span></a>에 나와 있다.</p>
+<p>HDLC는 구분되는 비트 시퀀스 <code class="docutils literal notranslate"><span class="pre">01111110</span></code>으로 프레임의 시작과 끝을 모두 표시한다. 이 시퀀스는 링크가 유휴 상태일 때에도 송신되어 송신기와 수신기가 클록을 계속 동기화할 수 있게 한다. 이런 점에서 두 프로토콜은 본질적으로 센티널 접근법을 사용한다. 그러나 이 시퀀스는 프레임 본문 어디에나 나타날 수 있다. 실제로 비트 <code class="docutils literal notranslate"><span class="pre">01111110</span></code>은 바이트 경계를 가로지를 수도 있다. 따라서 비트 지향 프로토콜은 DLE 문자에 대응하는 방법으로 <em>비트 스터핑</em>(bit stuffing)이라는 기법을 사용한다.</p>
 <figure class="align-center" id="id5">
 <span id="fig-hdlc"></span><a class="reference internal image-reference" href="../_images/f02-10-9780123850591.png"><img alt="../_images/f02-10-9780123850591.png" src="../_images/f02-10-9780123850591.png" style="width: 400px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 28. </span><span class="caption-text">HDLC frame format.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 28. </span><span class="caption-text">HDLC 프레임 형식.</span><a class="headerlink" href="#id5" title="이 이미지에 대한 링크"></a></p>
 </figcaption>
 </figure>
-<p>Bit stuffing in the HDLC protocol works as follows. On the sending side,
-any time five consecutive 1s have been transmitted from the body of the
-message (i.e., excluding when the sender is trying to transmit the
-distinguished <code class="docutils literal notranslate"><span class="pre">01111110</span></code> sequence), the sender inserts a 0 before
-transmitting the next bit. On the receiving side, should five
-consecutive 1s arrive, the receiver makes its decision based on the next
-bit it sees (i.e., the bit following the five 1s). If the next bit is a
-0, it must have been stuffed, and so the receiver removes it. If the
-next bit is a 1, then one of two things is true: Either this is the
-end-of-frame marker or an error has been introduced into the bit stream.
-By looking at the <em>next</em> bit, the receiver can distinguish between these
-two cases. If it sees a 0 (i.e., the last 8 bits it has looked at are
-<code class="docutils literal notranslate"><span class="pre">01111110</span></code>), then it is the end-of-frame marker; if it sees a 1 (i.e.,
-the last 8 bits it has looked at are <code class="docutils literal notranslate"><span class="pre">01111111</span></code>), then there must have
-been an error and the whole frame is discarded. In the latter case, the
-receiver has to wait for the next <code class="docutils literal notranslate"><span class="pre">01111110</span></code> before it can start
-receiving again, and, as a consequence, there is the potential that the
-receiver will fail to receive two consecutive frames. Obviously, there
-are still ways that framing errors can go undetected, such as when an
-entire spurious end-of-frame pattern is generated by errors, but these
-failures are relatively unlikely. Robust ways of detecting errors are
-discussed in a later section.</p>
-<p>An interesting characteristic of bit stuffing, as well as character
-stuffing, is that the size of a frame is dependent on the data that is
-being sent in the payload of the frame. It is in fact not possible to
-make all frames exactly the same size, given that the data that might be
-carried in any frame is arbitrary. (To convince yourself of this,
-consider what happens if the last byte of a frame’s body is the ETX
-character.) A form of framing that ensures that all frames are the same
-size is described in the next subsection.</p>
+<p>HDLC 프로토콜의 비트 스터핑은 다음과 같이 동작한다. 송신 측에서는 메시지 본문(즉, 송신자가 구분용 <code class="docutils literal notranslate"><span class="pre">01111110</span></code> 시퀀스를 전송하려는 경우는 제외)에서 1이 연속으로 다섯 개 전송될 때마다 다음 비트를 보내기 전에 0을 하나 삽입한다. 수신 측에서는 1이 다섯 개 연속으로 도착하면 그다음 비트, 즉 다섯 개의 1 다음 비트를 보고 판단한다. 다음 비트가 0이면 그것은 스터핑된 비트였으므로 수신기는 이를 제거한다. 다음 비트가 1이면 두 가지 가능성 중 하나다. 프레임 종료 표식이거나, 비트 스트림에 오류가 삽입된 것이다. 수신기는 <em>그다음</em> 비트를 살펴봄으로써 이 두 경우를 구분할 수 있다. 그 비트가 0이면(즉, 마지막으로 본 8비트가 <code class="docutils literal notranslate"><span class="pre">01111110</span></code>이면) 프레임 종료 표식이다. 그 비트가 1이면(즉, 마지막으로 본 8비트가 <code class="docutils literal notranslate"><span class="pre">01111111</span></code>이면) 오류가 발생한 것이므로 전체 프레임을 폐기한다. 후자의 경우 수신기는 다시 수신을 시작하기 전에 다음 <code class="docutils literal notranslate"><span class="pre">01111110</span></code>을 기다려야 하며, 그 결과 연속된 두 프레임을 모두 받지 못할 가능성이 있다. 물론 오류 때문에 완전히 가짜인 프레임 종료 패턴이 만들어지는 경우처럼 프레이밍 오류가 탐지되지 않는 방법도 여전히 있지만, 그런 실패는 비교적 드물다. 오류를 견고하게 검출하는 방법은 뒤 절에서 논의한다.</p>
+<p>비트 스터핑과 문자 스터핑의 흥미로운 특징은 프레임 크기가 프레임 페이로드로 보내는 데이터에 의존한다는 점이다. 실제로 어떤 프레임에 실릴 데이터가 임의적이라는 점을 생각하면, 모든 프레임을 정확히 같은 크기로 만드는 것은 불가능하다. (이를 스스로 확인해 보려면 프레임 본문의 마지막 바이트가 ETX 문자일 때 무슨 일이 생기는지 생각해 보라.) 모든 프레임의 크기가 동일하도록 보장하는 프레이밍의 한 형태는 다음 소절에서 설명한다.</p>
 </section>
 <section id="clock-based-framing-sonet">
-<h2>2.3.3 Clock-Based Framing (SONET)<a class="headerlink" href="#clock-based-framing-sonet" title="Link to this heading"></a></h2>
-<p>A third approach to framing is exemplified by the Synchronous Optical
-Network (SONET) standard. For lack of a widely accepted generic term, we
-refer to this approach simply as <em>clock-based framing</em>. SONET was first
-proposed by Bell Communications Research (Bellcore), and then developed
-under the American National Standards Institute (ANSI) for digital
-transmission over optical fiber; it has since been adopted by the ITU-T.
-SONET has been for many years the dominant standard for long-distance
-transmission of data over optical networks.</p>
-<p>An important point to make about SONET before we go any further is that
-the full specification is substantially larger than this book. Thus, the
-following discussion will necessarily cover only the high points of the
-standard. Also, SONET addresses both the framing problem and the
-encoding problem. It also addresses a problem that is very important for
-phone companies—the multiplexing of several low-speed links onto one
-high-speed link. (In fact, much of SONET’s design reflects the fact that
-phone companies have to be concerned with multiplexing large numbers of
-the 64-kbps channels that traditionally are used for telephone calls.)
-We begin with SONET’s approach to framing and discuss the other issues
-following.</p>
-<p>As with the previously discussed framing schemes, a SONET frame has
-some special information that tells the receiver where the frame
-starts and ends; however, that is about as far as the similarities
-go. Notably, no bit stuffing is used, so that a frame’s length does
-not depend on the data being sent. So the question to ask is “How does
-the receiver know where each frame starts and ends?” We consider this
-question for the lowest-speed SONET link, which is known as STS-1 and
-runs at 51.84 Mbps.  An STS-1 frame is shown in <a class="reference internal" href="#fig-sonet-frame"><span class="std std-numref">Figure 29</span></a>. It is arranged as 9 rows of 90 bytes each, and the
-first 3 bytes of each row are overhead, with the rest being available
-for data that is being transmitted over the link. The first 2 bytes of
-the frame contain a special bit pattern, and it is these bytes that
-enable the receiver to determine where the frame starts. However,
-since bit stuffing is not used, there is no reason why this pattern
-will not occasionally turn up in the payload portion of the frame. To
-guard against this, the receiver looks for the special bit pattern
-consistently, hoping to see it appearing once every 810 bytes, since
-each frame is 9 × 90 = 810 bytes long. When the special pattern turns
-up in the right place enough times, the receiver concludes that it is
-in sync and can then interpret the frame correctly.</p>
+<h2>2.3.3 클록 기반 프레이밍 (SONET)<a class="headerlink" href="#clock-based-framing-sonet" title="이 제목에 대한 링크"></a></h2>
+<p>프레이밍에 대한 세 번째 접근법의 예는 Synchronous Optical Network(SONET) 표준이다. 널리 받아들여지는 일반 용어가 마땅치 않기 때문에, 여기서는 이 접근법을 단순히 <em>클록 기반 프레이밍</em>이라고 부른다. SONET은 처음에 Bell Communications Research(Bellcore)가 제안했고, 이후 광섬유를 통한 디지털 전송을 위해 American National Standards Institute(ANSI) 아래에서 발전했으며, 그 뒤 ITU-T가 채택했다. SONET은 오랫동안 광 네트워크를 통한 장거리 데이터 전송의 지배적인 표준이었다.</p>
+<p>조금 더 나아가기 전에 SONET에 대해 짚고 넘어가야 할 중요한 점은, 그 전체 규격이 이 책보다 훨씬 방대하다는 것이다. 따라서 아래 설명은 필연적으로 표준의 핵심만 다루게 된다. 또한 SONET은 프레이밍 문제와 인코딩 문제를 모두 다룬다. 더불어 전화 회사들에게 매우 중요한 문제, 즉 여러 저속 링크를 하나의 고속 링크로 다중화하는 문제도 다룬다. (실제로 SONET의 설계 상당 부분은 전화 통화에 전통적으로 사용되는 64kbps 채널을 대량으로 다중화해야 한다는 전화 회사들의 요구를 반영한다.) 먼저 SONET의 프레이밍 방식을 살펴보고, 그다음 다른 이슈들을 논의하겠다.</p>
+<p>앞에서 논의한 프레이밍 방식들과 마찬가지로 SONET 프레임에도 수신기에게 프레임의 시작과 끝을 알려 주는 특별한 정보가 있다. 그러나 유사점은 거의 거기까지다. 특히 비트 스터핑을 사용하지 않으므로 프레임 길이는 전송되는 데이터에 좌우되지 않는다. 그렇다면 수신기는 각 프레임의 시작과 끝을 어떻게 알까? 이 질문을 가장 낮은 속도의 SONET 링크인 STS-1에 대해 생각해 보자. STS-1은 51.84 Mbps로 동작한다. STS-1 프레임은 <a class="reference internal" href="#fig-sonet-frame"><span class="std std-numref">그림 29</span></a>에 나와 있다. 이 프레임은 9행 90바이트로 배치되며, 각 행의 처음 3바이트는 오버헤드이고 나머지는 링크를 통해 전송되는 데이터에 사용할 수 있다. 프레임의 처음 2바이트는 특별한 비트 패턴을 담고 있으며, 수신기는 이 바이트들 덕분에 프레임 시작 위치를 판단할 수 있다. 하지만 비트 스터핑을 사용하지 않기 때문에 이 패턴이 프레임의 페이로드 부분에 우연히 나타나지 않을 이유는 없다. 이를 방지하기 위해 수신기는 이 특별한 비트 패턴이 810바이트마다 한 번씩 일관되게 나타나는지를 살펴본다. 각 프레임 길이가 9 × 90 = 810바이트이기 때문이다. 이 패턴이 올바른 위치에 충분히 여러 번 나타나면, 수신기는 동기가 맞았다고 판단하고 프레임을 올바르게 해석할 수 있다.</p>
 <figure class="align-center" id="id6">
 <span id="fig-sonet-frame"></span><a class="reference internal image-reference" href="../_images/f02-11-9780123850591.png"><img alt="../_images/f02-11-9780123850591.png" src="../_images/f02-11-9780123850591.png" style="width: 500px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 29. </span><span class="caption-text">A SONET STS-1 frame.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 29. </span><span class="caption-text">SONET STS-1 프레임.</span><a class="headerlink" href="#id6" title="이 이미지에 대한 링크"></a></p>
 </figcaption>
 </figure>
-<p>One of the things we are not describing due to the complexity of SONET
-is the detailed use of all the other overhead bytes. Part of this
-complexity can be attributed to the fact that SONET runs across the
-carrier’s optical network, not just over a single link. (Recall that we
-are glossing over the fact that the carriers implement a network, and we
-are instead focusing on the fact that we can lease a SONET link from
-them and then use this link to build our own packet-switched network.)
-Additional complexity comes from the fact that SONET provides a
-considerably richer set of services than just data transfer. For
-example, 64 kbps of a SONET link’s capacity is set aside for a voice
-channel that is used for maintenance.</p>
-<p>The overhead bytes of a SONET frame are encoded using NRZ, the simple
-encoding described in the previous section where 1s are high and 0s are
-low. However, to ensure that there are plenty of transitions to allow
-the receiver to recover the sender’s clock, the payload bytes are
-<em>scrambled</em>. This is done by calculating the exclusive OR (XOR) of the
-data to be transmitted and by the use of a well-known bit pattern. The
-bit pattern, which is 127 bits long, has plenty of transitions from 1 to
-0, so that XORing it with the transmitted data is likely to yield a
-signal with enough transitions to enable clock recovery.</p>
-<p>SONET supports the multiplexing of multiple low-speed links in the
-following way. A given SONET link runs at one of a finite set of
-possible rates, ranging from 51.84 Mbps (STS-1) to 39,813,120 Mbps
-(STS-768).<a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> Note that all of these rates are integer multiples of STS-1.
-The significance for framing is that a single SONET frame can contain
-subframes for multiple lower-rate channels. A second related feature is
-that each frame is 125 μs long. This means that at STS-1 rates, a SONET
-frame is 810 bytes long, while at STS-3 rates, each SONET frame is
-2430 bytes long. Notice the synergy between these two features: 3 × 810
-= 2430, meaning that three STS-1 frames fit exactly in a single STS-3
-frame.</p>
+<p>SONET의 복잡성 때문에 여기서 설명하지 않는 것 가운데 하나는 나머지 오버헤드 바이트 전체의 세부적인 용도다. 이런 복잡성의 일부는 SONET이 단일 링크 위에서만 동작하는 것이 아니라 통신 사업자의 광 네트워크 전반에 걸쳐 동작한다는 사실에서 비롯된다. (통신 사업자들이 실제로는 네트워크를 구현하고 있다는 사실은 잠시 덮어 두고, 여기서는 우리가 그들로부터 SONET 링크를 임대해 우리 자신의 패킷 교환 네트워크를 구축할 수 있다는 점에 초점을 맞추고 있음을 떠올려 보라.) 또 다른 복잡성은 SONET이 단순한 데이터 전송보다 훨씬 풍부한 서비스 집합을 제공한다는 사실에서 나온다. 예를 들어 SONET 링크 용량 가운데 64 kbps는 유지보수용 음성 채널을 위해 따로 할당된다.</p>
+<p>SONET 프레임의 오버헤드 바이트는 앞 절에서 설명한 단순한 인코딩인 NRZ로 인코딩된다. 즉 1은 높은 신호이고 0은 낮은 신호이다. 그러나 수신기가 송신자의 클록을 복구할 수 있을 만큼 충분한 전이를 보장하기 위해, 페이로드 바이트는 <em>스크램블</em>된다. 이는 전송할 데이터와 잘 알려진 비트 패턴의 배타적 논리합(XOR)을 계산해 수행한다. 이 비트 패턴은 127비트 길이이며 1과 0 사이 전이가 충분히 많기 때문에, 이를 전송 데이터와 XOR하면 대체로 클록 복구에 필요한 전이를 충분히 갖는 신호가 만들어진다.</p>
+<p>SONET은 여러 저속 링크를 다음과 같은 방식으로 다중화하는 것을 지원한다. 주어진 SONET 링크는 가능한 몇 가지 정해진 속도 중 하나로 동작하며, 그 범위는 51.84 Mbps(STS-1)에서 39,813,120 Mbps(STS-768)까지다.<a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> 이 모든 속도가 STS-1의 정수배라는 점에 주목하라. 프레이밍 측면에서 중요한 점은 하나의 SONET 프레임이 여러 더 낮은 속도 채널의 서브프레임을 담을 수 있다는 것이다. 또 하나 관련된 특징은 각 프레임 길이가 125 μs라는 점이다. 이는 STS-1 속도에서는 SONET 프레임 길이가 810바이트이고, STS-3 속도에서는 각 SONET 프레임 길이가 2430바이트임을 뜻한다. 이 두 특징이 서로 잘 맞물린다는 점에 주목하라. 3 × 810 = 2430이므로, 세 개의 STS-1 프레임이 하나의 STS-3 프레임에 정확히 들어맞는다.</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id2" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>STS stands for <em>Synchronous Transport Signal</em>, which is how
-SONET talks about frames. There is a parallel term—<em>Optical
-Carrier</em>  (OC)—that is used to talk about the underlying
-optical signal that carries SONET frames. We say these two
-terms are parallel because STS-3 and OC-3, to use a concrete
-example, both imply a transmission rate of 155.52 Mbps. Since
-we’re focused on framing here, we will stick with STS, but it
-is more likely that you will hear someone refer to an optical
-link by its “OC” name.</p>
+<p>STS는 <em>Synchronous Transport Signal</em>의 약자로, SONET에서 프레임을 가리킬 때 쓰는 용어다. 이와 병행되는 용어로 SONET 프레임을 운반하는 기반 광 신호를 가리킬 때 쓰는 <em>Optical Carrier</em>(OC)가 있다. 이 두 용어를 병행된다고 말하는 이유는, 구체적인 예로 STS-3와 OC-3가 모두 155.52 Mbps의 전송 속도를 뜻하기 때문이다. 여기서는 프레이밍에 초점을 맞추고 있으므로 STS를 사용하겠지만, 실제로는 누군가가 광 링크를 그 &ldquo;OC&rdquo; 이름으로 부르는 경우를 더 자주 듣게 될 것이다.</p>
 </aside>
 </aside>
-<p>Intuitively, the STS-N frame can be thought of as consisting of N STS-1
-frames, where the bytes from these frames are interleaved; that is, a
-byte from the first frame is transmitted, then a byte from the second
-frame is transmitted, and so on. The reason for interleaving the bytes
-from each STS-N frame is to ensure that the bytes in each STS-1 frame
-are evenly paced; that is, bytes show up at the receiver at a smooth
-51 Mbps, rather than all bunched up during one particular <span class="math notranslate nohighlight">\(1/N^{th}\)</span>
-of the 125-μs interval.</p>
+<p>직관적으로 STS-N 프레임은 N개의 STS-1 프레임으로 이루어진 것으로 볼 수 있으며, 이 프레임들의 바이트가 서로 인터리브되어 있다. 즉 첫 번째 프레임에서 바이트 하나를 전송하고, 그다음 두 번째 프레임에서 바이트 하나를 전송하는 식이다. 각 STS-N 프레임의 바이트를 이렇게 인터리브하는 이유는 각 STS-1 프레임의 바이트가 균일한 간격으로 전송되도록 하기 위해서다. 즉 바이트가 125-μs 구간의 특정 <span class="math notranslate nohighlight">\(1/N^{th}\)</span> 부분에 몰려 나타나는 대신, 수신기에서는 부드러운 51 Mbps 속도로 도착하게 된다.</p>
 <figure class="align-center" id="id7">
 <span id="fig-sonet1"></span><a class="reference internal image-reference" href="../_images/f02-12-9780123850591.png"><img alt="../_images/f02-12-9780123850591.png" src="../_images/f02-12-9780123850591.png" style="width: 350px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 30. </span><span class="caption-text">Three STS-1 frames multiplexed onto one STS-3c
-frame.</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 30. </span><span class="caption-text">세 개의 STS-1 프레임이 하나의 STS-3c 프레임으로 다중화됨.</span><a class="headerlink" href="#id7" title="이 이미지에 대한 링크"></a></p>
 </figcaption>
 </figure>
-<p>Although it is accurate to view an STS-N signal as being used to
-multiplex N STS-1 frames, the payload from these STS-1 frames can be
-linked together to form a larger STS-N payload; such a link is denoted
-STS-Nc (for <em>concatenated</em>). One of the fields in the overhead is used
-for this purpose. <a class="reference internal" href="#fig-sonet1"><span class="std std-numref">Figure 30</span></a> schematically depicts
-concatenation in the case of three STS-1 frames being concatenated into
-a single STS-3c frame. The significance of a SONET link being designated
-as STS-3c rather than STS-3 is that, in the former case, the user of the
-link can view it as a single 155.25-Mbps pipe, whereas an STS-3 should
-really be viewed as three 51.84-Mbps links that happen to share a fiber.</p>
+<p>STS-N 신호를 N개의 STS-1 프레임을 다중화하는 데 사용한다고 보는 것은 정확하지만, 이 STS-1 프레임들의 페이로드를 서로 이어 붙여 더 큰 STS-N 페이로드를 만들 수도 있다. 이러한 연결은 STS-Nc(<em>concatenated</em>)로 표시한다. 오버헤드의 한 필드가 이 목적에 사용된다. <a class="reference internal" href="#fig-sonet1"><span class="std std-numref">그림 30</span></a>은 세 개의 STS-1 프레임을 하나의 STS-3c 프레임으로 연결하는 경우를 개략적으로 보여 준다. SONET 링크가 STS-3이 아니라 STS-3c로 지정되었을 때의 의미는, 전자의 경우 사용자가 이 링크를 하나의 155.25 Mbps 파이프로 볼 수 있는 반면, STS-3는 실제로는 우연히 하나의 광섬유를 공유하는 세 개의 51.84 Mbps 링크로 보아야 한다는 점이다.</p>
 <figure class="align-center" id="id8">
 <span id="fig-sonet3"></span><a class="reference internal image-reference" href="../_images/f02-13-9780123850591.png"><img alt="../_images/f02-13-9780123850591.png" src="../_images/f02-13-9780123850591.png" style="width: 450px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Figure 31. </span><span class="caption-text">SONET frames out of phase.</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+<p><span class="caption-number">그림 31. </span><span class="caption-text">위상이 맞지 않는 SONET 프레임.</span><a class="headerlink" href="#id8" title="이 이미지에 대한 링크"></a></p>
 </figcaption>
 </figure>
-<p>Finally, the preceding description of SONET is overly simplistic in
-that it assumes that the payload for each frame is completely
-contained within the frame. (Why wouldn’t it be?) In fact, we should
-view the STS-1 frame just described as simply a placeholder for the
-frame, where the actual payload may <em>float</em> across frame
-boundaries. This situation is illustrated in <a class="reference internal" href="#fig-sonet3"><span class="std std-numref">Figure 31</span></a>. Here we see both the STS-1 payload floating across two
-STS-1 frames and the payload shifted some number of bytes to the right
-and, therefore, wrapped around. One of the fields in the frame
-overhead points to the beginning of the payload. The value of this
-capability is that it simplifies the task of synchronizing the clocks
-used throughout the carriers’ networks, which is something that
-carriers spend a lot of their time worrying about.</p>
+<p>마지막으로, 앞선 SONET 설명은 각 프레임의 페이로드가 프레임 내부에 완전히 포함된다고 가정한다는 점에서 지나치게 단순화되어 있다. (왜 그렇지 않겠는가?) 실제로는 방금 설명한 STS-1 프레임을 단지 프레임의 자리표시자로 보아야 하며, 실제 페이로드는 프레임 경계를 넘어 <em>떠다닐</em> 수 있다. 이 상황은 <a class="reference internal" href="#fig-sonet3"><span class="std std-numref">그림 31</span></a>에 나와 있다. 여기서는 STS-1 페이로드가 두 개의 STS-1 프레임에 걸쳐 떠다니는 모습과, 페이로드가 오른쪽으로 몇 바이트 이동해 결과적으로 되감겨 있는 모습을 볼 수 있다. 프레임 오버헤드의 한 필드가 페이로드의 시작 위치를 가리킨다. 이 기능의 가치는 통신 사업자 네트워크 전반에서 사용되는 클록을 동기화하는 작업을 단순화한다는 데 있으며, 이는 통신 사업자들이 상당한 시간을 들여 신경 쓰는 문제다.</p>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="encoding.html" class="btn btn-neutral float-left" title="2.2 Encoding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="error.html" class="btn btn-neutral float-right" title="2.4 Error Detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="바닥글">
+        <a href="encoding.html" class="btn btn-neutral float-left" title="2.2 인코딩" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 이전</a>
+        <a href="error.html" class="btn btn-neutral float-right" title="2.4 오류 검출" accesskey="n" rel="next">다음 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024.</p>
+    <p>&#169; 저작권 2024.</p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  Sphinx로 빌드되었으며,
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">테마</a>
+    는 <a href="https://readthedocs.org">Read the Docs</a>에서 제공되었습니다.
+
 
 </footer>
         </div>
@@ -447,7 +226,7 @@ carriers spend a lot of their time worrying about.</p>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
 
 </body>
 </html>
